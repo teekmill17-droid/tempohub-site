@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your key · Tempo Hub</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07080a">
+<link rel="icon" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/legal.css">
+<style>
+.card{border:1px solid #262b34;border-radius:6px;background:#0b0d10;padding:26px;margin-top:28px}
+.label{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#5a6270;margin-bottom:10px}
+.code{display:flex;align-items:stretch;border:1px solid #262b34;border-radius:6px;background:#050607;overflow:hidden}
+.code pre{margin:0;padding:16px;overflow-x:auto;font:13px/1.6 "Roboto Mono",monospace;color:#b9e0ff;flex:1;white-space:pre}
+.copy{border:0;border-left:1px solid #262b34;background:#0b0d10;color:#8b94a3;font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:0 18px;cursor:pointer}
+.copy:hover{color:#e9edf2}.copy.done{color:#3ddc84}
+.key{font:500 20px "Roboto Mono",monospace;color:#e9edf2;word-break:break-all}
+.status{display:flex;align-items:center;gap:10px;color:#8b94a3;font:13px "Roboto Mono",monospace}
+.spin{width:14px;height:14px;border:2px solid #262b34;border-top-color:#7cc4ff;border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.ok{color:#3ddc84}
+.btn{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:6px;font-weight:600;font-size:15px;border:1px solid #262b34;color:#e9edf2;text-decoration:none;margin-top:22px;margin-right:10px}
+.btn-primary{background:#7cc4ff;border-color:#7cc4ff;color:#051019}
+ol li{margin:8px 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<nav><div><a class="brand" href="index.html"><img src="assets/logo.png" alt="">TEMPO</a><a class="back" href="index.html">Back to the site</a></div></nav>
+<main>
+  <span class="eyebrow">Order</span>
+  <h1 id="title">Getting your key…</h1>
+  <p id="sub" class="date">This takes a few seconds. Don't close the page.</p>
+
+  <div id="loading" class="status"><i class="spin"></i><span id="loadMsg">Checking your payment</span></div>
+
+  <div id="done" hidden>
+    <div class="card">
+      <div class="label"><span id="planName">Premium</span> key</div>
+      <div class="code"><pre id="key" class="key"></pre><button class="copy" data-copy="key" type="button">Copy</button></div>
+    </div>
+    <div class="card">
+      <div class="label">Your loadstring</div>
+      <div class="code"><pre id="ls"></pre><button class="copy" data-copy="ls" type="button">Copy</button></div>
+    </div>
+    <h2>What now</h2>
+    <ol>
+      <li><strong>Save your key</strong> somewhere safe. Screenshot this page if you want.</li>
+      <li>Paste the loadstring into your executor and run it in any premium game.</li>
+      <li>The first run locks the key to your PC. If you switch PCs, ask for a reset in the Discord.</li>
+    </ol>
+    <p id="roleNote" hidden>You'll get the <strong>Premium</strong> role in the Discord within a few minutes, and Teeky will DM you your key as a backup.</p>
+    <a class="btn btn-primary" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
+    <a class="btn" href="index.html">Back to the site</a>
+  </div>
+
+  <div id="problem" hidden>
+    <p id="problemMsg"></p>
+    <a class="btn btn-primary" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Open a ticket</a>
+  </div>
+</main>
+<footer><div><span>© 2026 Tempo Hub</span><span><a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="privacy.html">Privacy</a></span></div></footer>
+
+<script src="assets/shop.js"></script>
+<script>
+(() => {
+  const sid = new URLSearchParams(location.search).get("session_id") || "";
+  const $ = (id) => document.getElementById(id);
+  const show = (id) => { ["loading", "done", "problem"].forEach((x) => $(x).hidden = x !== id); };
+  function problem(title, msg) {
+    $("title").textContent = title; $("sub").textContent = "";
+    $("problemMsg").innerHTML = msg; show("problem");
+  }
+  if (!/^cs_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
+    problem("No order found", "This page needs the link Stripe sent you back to after paying. If you paid and ended up here anyway, open a ticket in the Discord and include the email you paid with.");
+    return;
+  }
+  let tries = 0;
+  async function poll() {
+    tries++;
+    let r = null;
+    try { r = await (await fetch(`${window.TEMPO_SHOP}/order?session_id=${encodeURIComponent(sid)}`)).json(); } catch {}
+    if (r && r.status === "ok") {
+      $("title").textContent = "You're in.";
+      $("sub").textContent = "Payment received. Here's your key.";
+      $("planName").textContent = r.plan === "lifetime" ? "Lifetime" : "Monthly";
+      $("key").textContent = r.key;
+      $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()`;
+      $("roleNote").hidden = !r.discord;
+      show("done");
+      return;
+    }
+    if (r && r.status === "no_stock") {
+      problem("Payment received", "Your payment went through, but we ran out of ready keys for a moment. Yours will be ready shortly: keep this page open or come back to this same link later. If it takes more than an hour, open a ticket with the email you paid with.<br><br>Order: <code>" + sid.slice(-12) + "</code>");
+      if (tries < 120) setTimeout(poll, 15000);
+      return;
+    }
+    if (r && r.status === "bad_session") {
+      problem("No order found", "We couldn't find that order. If you paid, open a ticket in the Discord with the email you paid with.");
+      return;
+    }
+    // unpaid or network trouble: the payment may still be settling
+    $("loadMsg").textContent = tries > 5 ? "Still waiting on the payment to confirm" : "Checking your payment";
+    if (tries < 40) setTimeout(poll, 2500);
+    else problem("Still processing", "Your payment hasn't confirmed yet. Some payment methods take a few minutes. Come back to this same link later, or open a ticket with the email you paid with.");
+  }
+  poll();
+
+  document.querySelectorAll(".copy").forEach((b) => b.addEventListener("click", async () => {
+    const text = $(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(text); } catch { const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+    b.textContent = "Copied"; b.classList.add("done");
+    setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done"); }, 1600);
+  }));
+})();
+</script>
+</body>
+</html>
