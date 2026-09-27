@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tempo Hub</title>
-<meta name="description" content="Roblox scripts built from measurements. Auto green for RH2 and Xtreme Basketball, M1 trading for Anime Battle Arena, full farming for Project Slayers 2. One loadstring, fifteen games.">
+<meta name="description" content="Roblox scripts built by measuring the game. Auto green for RH2 and Xtreme Basketball, M1 trading and techs for Anime Battle Arena, full farming for Project Slayers 2. One loadstring, fifteen games.">
 <meta property="og:title" content="Tempo Hub">
-<meta property="og:description" content="We read the game, then we time it. One loadstring, fifteen games.">
+<meta property="og:description" content="Auto green, M1 trading and farming for 15 Roblox games. One loadstring.">
 <meta property="og:image" content="https://tempohub.shop/assets/logo.png">
 <meta name="theme-color" content="#07080a">
 <link rel="icon" href="assets/logo.png">
@@ -33,12 +33,14 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.1;margin-top:14px}
 h3{font-size:18px}
 p{margin:0}
 .lead{color:var(--dim);font-size:18px;max-width:640px}
-section{border-top:1px solid var(--line);padding:96px 0}
+section{border-top:1px solid var(--line);padding:96px 0;scroll-margin-top:64px}
 .head{max-width:760px;margin-bottom:44px}
 .head p{color:var(--dim);margin-top:16px;font-size:17px}
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+.head-row .head{margin-bottom:0}
 
 /* ------------------------------------------------ buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--r);font-weight:600;font-size:15px;border:1px solid var(--line2);transition:border-color .15s,background .15s,transform .15s;cursor:pointer;background:none;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--r);font-weight:600;font-size:15px;border:1px solid var(--line2);transition:border-color .15s,background .15s,transform .15s;cursor:pointer;background:none;color:var(--text);font-family:inherit}
 .btn:hover{border-color:var(--faint)}
 .btn-primary{background:var(--ice);color:#051019;border-color:var(--ice)}
 .btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
@@ -53,8 +55,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .links a:hover{color:var(--text)}
 .navcta{margin-left:auto;display:flex;gap:10px}
 .navcta .btn{height:38px;padding:0 14px;font-size:14px}
-@media (max-width:860px){.links{display:none}.navcta .ghost{display:none}}
-@media (max-width:520px){.wrap{padding:0 16px}.wordmark{font-size:40px}.join{padding:26px}.flist{grid-template-columns:1fr}.flist div{border-right:0!important}.flist div:nth-child(2){border-top:1px solid var(--line)}.log{font-size:11px}}
+@media (max-width:900px){.links{display:none}.navcta .ghost{display:none}}
+@media (max-width:520px){.wrap{padding:0 16px}.wordmark{font-size:40px}.join{padding:26px}.log{font-size:11px}}
 
 /* ------------------------------------------------ hero */
 .hero{border-top:0;padding:88px 0 72px;position:relative;overflow:hidden}
@@ -67,8 +69,11 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r)}
 .stat{padding:16px 18px;border-left:1px solid var(--line)}
 .stat:first-child{border-left:0}
-.stat b{display:block;font:500 24px "Roboto Mono",monospace}
-.stat span{font:500 10px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.stat b{display:flex;align-items:center;gap:8px;font:500 24px "Roboto Mono",monospace}
+.stat > span{font:500 10px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.stat .live{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.runs{margin-top:18px;font:12px "Roboto Mono",monospace;color:var(--faint)}
+.runs b{color:var(--dim);font-weight:500}
 @media (max-width:960px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
 
 /* the live meter console */
@@ -105,6 +110,59 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .gcard .sig div{border-top:1px solid var(--line);padding-top:14px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 .gcard .sig b{color:var(--text);font-weight:500}
 
+/* ------------------------------------------------ games list */
+.gtools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{height:40px;min-width:220px;flex:1;max-width:320px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 14px;outline:none}
+.search:focus{border-color:var(--ice)}
+.chips{display:flex;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden}
+.chip{height:40px;padding:0 14px;background:none;border:0;border-left:1px solid var(--line2);color:var(--dim);font:500 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
+.chip:first-child{border-left:0}
+.chip.on{background:var(--bg2);color:var(--text)}
+.glist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:960px){.glist{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.glist{grid-template-columns:1fr}}
+.gi{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.gi .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.gi b{font-weight:600}
+.gi p{color:var(--dim);font-size:13.5px}
+.badge{font:500 10px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:4px 7px;border-radius:3px;white-space:nowrap}
+.badge.free{color:var(--green);border:1px solid rgba(61,220,132,.35)}
+.badge.prem{color:var(--ice);border:1px solid rgba(124,196,255,.4)}
+.badge.new{color:var(--amber);border:1px solid rgba(255,181,71,.4);margin-left:6px}
+.gempty{display:none;color:var(--faint);font:13px "Roboto Mono",monospace;padding:18px 0}
+.loaderbox{margin-top:28px}
+.loaderbox .label{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+
+/* ------------------------------------------------ media */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:960px){.mgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.mgrid{grid-template-columns:1fr}}
+.clip{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}
+.clip .frame{position:relative;aspect-ratio:16/9;background:#050607 center/cover no-repeat;cursor:pointer}
+.clip .frame iframe,.clip .frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.clip .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
+.clip .play i{width:54px;height:54px;border-radius:50%;background:rgba(7,8,10,.75);border:1px solid var(--line2);display:grid;place-items:center;transition:transform .15s,border-color .15s}
+.clip .frame:hover .play i{transform:scale(1.06);border-color:var(--ice)}
+.clip .play svg{width:18px;height:18px;margin-left:3px}
+.clip .cap{padding:12px 14px;display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.clip .cap span{font:12px "Roboto Mono",monospace;color:var(--faint);white-space:nowrap}
+.clip.slot .frame{display:grid;place-items:center;cursor:default;background:repeating-linear-gradient(135deg,#0a0c0f 0 12px,#0c0e12 12px 24px)}
+.clip.slot .frame div{text-align:center;color:var(--faint);font:12px "Roboto Mono",monospace;padding:0 16px}
+.clip.slot .frame b{display:block;color:var(--dim);font:600 15px Archivo,sans-serif;margin-bottom:4px}
+
+.creators{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+@media (max-width:960px){.creators{grid-template-columns:1fr}}
+.tier{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:var(--panel);display:flex;flex-direction:column}
+.tier.lift{border-color:var(--ice);box-shadow:0 0 0 1px var(--ice) inset}
+.tier .need{font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ice)}
+.tier h3{margin:12px 0 6px;font-size:20px}
+.tier p{color:var(--dim);font-size:14.5px}
+.tier ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;font-size:14.5px;color:#cdd3dc}
+.tier li:before{content:"— ";color:var(--faint)}
+.howto{margin-top:16px;border:1px dashed var(--line2);border-radius:var(--r);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.howto p{color:var(--dim);font-size:15px;max-width:720px}
+.howto b{color:var(--text)}
+
 /* ------------------------------------------------ measured tables */
 .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:960px){.spec-grid{grid-template-columns:1fr}}
@@ -119,7 +177,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .spec td.n{color:var(--dim)}
 
 /* ------------------------------------------------ demo */
-.demo{border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);padding:26px}
+.demo{border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);padding:26px;margin-top:40px}
 .demo .bar{height:28px}
 .demo-foot{display:flex;align-items:center;gap:16px;margin-top:18px;flex-wrap:wrap}
 .readout{font:13.5px "Roboto Mono",monospace;color:var(--dim);flex:1;min-width:220px}
@@ -131,21 +189,26 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .toggle.on .sw:after{transform:translateX(16px);background:var(--green)}
 .score{display:flex;gap:18px;margin-top:14px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 .score b{color:var(--text);font-weight:500}
+.demo-title{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
 
-/* ------------------------------------------------ free */
-.free-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:start}
-@media (max-width:960px){.free-grid{grid-template-columns:1fr}}
+/* ------------------------------------------------ code boxes */
 .code{display:flex;align-items:stretch;border:1px solid var(--line2);border-radius:var(--r);background:#050607;overflow:hidden}
 .code pre{margin:0;padding:18px;overflow-x:auto;font:13px/1.6 "Roboto Mono",monospace;color:var(--ice2);flex:1}
 .copy{border:0;border-left:1px solid var(--line2);background:var(--bg2);color:var(--dim);font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:0 18px;cursor:pointer}
 .copy:hover{color:var(--text)}
 .copy.done{color:var(--green)}
-.flist{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r)}
-.flist div{padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;font-size:14px}
-.flist div:nth-child(-n+2){border-top:0}
-.flist div:nth-child(odd){border-right:1px solid var(--line)}
-.flist span{font:11px "Roboto Mono",monospace;color:var(--faint);white-space:nowrap}
-.flist .hot span{color:var(--xb)}
+
+/* ------------------------------------------------ executors */
+.execs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.execs{grid-template-columns:1fr}}
+.ex{border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 20px;background:var(--panel)}
+.ex .top{display:flex;justify-content:space-between;align-items:center}
+.ex h3{font-size:19px}
+.ex p{color:var(--dim);font-size:14.5px;margin-top:10px}
+.ok-tag{font:500 10px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:6px}
+.ok-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+.ex.other .ok-tag{color:var(--amber)}
+.ex.other .ok-tag:before{background:var(--amber)}
 
 /* ------------------------------------------------ pricing */
 .plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
@@ -161,6 +224,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .plan .btn{margin-top:auto;justify-content:center}
 .plan.trial{background:transparent;border-style:dashed}
 .plan.trial .price{color:var(--green)}
+.paynote{margin-top:16px;font:12px "Roboto Mono",monospace;color:var(--faint)}
+.paynote a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 
 /* ------------------------------------------------ steps + faq */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r)}
@@ -180,9 +245,17 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .faq details[open] summary:after{content:"–"}
 .faq details p{color:var(--dim);margin-top:10px;font-size:15px;max-width:720px}
 
+/* ------------------------------------------------ reviews (hidden until there are real ones) */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:960px){.reviews{grid-template-columns:1fr}}
+.rv{border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;background:var(--panel)}
+.rv p{color:#cdd3dc;font-size:15px}
+.rv .who{margin-top:14px;font:12px "Roboto Mono",monospace;color:var(--faint)}
+
 /* ------------------------------------------------ discord + footer */
 .join{display:flex;align-items:center;justify-content:space-between;gap:32px;border:1px solid var(--line2);border-radius:var(--r);padding:40px;background:var(--bg2);flex-wrap:wrap}
 .join p{color:var(--dim);margin-top:12px;max-width:560px}
+.join .btns{display:flex;gap:10px;flex-wrap:wrap}
 footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--faint);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 footer a:hover{color:var(--text)}
@@ -200,8 +273,8 @@ footer a:hover{color:var(--text)}
     <a class="brand" href="#top"><img src="assets/logo.png" alt="">TEMPO</a>
     <div class="links">
       <a href="#premium">Premium</a>
-      <a href="#measured">Measured</a>
-      <a href="#free">Free</a>
+      <a href="#games">Games</a>
+      <a href="#media">Media</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -216,20 +289,21 @@ footer a:hover{color:var(--text)}
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">Roblox script hub · 15 games</span>
+      <span class="eyebrow">Roblox scripts · 15 games</span>
       <h1 class="wordmark">TEMPO<br><span>HUB</span></h1>
-      <p class="lead">We read the game, then we time it. Every green window, every hit and every release is measured against the game's own verdict, not guessed.</p>
+      <p class="lead">Auto green that actually greens. M1 trades that land against real players. We time everything off the game's own numbers, so it keeps working after updates.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Get Premium
           <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6"/></svg></a>
-        <a class="btn" href="#free">Free loadstring</a>
+        <a class="btn" href="#games">Free loadstring</a>
       </div>
       <div class="stats">
-        <div class="stat"><b data-count="219">219</b><span>Members</span></div>
+        <div class="stat"><b id="stMembers">239</b><span>Members</span></div>
+        <div class="stat"><b><i class="live"></i><span id="stOnline">67</span></b><span>Online now</span></div>
         <div class="stat"><b>15</b><span>Games</span></div>
         <div class="stat"><b>3</b><span>Premium</span></div>
-        <div class="stat"><b>1</b><span>Loadstring</span></div>
       </div>
+      <p class="runs">Tested on <b>Potassium</b> and <b>Real</b> · PC, controller and mobile</p>
     </div>
 
     <div class="console" aria-hidden="true">
@@ -248,104 +322,167 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">Premium</span>
-      <h2>Three games, done properly.</h2>
-      <p>One key covers all three. Each was built in the game, tested against real players, and gets fixed by the person who wrote it.</p>
+      <h2>Three games we went all in on.</h2>
+      <p>One key covers all three. Every feature was built and tested in the live game, and when something breaks, the guy who wrote it fixes it.</p>
     </div>
     <div class="games3">
       <div class="gcard reveal" style="--acc:var(--rh2)">
         <span class="tag">Flagship</span>
         <h3>RH2 · The Journey</h3>
-        <p class="sub">Auto green that knows every shot type.</p>
+        <p class="sub">Auto green for every kind of shot.</p>
         <ul>
           <li>Hold-mode auto green on PC, controller and mobile</li>
-          <li>Separate release points for jumpers, layups, floaters and dunks, plus Calibrate</li>
-          <li>Shot feedback card after every shot: timing, contest, grade</li>
-          <li>All mascots fitted 1:1, every wardrobe, 272 animation packages</li>
-          <li>82 green effects and ball trails, fired on the game's own PERFECT</li>
+          <li>Its own release point for jumpers, layups, floaters and dunks, plus Calibrate</li>
+          <li>A feedback card after every shot: timing, contest, grade</li>
+          <li>Every mascot fitted 1:1, every wardrobe, 272 animation packages</li>
+          <li>82 green effects and ball trails that fire on the game's own PERFECT</li>
         </ul>
         <div class="sig"><div>Jumper release <b>74</b> → lands on the game's <b>76</b></div></div>
       </div>
 
       <div class="gcard reveal" style="--acc:var(--aba)">
-        <span class="tag">New</span>
+        <span class="tag">Updated</span>
         <h3>Anime Battle Arena</h3>
         <p class="sub">M1 trading tuned against real players.</p>
         <ul>
-          <li>Auto M1 trade: blocks their hit, counters before their next one lands</li>
-          <li>Learns each character's custom M1s live, and trades dash-M1s from 30 studs</li>
-          <li>Dodges finishers so a full chain never breaks your guard</li>
-          <li>Auto Kokushibo and Auto Black Flash timing checks</li>
-          <li>Macros with per-character tech binds, anti-stun, anti-confusion and more</li>
+          <li>Auto M1 trade: blocks their hit and counters before the next one, dash-M1s included</li>
+          <li>Auto farm that plays like a person: sprints in, five-hit chain, then your moves</li>
+          <li>Kokushibo and Tengen's rhythm circles hit for you</li>
+          <li>Instant move variants for Aizen and Yhwach, one-key Kiritsugu Accel techs</li>
+          <li>Borrowed dodges (MUI, Wuxian, Flashstep and more), macros, anti-stun</li>
         </ul>
-        <div class="sig"><div>Hit lands <b>+200–218 ms</b> after the swing · hold <b>+5 ms</b></div></div>
+        <div class="sig"><div>Hit lands <b>+200–218 ms</b> after the swing · Tengen <b>5 / 5</b></div></div>
       </div>
 
       <div class="gcard reveal" style="--acc:var(--ps2)">
         <span class="tag">Grind</span>
         <h3>Project Slayers 2</h3>
-        <p class="sub">The whole grind, automated.</p>
+        <p class="sub">The whole grind, on autopilot.</p>
         <ul>
-          <li>Mob farm, boss farm and auto quest, with skill use and chest looting</li>
+          <li>Mob farm, boss farm and auto quest, with skills and chest looting</li>
           <li>Kill aura, auto clan and race reroll</li>
           <li>ESP for players, bosses, chests, crystals, shrines and spider lilies</li>
           <li>Fly, speed, noclip, infinite stamina, no slow, walk on water</li>
           <li>Staff join alert, auto retreat and auto rejoin</li>
         </ul>
-        <div class="sig"><div><b>46</b> toggles · built the week the game launched</div></div>
+        <div class="sig"><div><b>46</b> toggles · out the week the game launched</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================ MEASURED -->
+<!-- ============================================================ GAMES -->
+<section id="games">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head reveal">
+        <span class="eyebrow">Games</span>
+        <h2><span id="gCount">15</span> games, one loadstring.</h2>
+        <p>Run it in any supported game and it loads the right script by itself. Premium games show you what's in them before you buy.</p>
+      </div>
+      <div class="gtools reveal">
+        <input class="search" id="gSearch" type="search" placeholder="Search games" autocomplete="off">
+        <div class="chips" id="gChips">
+          <button class="chip on" data-f="all" type="button">All</button>
+          <button class="chip" data-f="free" type="button">Free</button>
+          <button class="chip" data-f="prem" type="button">Premium</button>
+        </div>
+      </div>
+    </div>
+    <div class="glist" id="gList"></div>
+    <div class="gempty" id="gEmpty">Nothing matches that. Want it added? Ask in the Discord.</div>
+    <div class="loaderbox reveal">
+      <div class="label">Free loadstring · no key</div>
+      <div class="code">
+        <pre id="loader">loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Loader.lua"))()</pre>
+        <button class="copy" data-copy="loader" type="button">Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ MEDIA -->
+<section id="media">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head reveal">
+        <span class="eyebrow">Media</span>
+        <h2>See it in game.</h2>
+        <p>Clips from us and from people using it. Make one yourself and it can land here, plus a free key.</p>
+      </div>
+      <a class="btn reveal" href="#creators">Creator program</a>
+    </div>
+    <div class="mgrid" id="mGrid"></div>
+
+    <div id="creators" style="scroll-margin-top:80px">
+      <div class="creators">
+        <div class="tier reveal">
+          <span class="need">Any clip · 500+ views</span>
+          <h3>Clip</h3>
+          <p>Post a video that shows Tempo running. TikTok, Shorts, YouTube, anything public.</p>
+          <ul><li>7-day premium key</li><li>Once per video</li></ul>
+        </div>
+        <div class="tier lift reveal">
+          <span class="need">3 videos or 5k+ views</span>
+          <h3>Creator</h3>
+          <p>You keep posting, we keep you on premium.</p>
+          <ul><li>30-day key, renewed while you post</li><li>Creator role in the Discord</li><li>Early builds to show first</li></ul>
+        </div>
+        <div class="tier reveal">
+          <span class="need">25k+ views on one video</span>
+          <h3>Partner</h3>
+          <p>For the clips that actually move people to the Discord.</p>
+          <ul><li>Lifetime key</li><li>Your clips featured on this page</li><li>Direct line for feature requests</li></ul>
+        </div>
+      </div>
+      <div class="howto reveal">
+        <p><b>How to apply:</b> open a ticket in the Discord with the link to your video. Views get checked by hand, and botted views mean no key.</p>
+        <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Open a ticket</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ MEASURED + DEMO -->
 <section id="measured">
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">How it's made</span>
-      <h2>Measured, not guessed.</h2>
-      <p>Every number below was read out of a live game: a meter value, a hit landing, a server timestamp. That's why it still works after the game updates. We know what it's aiming at.</p>
+      <h2>We measure first.</h2>
+      <p>Each number here came out of a live game: a meter value, the moment a hit lands, a server timestamp. Knowing what we're aiming at is why it holds up when the game updates.</p>
     </div>
     <div class="spec-grid">
       <div class="spec reveal" style="--acc:var(--rh2)">
         <div class="sh"><i></i><span>RH2 · release points</span></div>
         <table>
-          <tr><td>Jumper</td><td class="v">74</td><td class="n">early, to land in the 76 window</td></tr>
+          <tr><td>Jumper</td><td class="v">74</td><td class="n">a bit early, lands in the 76 window</td></tr>
           <tr><td>Layup</td><td class="v">53–60</td><td class="n">swept one point at a time</td></tr>
           <tr><td>Floater</td><td class="v">65–74</td><td class="n">swept one point at a time</td></tr>
           <tr><td>Dunk</td><td class="v">74–78</td><td class="n">ten graded dunks, on Space</td></tr>
         </table>
       </div>
       <div class="spec reveal" style="--acc:var(--aba)">
-        <div class="sh"><i></i><span>ABA · M1 trade</span></div>
+        <div class="sh"><i></i><span>ABA · timing</span></div>
         <table>
-          <tr><td>Stock chain</td><td class="v">+218 ms</td><td class="n">swing start → hit</td></tr>
+          <tr><td>Stock chain</td><td class="v">+218 ms</td><td class="n">swing start to hit</td></tr>
           <tr><td>Coyote · Aizen</td><td class="v">+200 ms</td><td class="n">custom M1s, learned live</td></tr>
-          <tr><td>Player swings</td><td class="v">330–380</td><td class="n">ms apart, vs 430 on dummies</td></tr>
           <tr><td>Dash-M1</td><td class="v">22–27</td><td class="n">studs out when it starts</td></tr>
+          <tr><td>Tengen circle</td><td class="v">0.35 s</td><td class="n">hit window after the ring closes</td></tr>
         </table>
       </div>
       <div class="spec reveal" style="--acc:var(--xb)">
         <div class="sh"><i></i><span>Xtreme Basketball · green</span></div>
         <table>
-          <tr><td>Green window</td><td class="v">30–75 ms</td><td class="n">wide, sent by the server</td></tr>
+          <tr><td>Green window</td><td class="v">30–75 ms</td><td class="n">sent by the server each shot</td></tr>
           <tr><td>Server lag</td><td class="v">11–31 ms</td><td class="n">relearned every shot</td></tr>
-          <tr><td>First live run</td><td class="v">15 / 17</td><td class="n">Perfect; both misses were 0-width</td></tr>
+          <tr><td>First live run</td><td class="v">15 / 17</td><td class="n">Perfect, both misses were 0-width</td></tr>
           <tr><td>Input</td><td class="v">E · X · touch</td><td class="n">keyboard, controller, mobile</td></tr>
         </table>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============================================================ DEMO -->
-<section>
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Try it</span>
-      <h2>Hit the green yourself.</h2>
-      <p>This is the problem in one bar: the window is small and your release takes a moment to arrive. Press <b>Space</b> or <b>Release</b> to shoot, then switch on Tempo and watch it land every time.</p>
-    </div>
     <div class="demo reveal">
+      <div class="demo-title">Try it · hit the green yourself</div>
       <div class="bar" id="dBar"><div class="win" id="dWin"></div><div class="fill" id="dFill"></div><div class="rel" id="dRel"></div></div>
       <div class="demo-foot">
         <div class="readout" id="dRead">Press <b>Space</b> or <b>Release</b> while the bar fills.</div>
@@ -357,66 +494,35 @@ footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<!-- ============================================================ FREE -->
-<section id="free">
-  <div class="wrap">
-    <div class="free-grid">
-      <div class="reveal">
-        <span class="eyebrow">No key, no cost</span>
-        <h2>Thirteen games free, one line.</h2>
-        <p class="lead" style="margin-top:16px">Paste it into your executor. It reads the game you're in and loads the right script, so you never keep a list of links. Premium games show you what you're missing.</p>
-        <div class="code" style="margin-top:28px">
-          <pre id="loader">loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Loader.lua"))()</pre>
-          <button class="copy" data-copy="loader" type="button">Copy</button>
-        </div>
-      </div>
-      <div class="flist reveal">
-        <div class="hot"><b>Xtreme Basketball</b><span>auto green · new</span></div>
-        <div><b>RH2 (free build)</b><span>tap auto green</span></div>
-        <div><b>Blox Fruits</b><span>farm · teleports</span></div>
-        <div><b>Blade Ball</b><span>auto parry</span></div>
-        <div><b>Fisch</b><span>auto fish</span></div>
-        <div><b>Jailbreak</b><span>esp · farm</span></div>
-        <div><b>Sniper Arena</b><span>aim · esp</span></div>
-        <div><b>All Star TD</b><span>auto farm</span></div>
-        <div><b>My Animal Farm</b><span>auto farm</span></div>
-        <div><b>Steal an Egg</b><span>auto steal</span></div>
-        <div><b>Sell Ores</b><span>auto sell</span></div>
-        <div><b>Speedsters Beyond</b><span>auto farm</span></div>
-        <div><b>Anime Card Farm</b><span>auto farm</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================================================ PRICING -->
 <section id="pricing">
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">Pricing</span>
       <h2>One key, all three premium games.</h2>
-      <p>RH2, Anime Battle Arena and Project Slayers 2, plus every premium game we add after you buy.</p>
+      <p>RH2, Anime Battle Arena and Project Slayers 2, plus any premium game we add after you buy.</p>
     </div>
     <div class="plans">
       <div class="plan trial reveal">
         <div class="pl"><h3>Free day</h3><span>Discord</span></div>
         <div class="price">$0<small> / 24h</small></div>
-        <ul><li>Every premium feature for a day</li><li>Reach level 5 in our Discord</li><li>Starts on your first run</li></ul>
+        <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
         <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
       </div>
       <div class="plan reveal">
         <div class="pl"><h3>Monthly</h3></div>
         <div class="price">$4.99<small> / 30 days</small></div>
-        <ul><li>All premium games</li><li>Every update while active</li><li>Support in the Discord</li></ul>
-        <a class="btn" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
+        <ul><li>All premium games</li><li>Every update while it's active</li><li>Support in the Discord</li></ul>
+        <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
       </div>
       <div class="plan lift reveal">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
         <div class="price">$14.99<small> / once</small></div>
-        <ul><li>All premium games, forever</li><li>Every future game and update</li><li>Pays for itself in three months</li></ul>
-        <a class="btn btn-primary" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
+        <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Costs the same as three months</li></ul>
+        <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
       </div>
     </div>
+    <p class="paynote reveal">Card checkout. Your key shows up right after you pay. <a href="refunds.html">Refund policy</a></p>
   </div>
 </section>
 
@@ -425,12 +531,12 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">After you buy</span>
-      <h2>Running in a minute.</h2>
+      <h2>Up and running in a minute.</h2>
     </div>
     <div class="steps reveal">
-      <div class="step"><span class="num">01</span><h3>Check out</h3><p>Pay on the store. Your key is delivered the moment the payment clears.</p></div>
-      <div class="step"><span class="num">02</span><h3>Paste one script</h3><p>Put your key in the premium loadstring. It works in every premium game, so it's the only one you'll ever need.</p></div>
-      <div class="step"><span class="num">03</span><h3>Play</h3><p>The hub reads which game you're in and loads it. Open the menu with the key it shows you, and turn things on.</p></div>
+      <div class="step"><span class="num">01</span><h3>Pay</h3><p>Check out with a card. Your key is on screen as soon as the payment goes through.</p></div>
+      <div class="step"><span class="num">02</span><h3>Paste one script</h3><p>Put your key in the premium loadstring below. The same line works in every premium game.</p></div>
+      <div class="step"><span class="num">03</span><h3>Play</h3><p>It figures out which game you're in and loads it. Open the menu and turn things on.</p></div>
     </div>
     <div class="code reveal" style="margin-top:20px">
       <pre id="premiumLs">script_key = "YOUR-KEY"
@@ -440,20 +546,58 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
   </div>
 </section>
 
+<!-- ============================================================ EXECUTORS -->
+<section id="executors">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Works on</span>
+      <h2>Tested where it counts.</h2>
+      <p>These are the executors we build and test on every update. Check here before you buy.</p>
+    </div>
+    <div class="execs">
+      <div class="ex reveal">
+        <div class="top"><h3>Potassium</h3><span class="ok-tag">Tested</span></div>
+        <p>Premium and free. Checked on every update.</p>
+      </div>
+      <div class="ex reveal">
+        <div class="top"><h3>Real</h3><span class="ok-tag">Tested</span></div>
+        <p>Premium and free. Everything gets built and checked on it first.</p>
+      </div>
+      <div class="ex other reveal">
+        <div class="top"><h3>Anything else</h3><span class="ok-tag">Ask first</span></div>
+        <p>Most free games run on any executor with a normal loadstring. Before you buy premium on something else, ask in the Discord.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ REVIEWS (shown once REVIEWS has entries) -->
+<section id="reviews" hidden>
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2>From the Discord.</h2>
+      <p>Straight from our vouch channel, unedited.</p>
+    </div>
+    <div class="reviews" id="rvGrid"></div>
+  </div>
+</section>
+
 <!-- ============================================================ FAQ -->
 <section id="faq">
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">FAQ</span>
-      <h2>Straight answers.</h2>
+      <h2>Questions people ask.</h2>
     </div>
     <div class="faq reveal">
-      <details><summary>Which executors does it work on?</summary><p>It's built and tested on PC executors, and the shooting scripts support controller and mobile too. If yours has trouble, post in the Discord support channel with the error. We'd rather fix it than have you guess.</p></details>
-      <details><summary>Can other players see the cosmetics?</summary><p>No, and we'd rather say that here than have you find out after. Mascots, outfits, animations, meters and effects are client-side: you see them, other players see your real look, and nothing is saved to your account. Buy it for the gameplay; the cosmetics are a bonus.</p></details>
-      <details><summary>Is it safe to use?</summary><p>No script is risk-free, and anyone who says otherwise is selling something. Tempo works through the game's own inputs and the calls the game itself makes. It doesn't fake server data. Play like a person, and don't spam features in front of mods.</p></details>
-      <details><summary>What's the difference between free and premium?</summary><p>Free covers thirteen games, including tap auto green in RH2 and full auto green in Xtreme Basketball. Premium unlocks RH2's hold mode, per-shot timing and cosmetics, all of Anime Battle Arena, and all of Project Slayers 2.</p></details>
-      <details><summary>Can I try premium first?</summary><p>Yes. Reach level 5 in our Discord by chatting and you'll get a free one-day premium key in your DMs. The day starts when you first run it.</p></details>
-      <details><summary>What happens when a game updates?</summary><p>The Discord status board shows what's working. Most updates don't touch what we measure, and when one does, the fix ships with a changelog.</p></details>
+      <details><summary>Which executors does it work on?</summary><p>We test on Potassium and Real. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
+      <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account. Buy it for the gameplay and treat the cosmetics as a bonus.</p></details>
+      <details><summary>Can I get banned?</summary><p>Any script carries some risk, and we won't pretend otherwise. Tempo presses the same buttons you would and sends what the game itself sends. It never fakes server data. Play like a normal player and don't flex features in front of mods.</p></details>
+      <details><summary>What's free and what's premium?</summary><p>Twelve games are completely free, Xtreme Basketball auto green included, plus a free RH2 build with tap auto green. Premium gets you RH2 hold mode, per-shot timing and cosmetics, all of Anime Battle Arena and all of Project Slayers 2.</p></details>
+      <details><summary>Can I try premium first?</summary><p>Yes. Chat in the Discord until you hit level 5 and a one-day key gets DMed to you. The day starts the first time you run it.</p></details>
+      <details><summary>What happens when a game updates?</summary><p>Check the status board in the Discord. Most updates don't touch what we time. When one does, we push a fix and post a changelog.</p></details>
+      <details><summary>Can I get a refund?</summary><p>If your key never worked and we can't get it running for you within 72 hours, yes. The full policy is on the <a href="refunds.html" style="text-decoration:underline">refunds page</a>.</p></details>
     </div>
   </div>
 </section>
@@ -464,10 +608,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     <div class="join reveal">
       <div>
         <span class="eyebrow">Community</span>
-        <h2>Updates, support, and the people who test it.</h2>
-        <p>Changelogs for every update, a status board for every game, and bugs fixed by the person who wrote the code.</p>
+        <h2>Come hang out.</h2>
+        <p>Changelogs, a status board for every game, the free day key, and support from the guy who writes the code. Got a game you want scripted? Ask there.</p>
       </div>
-      <a class="btn btn-primary" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
+      <div class="btns">
+        <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Request a game</a>
+        <a class="btn btn-primary" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
+      </div>
     </div>
   </div>
 </section>
@@ -475,13 +622,112 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <footer>
   <div class="wrap">
     <span>© 2026 Tempo Hub. Not affiliated with Roblox or any game listed.</span>
-    <span><a href="https://store.tempohub.shop" target="_blank" rel="noopener">Store</a> · <a href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Discord</a></span>
+    <span><a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="privacy.html">Privacy</a> · <a href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Discord</a></span>
   </div>
 </footer>
+
+<script src="assets/shop.js"></script>
+<script>
+// ================================================================ content
+// Add a game: one line here. tier "prem" or "free"; isNew puts a badge on it.
+const GAMES = [
+  { name: "RH2 · The Journey", tier: "prem", what: "Hold auto green, per-shot timing, cosmetics" },
+  { name: "Anime Battle Arena", tier: "prem", what: "M1 trade, auto farm, techs, timing checks", isNew: true },
+  { name: "Project Slayers 2", tier: "prem", what: "Mob, boss and quest farm, ESP" },
+  { name: "Xtreme Basketball", tier: "free", what: "Auto green, cosmetics unlock", isNew: true },
+  { name: "RH2 (free build)", tier: "free", what: "Tap auto green", sameGame: true },
+  { name: "Blox Fruits", tier: "free", what: "Farm, teleports" },
+  { name: "Blade Ball", tier: "free", what: "Auto parry" },
+  { name: "Fisch", tier: "free", what: "Auto fish" },
+  { name: "Jailbreak", tier: "free", what: "ESP, farm" },
+  { name: "Sniper Arena", tier: "free", what: "Aim, ESP" },
+  { name: "All Star Tower Defense", tier: "free", what: "Auto farm" },
+  { name: "My Animal Farm", tier: "free", what: "Auto farm" },
+  { name: "Steal an Egg", tier: "free", what: "Auto steal" },
+  { name: "Sell Ores", tier: "free", what: "Auto sell" },
+  { name: "Speedsters Beyond", tier: "free", what: "Auto farm" },
+  { name: "Anime Card Farm", tier: "free", what: "Auto farm" },
+];
+
+// Add a clip: { yt: "VIDEO_ID", title: "...", by: "@name" } for YouTube,
+// or { mp4: "assets/media/file.mp4", poster: "assets/media/file.jpg", title, by }.
+// Empty spots show a "your clip here" tile that points at the creator program.
+const MEDIA = [
+];
+
+// Real vouches only, copied from the Discord. The section stays hidden while this is empty.
+const REVIEWS = [
+];
+</script>
 
 <script>
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  // ------------------------------------------------ live Discord counts
+  fetch("https://discord.com/api/v10/invites/mD2byyE27?with_counts=true")
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => {
+      if (!d) return;
+      if (d.approximate_member_count) document.getElementById("stMembers").textContent = d.approximate_member_count;
+      if (d.approximate_presence_count) document.getElementById("stOnline").textContent = d.approximate_presence_count;
+    })
+    .catch(() => {});
+
+  // ------------------------------------------------ games list
+  const gList = document.getElementById("gList"), gEmpty = document.getElementById("gEmpty"),
+        gSearch = document.getElementById("gSearch");
+  document.getElementById("gCount").textContent = GAMES.filter((g) => !g.sameGame).length;
+  let filter = "all";
+  function drawGames() {
+    const q = gSearch.value.trim().toLowerCase();
+    const shown = GAMES.filter((g) => (filter === "all" || g.tier === filter) &&
+      (!q || g.name.toLowerCase().includes(q) || g.what.toLowerCase().includes(q)));
+    gList.innerHTML = shown.map((g) => `<div class="gi"><div class="top"><b>${esc(g.name)}</b><span>` +
+      `<span class="badge ${g.tier}">${g.tier === "prem" ? "Premium" : "Free"}</span>` +
+      (g.isNew ? `<span class="badge new">New</span>` : "") + `</span></div><p>${esc(g.what)}</p></div>`).join("");
+    gEmpty.style.display = shown.length ? "none" : "block";
+  }
+  gSearch.addEventListener("input", drawGames);
+  document.getElementById("gChips").addEventListener("click", (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    filter = b.dataset.f;
+    document.querySelectorAll("#gChips .chip").forEach((c) => c.classList.toggle("on", c === b));
+    drawGames();
+  });
+  drawGames();
+
+  // ------------------------------------------------ media grid
+  // Nothing loads from YouTube until someone clicks a clip.
+  const mGrid = document.getElementById("mGrid");
+  const PLAY = `<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>`;
+  const tiles = MEDIA.map((m, i) => {
+    const poster = m.yt ? `https://i.ytimg.com/vi/${encodeURIComponent(m.yt)}/hqdefault.jpg` : (m.poster || "");
+    return `<div class="clip"><div class="frame" data-i="${i}" style="background-image:url('${esc(poster)}')">` +
+      `<div class="play"><i>${PLAY}</i></div></div>` +
+      `<div class="cap"><b>${esc(m.title || "")}</b><span>${esc(m.by || "")}</span></div></div>`;
+  });
+  const SLOTS = ["Your clip here", "Your clip here", "Your clip here"];
+  for (let i = tiles.length; i < 3; i++) {
+    tiles.push(`<div class="clip slot"><div class="frame"><div><b>${SLOTS[i]}</b>Post a video of Tempo and get a free key</div></div>` +
+      `<div class="cap"><b>Open spot</b><span>creator program</span></div></div>`);
+  }
+  mGrid.innerHTML = tiles.join("");
+  mGrid.addEventListener("click", (e) => {
+    const f = e.target.closest(".frame[data-i]"); if (!f || f.dataset.loaded) return;
+    const m = MEDIA[+f.dataset.i]; f.dataset.loaded = "1";
+    f.innerHTML = m.yt
+      ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.yt)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${esc(m.title || "clip")}"></iframe>`
+      : `<video src="${esc(m.mp4)}" controls autoplay playsinline></video>`;
+  });
+
+  // ------------------------------------------------ reviews
+  if (REVIEWS.length) {
+    document.getElementById("rvGrid").innerHTML = REVIEWS.map((r) =>
+      `<div class="rv"><p>${esc(r.text)}</p><div class="who">${esc(r.by)}${r.game ? " · " + esc(r.game) : ""}</div></div>`).join("");
+    document.getElementById("reviews").hidden = false;
+  }
 
   // ------------------------------------------------ reveal on scroll
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
@@ -553,7 +799,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     const p = (performance.now() - t0) / 1000 / DUR;
     dFill.style.width = Math.min(100, p * 100) + "%";
     if (auto && running && p >= (lo + hi) / 2 - LAG / DUR) return release(true);
-    if (p >= 1.05 && running) { running = false; dRead.innerHTML = "Too late: the shot never came out. Again?"; setTimeout(newRound, 900); return; }
+    if (p >= 1.05 && running) { running = false; dRead.innerHTML = "Too late, the shot never came out. Again?"; setTimeout(newRound, 900); return; }
     if (running) raf = requestAnimationFrame(tick);
   }
   function release(byTempo) {
