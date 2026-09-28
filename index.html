@@ -210,6 +210,12 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .ok-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
 .ex.other .ok-tag{color:var(--amber)}
 .ex.other .ok-tag:before{background:var(--amber)}
+.exgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+@media (max-width:860px){.exgrid{grid-template-columns:1fr 1fr}}
+.exi{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.exi b{font-size:16px;font-weight:600}
+.exi.more b{color:var(--dim);font-weight:500}
+.exi.more{background:transparent;border-style:dashed}
 
 /* ------------------------------------------------ pricing */
 .plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
@@ -313,7 +319,7 @@ footer a:hover{color:var(--text)}
         <div class="stat"><b>15</b><span>Games</span></div>
         <div class="stat"><b>3</b><span>Premium</span></div>
       </div>
-      <p class="runs">Tested on <b>Potassium</b> and <b>Real</b> · PC, controller and mobile</p>
+      <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Solara</b>, <b>Xeno</b>, <b>Wave</b> and more · PC, controller and mobile</p>
     </div>
 
     <div class="console" aria-hidden="true">
@@ -605,21 +611,21 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     <div class="head reveal">
       <span class="eyebrow">Works on</span>
       <h2>Tested where it counts.</h2>
-      <p>These are the executors we build and test on every update. Check here before you buy.</p>
+      <p>We've run Tempo on all of these ourselves, premium and free. Check here before you buy.</p>
     </div>
-    <div class="execs">
-      <div class="ex reveal">
-        <div class="top"><h3>Potassium</h3><span class="ok-tag">Tested</span></div>
-        <p>Premium and free. Checked on every update.</p>
-      </div>
-      <div class="ex reveal">
-        <div class="top"><h3>Real</h3><span class="ok-tag">Tested</span></div>
-        <p>Premium and free. Everything gets built and checked on it first.</p>
-      </div>
-      <div class="ex other reveal">
-        <div class="top"><h3>Anything else</h3><span class="ok-tag">Ask first</span></div>
-        <p>Most free games run on any executor with a normal loadstring. Before you buy premium on something else, ask in the Discord.</p>
-      </div>
+    <div class="exgrid reveal">
+      <div class="exi"><b>Real</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Potassium</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Solara</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Xeno</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Madium</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Volt</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Wave</b><span class="ok-tag">Tested</span></div>
+      <div class="exi more"><b>+ more</b></div>
+    </div>
+    <div class="ex other reveal">
+      <div class="top"><h3>Yours isn't listed?</h3><span class="ok-tag">Ask first</span></div>
+      <p>Most executors with a normal loadstring run it fine. Before you buy premium on something else, ask in the Discord and we'll tell you straight.</p>
     </div>
   </div>
 </section>
@@ -644,7 +650,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       <h2>Questions people ask.</h2>
     </div>
     <div class="faq reveal">
-      <details><summary>Which executors does it work on?</summary><p>We test on Potassium and Real. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
+      <details><summary>Which executors does it work on?</summary><p>We've tested on Real, Potassium, Solara, Xeno, Madium, Volt, Wave and a few others. The full list is in the Works on section. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
       <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account. Buy it for the gameplay and treat the cosmetics as a bonus.</p></details>
       <details><summary>Can I get banned?</summary><p>Any script carries some risk, and we won't pretend otherwise. Tempo presses the same buttons you would and sends what the game itself sends. It never fakes server data. Play like a normal player and don't flex features in front of mods.</p></details>
       <details><summary>What's free and what's premium?</summary><p>Twelve games are completely free, Xtreme Basketball auto green included, plus a free RH2 build with tap auto green. Premium gets you RH2 hold mode, per-shot timing and cosmetics, all of Anime Battle Arena and all of Project Slayers 2.</p></details>
