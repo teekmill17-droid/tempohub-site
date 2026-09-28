@@ -64,7 +64,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 70%);pointer-events:none}
 .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
 .wordmark{font:clamp(44px,7vw,84px)/.95 Michroma,sans-serif;letter-spacing:.04em;margin:18px 0 22px}
-.wordmark span{color:var(--ice)}
+.wordmark .wm-hub{color:var(--ice)}
 .hero .lead{font-size:19px}
 .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r)}
@@ -288,6 +288,7 @@ footer a:hover{color:var(--text)}
 .js .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="assets/vibe.css">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -316,7 +317,7 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div>
       <span class="eyebrow">Roblox scripts · 15 games</span>
-      <h1 class="wordmark">TEMPO<br><span>HUB</span></h1>
+      <h1 class="wordmark">TEMPO<br><span class="wm-hub">HUB</span></h1>
       <p class="lead">Auto green that actually greens. M1 trades that land against real players. We time everything off the game's own numbers, so it keeps working after updates.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Get Premium
@@ -342,6 +343,8 @@ footer a:hover{color:var(--text)}
     </div>
   </div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div class="track"><span><b>RH2</b> auto green</span><span><b>ABA</b> M1 trade</span><span>auto parry</span><span>auto headride</span><span>120 combos</span><span>summon attach</span><span><b>Project Slayers 2</b></span><span>natural auto farm</span><span>controller support</span><span>mobile support</span><span>saved configs</span><span><b>15</b> games</span><span><b>RH2</b> auto green</span><span><b>ABA</b> M1 trade</span><span>auto parry</span><span>auto headride</span><span>120 combos</span><span>summon attach</span><span><b>Project Slayers 2</b></span><span>natural auto farm</span><span>controller support</span><span>mobile support</span><span>saved configs</span><span><b>15</b> games</span></div></div>
 
 <!-- ============================================================ PREMIUM -->
 <section id="premium">
@@ -915,5 +918,6 @@ const REVIEWS = [
   drawScore(); newRound();
 })();
 </script>
+<script src="assets/vibe.js"></script>
 </body>
 </html>
