@@ -12,6 +12,7 @@
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/hubdemo.css">
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -225,6 +226,14 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .plan.trial{background:transparent;border-style:dashed}
 .plan.trial .price{color:var(--green)}
 .paynote{margin-top:16px;font:12px "Roboto Mono",monospace;color:var(--faint)}
+[hidden]{display:none!important}
+.pp{margin-top:8px;justify-content:center;background:#ffc439;color:#111;border-color:#ffc439}
+.pp:hover{background:#ffd466;border-color:#ffd466}
+.plan .pp{margin-top:8px}
+.dname{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.dname input{height:40px;min-width:240px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
+.dname input:focus{border-color:var(--ice)}
+.dname span{font:12px "Roboto Mono",monospace;color:var(--faint)}
 .paynote a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 
 /* ------------------------------------------------ steps + faq */
@@ -273,6 +282,7 @@ footer a:hover{color:var(--text)}
     <a class="brand" href="#top"><img src="assets/logo.png" alt="">TEMPO</a>
     <div class="links">
       <a href="#premium">Premium</a>
+      <a href="#try">Try it</a>
       <a href="#games">Games</a>
       <a href="#media">Media</a>
       <a href="#pricing">Pricing</a>
@@ -367,6 +377,43 @@ footer a:hover{color:var(--text)}
         </ul>
         <div class="sig"><div><b>46</b> toggles · out the week the game launched</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ TRY THE MENU -->
+<section id="try">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Try it</span>
+      <h2>Click around the menu.</h2>
+      <p>This is the hub you get, laid out the same way and in the same colours. Flip things on, switch games, try the themes. It just doesn't touch a game.</p>
+    </div>
+    <div class="hubwrap reveal" id="hubDemo">
+      <div class="hubgames">
+        <button class="on" data-game="aba" type="button">Anime Battle Arena</button>
+        <button data-game="rh2" type="button">RH2</button>
+        <button data-game="ps2" type="button">Project Slayers 2</button>
+      </div>
+      <div class="hub">
+        <div class="hub-top">
+          <img src="assets/logo.png" alt="">
+          <div class="tt"><b>Tempo Hub</b><span>Anime Battle Arena  -  v6</span></div>
+          <div class="win" aria-hidden="true">
+            <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></i>
+            <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></i>
+          </div>
+        </div>
+        <div class="hub-body">
+          <div class="hub-side">
+            <input class="hub-search" type="search" placeholder="Search" aria-label="Search the menu">
+            <div class="hub-tabs"></div>
+          </div>
+          <div class="hub-main"></div>
+        </div>
+        <div class="hub-toasts" aria-live="polite"></div>
+      </div>
+      <span class="hubhint">Try Auto M1 Trade in Combat, Auto Green on RH2, or the themes under Interface.</span>
     </div>
   </div>
 </section>
@@ -502,6 +549,10 @@ footer a:hover{color:var(--text)}
       <h2>One key, all three premium games.</h2>
       <p>RH2, Anime Battle Arena and Project Slayers 2, plus any premium game we add after you buy.</p>
     </div>
+    <div class="dname reveal" id="dname" hidden>
+      <input id="dnameInput" type="text" maxlength="40" placeholder="Discord username (optional)" autocomplete="off">
+      <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
+    </div>
     <div class="plans">
       <div class="plan trial reveal">
         <div class="pl"><h3>Free day</h3><span>Discord</span></div>
@@ -514,15 +565,17 @@ footer a:hover{color:var(--text)}
         <div class="price">$4.99<small> / 30 days</small></div>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>Support in the Discord</li></ul>
         <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
+        <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
       </div>
       <div class="plan lift reveal">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
         <div class="price">$14.99<small> / once</small></div>
         <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Costs the same as three months</li></ul>
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
+        <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
       </div>
     </div>
-    <p class="paynote reveal">Card checkout. Your key shows up right after you pay. <a href="refunds.html">Refund policy</a></p>
+    <p class="paynote reveal">Card or PayPal. Your key shows up right after you pay. <a href="refunds.html">Refund policy</a></p>
   </div>
 </section>
 
@@ -627,6 +680,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 </footer>
 
 <script src="assets/shop.js"></script>
+<script src="assets/hubdemo.js" defer></script>
 <script>
 // ================================================================ content
 // Add a game: one line here. tier "prem" or "free"; isNew puts a badge on it.

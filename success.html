@@ -73,7 +73,7 @@ ol li{margin:8px 0}
     $("title").textContent = title; $("sub").textContent = "";
     $("problemMsg").innerHTML = msg; show("problem");
   }
-  if (!/^cs_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
+  if (!/^(cs|pp)_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
     problem("No order found", "This page needs the link Stripe sent you back to after paying. If you paid and ended up here anyway, open a ticket in the Discord and include the email you paid with.");
     return;
   }
