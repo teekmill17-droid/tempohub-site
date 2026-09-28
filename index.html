@@ -686,6 +686,22 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 </footer>
 
 <script src="assets/shop.js"></script>
+<script>
+// Visit counter: one number per day, no cookies, nothing about you. The
+// localStorage flag only stops one browser counting as a new visitor twice in
+// a day; the referrer is sent as a bare host name (youtube.com, discord.com).
+(() => {
+  try {
+    if (!window.TEMPO_SHOP || !navigator.sendBeacon) return;
+    const day = new Date().toISOString().slice(0, 10);
+    let u = 0;
+    try { if (localStorage.getItem("tempo_v") !== day) { localStorage.setItem("tempo_v", day); u = 1; } } catch {}
+    let r = "";
+    try { r = document.referrer ? new URL(document.referrer).hostname : ""; } catch {}
+    navigator.sendBeacon(`${window.TEMPO_SHOP}/hit?u=${u}&r=${encodeURIComponent(r)}`);
+  } catch {}
+})();
+</script>
 <script src="assets/hubdemo.js" defer></script>
 <script>
 // ================================================================ content
