@@ -240,6 +240,15 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .dname input{height:40px;min-width:240px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
 .dname input:focus{border-color:var(--ice)}
 .dname span{font:12px "Roboto Mono",monospace;color:var(--faint)}
+.codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.codebox input{height:40px;width:200px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:500 14px "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:0 12px;outline:none}
+.codebox input:focus{border-color:var(--ice)}
+.codebox .btn{height:40px}
+.codebox .msg{font:12px "Roboto Mono",monospace;color:var(--faint)}
+.codebox .msg.ok{color:var(--green)}
+.codebox .msg.bad{color:var(--red)}
+.codebox .msg button{background:none;border:0;color:var(--dim);font:inherit;text-decoration:underline;cursor:pointer;padding:0 0 0 6px}
+.price .was{font-size:.5em;color:var(--faint);text-decoration:line-through;margin-right:10px;vertical-align:middle}
 .paynote a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 
 /* ------------------------------------------------ steps + faq */
@@ -293,6 +302,7 @@ footer a:hover{color:var(--text)}
       <a href="#games">Games</a>
       <a href="#media">Media</a>
       <a href="#faq">FAQ</a>
+      <a href="dashboard.html">Earn</a>
     </div>
     <div class="navcta">
       <a class="btn ghost" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Discord</a>
@@ -395,6 +405,11 @@ footer a:hover{color:var(--text)}
       <h2>One key, all three premium games.</h2>
       <p>RH2, Anime Battle Arena and Project Slayers 2, plus any premium game we add after you buy.</p>
     </div>
+    <form class="codebox reveal" id="codeForm" autocomplete="off">
+      <input id="codeInput" type="text" maxlength="16" placeholder="Referral code" spellcheck="false" aria-label="Referral code">
+      <button class="btn" type="submit">Apply</button>
+      <span class="msg" id="codeMsg">Have a code? It takes 10% off.</span>
+    </form>
     <div class="dname reveal" id="dname" hidden>
       <input id="dnameInput" type="text" maxlength="40" placeholder="Discord username (optional)" autocomplete="off">
       <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
@@ -408,15 +423,15 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="plan reveal">
         <div class="pl"><h3>Monthly</h3></div>
-        <div class="price">$4.99<small> / 30 days</small></div>
+        <div class="price" data-price="monthly" data-full="$7.99" data-per=" / 30 days">$7.99<small> / 30 days</small></div>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>Support in the Discord</li></ul>
         <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
         <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
       </div>
       <div class="plan lift reveal">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
-        <div class="price">$14.99<small> / once</small></div>
-        <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Costs the same as three months</li></ul>
+        <div class="price" data-price="lifetime" data-full="$19.99" data-per=" / once">$19.99<small> / once</small></div>
+        <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Pay once, never again</li></ul>
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
       </div>
@@ -681,7 +696,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <footer>
   <div class="wrap">
     <span>© 2026 Tempo Hub. Not affiliated with Roblox or any game listed.</span>
-    <span><a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="privacy.html">Privacy</a> · <a href="dmca.html">DMCA</a> · <a href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Discord</a></span>
+    <span><a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="privacy.html">Privacy</a> · <a href="dmca.html">DMCA</a> · <a href="dashboard.html">Earn</a> · <a href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Discord</a></span>
   </div>
 </footer>
 

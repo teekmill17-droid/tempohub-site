@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earn · Tempo Hub</title>
+<meta name="description" content="Share your Tempo Hub code. Buyers get 10% off, you get 20% of every sale.">
+<meta name="theme-color" content="#07080a">
+<link rel="icon" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a; --bg2:#0b0d10; --panel:#0e1014; --line:#1b1f26; --line2:#262b34;
+  --text:#e9edf2; --dim:#8b94a3; --faint:#5a6270;
+  --ice:#7cc4ff; --ice2:#b9e0ff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a;
+  --r:6px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--ice)}
+[hidden]{display:none!important}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+nav{border-bottom:1px solid var(--line)}
+nav .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:14px Michroma,sans-serif;letter-spacing:.14em;color:var(--text);text-decoration:none}
+.brand img{width:30px;height:30px}
+.who{display:flex;align-items:center;gap:12px;color:var(--dim);font-size:14px}
+.who img,.who .ph{width:30px;height:30px;border-radius:50%;background:var(--line2);display:grid;place-items:center;font-weight:600;color:var(--text)}
+.linkbtn{background:none;border:0;color:var(--dim);font:inherit;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+main{padding:56px 0 96px}
+.eyebrow{font:500 11px/1 "Roboto Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:14px 0 12px;font-weight:600;letter-spacing:-.01em}
+h2{font-size:19px;margin:0 0 14px;font-weight:600}
+.lead{color:var(--dim);font-size:17px;max-width:620px;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:44px;padding:0 18px;border-radius:var(--r);font:600 15px Archivo,sans-serif;border:1px solid var(--line2);background:none;color:var(--text);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--faint)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--ice);color:#051019;border-color:var(--ice)}
+.btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
+.btn-discord{background:#5865f2;border-color:#5865f2;color:#fff}
+.btn-discord:hover{background:#6d78f5;border-color:#6d78f5}
+.card{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:24px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1fr 1fr}
+.g5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:860px){.g3,.g2{grid-template-columns:1fr}.g5{grid-template-columns:1fr 1fr}}
+.point b{display:block;font-size:17px;margin-bottom:6px}
+.point p{color:var(--dim);font-size:14.5px;margin:0}
+.big{font:500 34px/1.1 "Roboto Mono",monospace;letter-spacing:.04em}
+.label{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.stat .v{font:500 24px "Roboto Mono",monospace}
+.stat .s{color:var(--faint);font-size:12.5px;margin-top:2px}
+.stat.hi .v{color:var(--green)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.copyrow{display:flex;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--bg2);margin-top:14px}
+.copyrow code{flex:1;padding:11px 14px;font:13.5px "Roboto Mono",monospace;color:var(--ice2);overflow-x:auto;white-space:nowrap}
+.copyrow button{border:0;border-left:1px solid var(--line2);background:var(--panel);color:var(--dim);font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:0 16px;cursor:pointer}
+.copyrow button:hover{color:var(--text)}
+input,select{height:42px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
+input:focus,select:focus{border-color:var(--ice)}
+input.code{font:500 14px "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase;width:190px}
+.note{color:var(--faint);font-size:13px;margin:10px 0 0}
+.err{color:var(--red);font-size:13.5px;margin:10px 0 0}
+.ok{color:var(--green)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:0 10px 10px 0;border-bottom:1px solid var(--line)}
+td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+td.m{font-family:"Roboto Mono",monospace;color:var(--text)}
+.tag{font:500 10.5px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.tag.pend{color:var(--amber)}.tag.clear{color:var(--green)}.tag.void{color:var(--red)}
+.keycode{font:13px "Roboto Mono",monospace;color:var(--ice2);word-break:break-all}
+.scroll{overflow-x:auto}
+section{margin-top:28px}
+.empty{color:var(--faint);font-size:14px}
+footer{border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+footer .wrap{padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--faint);text-decoration:none}
+footer a:hover{color:var(--text)}
+@media (max-width:520px){.wrap{padding:0 16px}footer .wrap{padding:28px 16px 44px}.big{font-size:28px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">TEMPO</a>
+  <div class="who" id="who" hidden></div>
+</div></nav>
+
+<main><div class="wrap">
+
+  <!-- signed out -->
+  <div id="out">
+    <span class="eyebrow">Referral program</span>
+    <h1>Share Tempo. Get paid.</h1>
+    <p class="lead">Get your own code in one click. Anyone who buys with it gets 10% off, and you get 20% of what they pay.</p>
+    <div class="row" style="margin-top:28px">
+      <a class="btn btn-discord" id="loginBtn" href="#">Log in with Discord</a>
+      <a class="btn" href="index.html#pricing">See pricing</a>
+    </div>
+    <p class="err" id="outErr" hidden></p>
+    <div class="grid g3" style="margin-top:48px">
+      <div class="card point"><b>20% of every sale</b><p>$1.43 on a monthly and $3.59 on a lifetime bought with your code. Media and resellers can get a higher rate.</p></div>
+      <div class="card point"><b>Buyers save 10%</b><p>Your code takes 10% off, so people have a reason to use it. Share your link or just tell them the code.</p></div>
+      <div class="card point"><b>Cash or keys</b><p>Cash out to PayPal or Cash App from $10, or turn your balance straight into a premium key.</p></div>
+    </div>
+    <p class="note" style="margin-top:20px">Earnings clear 14 days after each sale, so refunds can be handled first. Full rules are in the <a href="terms.html#affiliates">Terms</a>.</p>
+  </div>
+
+  <!-- signed in -->
+  <div id="in" hidden>
+    <span class="eyebrow">Your dashboard</span>
+    <h1 id="hello">Your code</h1>
+
+    <div class="card">
+      <div class="label">Your code</div>
+      <div class="row" style="justify-content:space-between">
+        <div class="big" id="code">—</div>
+        <form class="row" id="codeForm">
+          <input class="code" id="codeInput" maxlength="16" placeholder="New code" spellcheck="false" autocomplete="off">
+          <button class="btn" type="submit">Change</button>
+        </form>
+      </div>
+      <div class="copyrow"><code id="link"></code><button type="button" data-copy="link">Copy</button></div>
+      <p class="note" id="rateNote"></p>
+      <p class="err" id="codeErr" hidden></p>
+    </div>
+
+    <section class="grid g5" id="stats"></section>
+
+    <section class="grid g2">
+      <div class="card">
+        <h2>Cash out</h2>
+        <form class="row" id="methodForm">
+          <select id="method"><option value="paypal">PayPal</option><option value="cashapp">Cash App</option></select>
+          <input id="handle" maxlength="100" placeholder="PayPal email or $Cashtag" style="flex:1;min-width:170px">
+          <button class="btn" type="submit">Save</button>
+        </form>
+        <div class="row" style="margin-top:14px">
+          <button class="btn btn-primary" id="cashBtn" type="button">Cash out</button>
+        </div>
+        <p class="note" id="cashNote"></p>
+        <p class="err" id="cashErr" hidden></p>
+      </div>
+      <div class="card">
+        <h2>Turn it into premium</h2>
+        <p class="note" style="margin:0 0 14px">Uses your available balance. The key shows up below right away.</p>
+        <div class="row">
+          <button class="btn" id="keyMonthly" type="button">Monthly key</button>
+          <button class="btn" id="keyLifetime" type="button">Lifetime key</button>
+        </div>
+        <p class="err" id="keyErr" hidden></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Sales with your code</h2>
+      <div class="scroll"><table id="sales"></table></div>
+    </section>
+
+    <section class="card">
+      <h2>Payouts and keys</h2>
+      <div class="scroll"><table id="payouts"></table></div>
+    </section>
+
+    <p class="note" style="margin-top:24px">You can't earn from your own purchases. Say it's your referral link when you post it. Full rules are in the <a href="terms.html#affiliates">Terms</a>.</p>
+  </div>
+
+</div></main>
+
+<footer><div class="wrap"><span>© 2026 Tempo Hub</span><span><a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="privacy.html">Privacy</a> · <a href="dmca.html">DMCA</a></span></div></footer>
+
+<script src="assets/shop.js"></script>
+<script>
+(() => {
+  const API = window.TEMPO_SHOP;
+  const KEY = "tempo_session";
+  const $ = (id) => document.getElementById(id);
+  const money = (c) => "$" + ((c || 0) / 100).toFixed(2);
+  const date = (ms) => new Date(ms).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  let data = null;
+
+  // Builds elements with text only, so nothing from the server is ever parsed as HTML.
+  function el(tag, props, ...kids) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === "class") e.className = v; else if (k === "text") e.textContent = v; else e.setAttribute(k, v);
+    }
+    for (const k of kids) if (k != null) e.append(k);
+    return e;
+  }
+
+  function token() { try { return localStorage.getItem(KEY); } catch { return null; } }
+  function setToken(t) { try { t ? localStorage.setItem(KEY, t) : localStorage.removeItem(KEY); } catch {} }
+
+  async function api(path, body) {
+    const r = await fetch(API + path, {
+      method: body ? "POST" : "GET",
+      headers: Object.assign({ Authorization: "Bearer " + token() }, body ? { "Content-Type": "application/json" } : {}),
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const d = await r.json().catch(() => ({}));
+    if (r.status === 401) { setToken(null); showOut(); throw new Error("Signed out. Log in again."); }
+    if (!r.ok) throw new Error(d.error || "Something went wrong. Try again.");
+    return d;
+  }
+
+  function showErr(id, msg) { const e = $(id); e.textContent = msg || ""; e.hidden = !msg; }
+
+  function showOut(err) {
+    $("in").hidden = true; $("out").hidden = false; $("who").hidden = true;
+    const msgs = {
+      cancelled: "Login was cancelled.",
+      expired: "That login took too long. Try again.",
+      discord: "Discord didn't let us in. Try again.",
+    };
+    showErr("outErr", err ? msgs[err] || "Couldn't log you in. Try again." : "");
+  }
+
+  function stat(label, value, sub, hi) {
+    return el("div", { class: "card stat" + (hi ? " hi" : "") }, el("div", { class: "label", text: label }), el("div", { class: "v", text: value }), sub ? el("div", { class: "s", text: sub }) : null);
+  }
+
+  function render(d) {
+    data = d;
+    $("out").hidden = true; $("in").hidden = false;
+
+    const who = $("who");
+    who.textContent = "";
+    const u = d.user || {};
+    const pic = u.avatar
+      ? el("img", { src: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`, alt: "" })
+      : el("span", { class: "ph", text: (u.username || "?").slice(0, 1).toUpperCase() });
+    const out = el("button", { class: "linkbtn", type: "button", text: "Log out" });
+    out.addEventListener("click", async () => { try { await api("/me/logout", {}); } catch {} setToken(null); showOut(); });
+    who.append(pic, el("span", { text: u.username || "" }), out);
+    who.hidden = false;
+
+    const a = d.affiliate, p = d.program, b = d.balance;
+    $("hello").textContent = u.username ? `Hey ${u.username}` : "Your code";
+    $("code").textContent = a.code;
+    $("link").textContent = d.link;
+    $("rateNote").textContent = `Buyers get ${p.discount}% off with it, and you get ${a.rate}% of what they pay.` + (a.kind !== "member" ? ` (${a.kind} rate)` : "");
+
+    const s = $("stats");
+    s.textContent = "";
+    s.append(
+      stat("Link clicks", String(d.clicks.month), "last 30 days"),
+      stat("Sales", String(b.sales), "all time"),
+      stat("Pending", money(b.pending), `clears ${p.holdDays} days after each sale`),
+      stat("Available", money(b.available), "ready to use", true),
+      stat("Paid out", money(b.paid), b.requested ? `${money(b.requested)} on the way` : "cash and keys"),
+    );
+
+    if (a.payoutMethod) $("method").value = a.payoutMethod;
+    $("handle").value = a.payoutHandle || "";
+    const cash = $("cashBtn");
+    cash.textContent = b.available ? `Cash out ${money(b.available)}` : "Cash out";
+    cash.disabled = !!b.requested || b.available < p.minCash || !a.payoutMethod;
+    $("cashNote").textContent = b.requested
+      ? `A cash-out of ${money(b.requested)} is being sent. You'll get a DM when it's paid.`
+      : !a.payoutMethod
+      ? "Add where to send it first."
+      : b.available < p.minCash
+      ? `Cash-outs start at ${money(p.minCash)}.`
+      : `Sent by hand to your ${p.methods[a.payoutMethod]}, usually within 3 days.`;
+
+    for (const [id, plan, name] of [["keyMonthly", "monthly", "Monthly"], ["keyLifetime", "lifetime", "Lifetime"]]) {
+      const btn = $(id);
+      btn.textContent = `${name} key · ${money(p.prices[plan])}`;
+      btn.disabled = b.available < p.prices[plan];
+    }
+
+    const sales = $("sales");
+    sales.textContent = "";
+    if (!d.recent.length) {
+      sales.append(el("tr", {}, el("td", { class: "empty", text: "No sales yet. Share your link and they'll show up here." })));
+    } else {
+      sales.append(el("tr", {}, ...["Date", "Plan", "They paid", "You get", "Status"].map((h) => el("th", { text: h }))));
+      for (const r of d.recent) {
+        const st = r.status === "void"
+          ? el("span", { class: "tag void", text: "Refunded" })
+          : r.clearsAt > Date.now()
+          ? el("span", { class: "tag pend", text: "Clears " + date(r.clearsAt) })
+          : el("span", { class: "tag clear", text: "Cleared" });
+        sales.append(el("tr", {},
+          el("td", { text: date(r.at) }),
+          el("td", { text: r.plan === "lifetime" ? "Lifetime" : "Monthly" }),
+          el("td", { class: "m", text: money(r.amount) }),
+          el("td", { class: "m", text: money(r.cents) }),
+          el("td", {}, st)));
+      }
+    }
+
+    const pay = $("payouts");
+    pay.textContent = "";
+    if (!d.payouts.length) {
+      pay.append(el("tr", {}, el("td", { class: "empty", text: "Nothing yet." })));
+    } else {
+      pay.append(el("tr", {}, ...["Date", "What", "Amount", "Status"].map((h) => el("th", { text: h }))));
+      for (const r of d.payouts) {
+        const what = r.kind === "key"
+          ? el("div", {}, el("div", { text: (r.plan === "lifetime" ? "Lifetime" : "Monthly") + " key" }), r.key ? el("div", { class: "keycode", text: r.key }) : null)
+          : el("div", { text: "Cash via " + (p.methods[r.method] || r.method) });
+        const st = r.status === "paid"
+          ? el("span", { class: "tag clear", text: r.kind === "key" ? "Delivered" : "Paid" })
+          : r.status === "requested"
+          ? el("span", { class: "tag pend", text: "Sending" })
+          : el("span", { class: "tag void", text: r.note === "out of stock" ? "Out of stock, refunded" : "Declined" });
+        pay.append(el("tr", {}, el("td", { text: date(r.at) }), el("td", {}, what), el("td", { class: "m", text: money(r.cents) }), el("td", {}, st)));
+      }
+    }
+  }
+
+  async function load() {
+    try { render(await api("/me")); } catch (e) { if (token()) showErr("outErr", e.message); }
+  }
+
+  // Login: the Worker sends people back with #s=<token> or #error=<why>.
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("s")) setToken(h.get("s"));
+  if (h.has("s") || h.has("error")) history.replaceState(null, "", location.pathname);
+  $("loginBtn").href = API + "/auth/login";
+
+  $("codeForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showErr("codeErr", "");
+    const code = $("codeInput").value.trim();
+    if (!code) return;
+    if (data && data.clicks.all > 0 && !confirm("Links with your old code will stop working. Change it?")) return;
+    try { render(await api("/me/code", { code })); $("codeInput").value = ""; } catch (err) { showErr("codeErr", err.message); }
+  });
+  $("methodForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showErr("cashErr", "");
+    try { render(await api("/me/payout-method", { method: $("method").value, handle: $("handle").value })); } catch (err) { showErr("cashErr", err.message); }
+  });
+  $("cashBtn").addEventListener("click", async () => {
+    showErr("cashErr", "");
+    if (!confirm(`Cash out ${money(data.balance.available)} to ${data.affiliate.payoutHandle}?`)) return;
+    try { render(await api("/me/payout", { kind: "cash" })); } catch (err) { showErr("cashErr", err.message); }
+  });
+  for (const [id, plan] of [["keyMonthly", "monthly"], ["keyLifetime", "lifetime"]]) {
+    $(id).addEventListener("click", async () => {
+      showErr("keyErr", "");
+      if (!confirm(`Use ${money(data.program.prices[plan])} of your balance for a ${plan} key?`)) return;
+      try { render(await api("/me/payout", { kind: "key", plan })); } catch (err) { showErr("keyErr", err.message); }
+    });
+  }
+  document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+    const text = $(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(text); } catch {}
+    b.textContent = "Copied";
+    setTimeout(() => { b.textContent = "Copy"; }, 1500);
+  }));
+
+  if (token()) load(); else showOut(h.get("error"));
+})();
+</script>
+</body>
+</html>
