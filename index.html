@@ -288,10 +288,10 @@ footer a:hover{color:var(--text)}
     <a class="brand" href="#top"><img src="assets/logo.png" alt="">TEMPO</a>
     <div class="links">
       <a href="#premium">Premium</a>
+      <a href="#pricing">Pricing</a>
       <a href="#try">Try it</a>
       <a href="#games">Games</a>
       <a href="#media">Media</a>
-      <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="navcta">
@@ -383,6 +383,89 @@ footer a:hover{color:var(--text)}
         </ul>
         <div class="sig"><div><b>46</b> toggles · out the week the game launched</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>One key, all three premium games.</h2>
+      <p>RH2, Anime Battle Arena and Project Slayers 2, plus any premium game we add after you buy.</p>
+    </div>
+    <div class="dname reveal" id="dname" hidden>
+      <input id="dnameInput" type="text" maxlength="40" placeholder="Discord username (optional)" autocomplete="off">
+      <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
+    </div>
+    <div class="plans">
+      <div class="plan trial reveal">
+        <div class="pl"><h3>Free day</h3><span>Discord</span></div>
+        <div class="price">$0<small> / 24h</small></div>
+        <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
+        <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
+      </div>
+      <div class="plan reveal">
+        <div class="pl"><h3>Monthly</h3></div>
+        <div class="price">$4.99<small> / 30 days</small></div>
+        <ul><li>All premium games</li><li>Every update while it's active</li><li>Support in the Discord</li></ul>
+        <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
+        <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
+      </div>
+      <div class="plan lift reveal">
+        <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
+        <div class="price">$14.99<small> / once</small></div>
+        <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Costs the same as three months</li></ul>
+        <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
+        <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
+      </div>
+    </div>
+    <p class="paynote reveal">Card or PayPal. Your key shows up right after you pay. <a href="refunds.html">Refund policy</a></p>
+  </div>
+</section>
+
+<!-- ============================================================ STEPS -->
+<section>
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">After you buy</span>
+      <h2>Up and running in a minute.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><span class="num">01</span><h3>Pay</h3><p>Check out with a card or PayPal. Your key is on screen as soon as the payment goes through.</p></div>
+      <div class="step"><span class="num">02</span><h3>Paste one script</h3><p>Put your key in the premium loadstring below. The same line works in every premium game.</p></div>
+      <div class="step"><span class="num">03</span><h3>Play</h3><p>It figures out which game you're in and loads it. Open the menu and turn things on.</p></div>
+    </div>
+    <div class="code reveal" style="margin-top:20px">
+      <pre id="premiumLs">script_key = "YOUR-KEY"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()</pre>
+      <button class="copy" data-copy="premiumLs" type="button">Copy</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ EXECUTORS -->
+<section id="executors">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Works on</span>
+      <h2>Tested where it counts.</h2>
+      <p>We've run Tempo on all of these ourselves, premium and free. Check here before you buy.</p>
+    </div>
+    <div class="exgrid reveal">
+      <div class="exi"><b>Real</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Potassium</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Solara</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Xeno</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Madium</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Volt</b><span class="ok-tag">Tested</span></div>
+      <div class="exi"><b>Wave</b><span class="ok-tag">Tested</span></div>
+      <div class="exi more"><b>+ more</b></div>
+    </div>
+    <div class="ex other reveal">
+      <div class="top"><h3>Yours isn't listed?</h3><span class="ok-tag">Ask first</span></div>
+      <p>Most executors with a normal loadstring run it fine. Before you buy premium on something else, ask in the Discord and we'll tell you straight.</p>
     </div>
   </div>
 </section>
@@ -543,89 +626,6 @@ footer a:hover{color:var(--text)}
         <button class="btn btn-primary" id="dBtn" type="button">Release</button>
       </div>
       <div class="score"><span>You <b id="sYou">0 / 0</b></span><span>Tempo <b id="sTempo">0 / 0</b></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ PRICING -->
-<section id="pricing">
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2>One key, all three premium games.</h2>
-      <p>RH2, Anime Battle Arena and Project Slayers 2, plus any premium game we add after you buy.</p>
-    </div>
-    <div class="dname reveal" id="dname" hidden>
-      <input id="dnameInput" type="text" maxlength="40" placeholder="Discord username (optional)" autocomplete="off">
-      <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
-    </div>
-    <div class="plans">
-      <div class="plan trial reveal">
-        <div class="pl"><h3>Free day</h3><span>Discord</span></div>
-        <div class="price">$0<small> / 24h</small></div>
-        <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
-        <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
-      </div>
-      <div class="plan reveal">
-        <div class="pl"><h3>Monthly</h3></div>
-        <div class="price">$4.99<small> / 30 days</small></div>
-        <ul><li>All premium games</li><li>Every update while it's active</li><li>Support in the Discord</li></ul>
-        <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
-        <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
-      </div>
-      <div class="plan lift reveal">
-        <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
-        <div class="price">$14.99<small> / once</small></div>
-        <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Costs the same as three months</li></ul>
-        <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
-        <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
-      </div>
-    </div>
-    <p class="paynote reveal">Card or PayPal. Your key shows up right after you pay. <a href="refunds.html">Refund policy</a></p>
-  </div>
-</section>
-
-<!-- ============================================================ STEPS -->
-<section>
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">After you buy</span>
-      <h2>Up and running in a minute.</h2>
-    </div>
-    <div class="steps reveal">
-      <div class="step"><span class="num">01</span><h3>Pay</h3><p>Check out with a card. Your key is on screen as soon as the payment goes through.</p></div>
-      <div class="step"><span class="num">02</span><h3>Paste one script</h3><p>Put your key in the premium loadstring below. The same line works in every premium game.</p></div>
-      <div class="step"><span class="num">03</span><h3>Play</h3><p>It figures out which game you're in and loads it. Open the menu and turn things on.</p></div>
-    </div>
-    <div class="code reveal" style="margin-top:20px">
-      <pre id="premiumLs">script_key = "YOUR-KEY"
-loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()</pre>
-      <button class="copy" data-copy="premiumLs" type="button">Copy</button>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ EXECUTORS -->
-<section id="executors">
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Works on</span>
-      <h2>Tested where it counts.</h2>
-      <p>We've run Tempo on all of these ourselves, premium and free. Check here before you buy.</p>
-    </div>
-    <div class="exgrid reveal">
-      <div class="exi"><b>Real</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Potassium</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Solara</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Xeno</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Madium</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Volt</b><span class="ok-tag">Tested</span></div>
-      <div class="exi"><b>Wave</b><span class="ok-tag">Tested</span></div>
-      <div class="exi more"><b>+ more</b></div>
-    </div>
-    <div class="ex other reveal">
-      <div class="top"><h3>Yours isn't listed?</h3><span class="ok-tag">Ask first</span></div>
-      <p>Most executors with a normal loadstring run it fine. Before you buy premium on something else, ask in the Discord and we'll tell you straight.</p>
     </div>
   </div>
 </section>
