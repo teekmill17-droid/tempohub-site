@@ -54,8 +54,11 @@
   }
 
   // ---------------------------------------------- scroll progress in the nav
+  // Only on a nav that stays on screen: on a static nav the bar has nothing to
+  // sit under and floats across the page.
   const nav = document.querySelector("nav");
-  if (nav && !calm) {
+  const pinned = nav && /sticky|fixed/.test(getComputedStyle(nav).position);
+  if (pinned && !calm) {
     const bar = document.createElement("div");
     bar.className = "progress";
     nav.append(bar);
