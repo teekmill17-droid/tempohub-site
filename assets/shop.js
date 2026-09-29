@@ -58,7 +58,7 @@ window.TEMPO_PAYPAL = true;
     const msg = $("codeMsg");
     if (msg) {
       msg.className = "msg" + (ref ? " ok" : "");
-      msg.textContent = ref ? `Code ${ref.code} applied: ${ref.discount}% off.` : "Have a code? It takes 10% off.";
+      msg.textContent = ref ? `Code ${ref.code} applied: ${ref.discount}% off.` : "Have a code? Enter it here.";
       if (ref) {
         const x = document.createElement("button");
         x.type = "button";
