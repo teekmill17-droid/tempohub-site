@@ -1,8 +1,9 @@
 // Where the checkout Worker lives. Empty = checkout not live yet, and the buy
 // buttons keep their fallback link. Set it to the workers.dev URL after deploy.
 window.TEMPO_SHOP = "https://tempo-shop.teekhub.workers.dev";
-// Shows the PayPal buttons. Off until PayPal checkout is tested and live.
-window.TEMPO_PAYPAL = true;
+// Shows the PayPal buttons. OFF: the PayPal account was shut down
+// (2026-09-29). Card checkout (Stripe) is the only way to pay.
+window.TEMPO_PAYPAL = false;
 
 // Checkout buttons, and referral codes.
 //
