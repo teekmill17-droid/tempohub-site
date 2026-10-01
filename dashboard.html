@@ -101,7 +101,7 @@ footer a:hover{color:var(--text)}
     </div>
     <p class="err" id="outErr" hidden></p>
     <div class="grid g3" style="margin-top:48px">
-      <div class="card point"><b>20% of every sale</b><p>$1.43 on a monthly and $3.59 on a lifetime bought with your code. Media and resellers can get a higher rate.</p></div>
+      <div class="card point"><b>20% of every sale</b><p>$1.43 on a monthly and $4.50 on a lifetime bought with your code. Media and resellers can get a higher rate.</p></div>
       <div class="card point"><b>Buyers save 10%</b><p>Your code takes 10% off, so people have a reason to use it. Share your link or just tell them the code.</p></div>
       <div class="card point"><b>Cash or keys</b><p>Cash out to PayPal or Cash App from $10, or turn your balance straight into a premium key.</p></div>
     </div>
@@ -267,6 +267,7 @@ footer a:hover{color:var(--text)}
       ? `Cash-outs start at ${money(p.minCash)}.`
       : `Sent by hand to your ${p.methods[a.payoutMethod]}, usually within 3 days.`;
 
+    const PLAN_LABEL = { daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime" };
     for (const [id, plan, name] of [["keyMonthly", "monthly", "Monthly"], ["keyLifetime", "lifetime", "Lifetime"]]) {
       const btn = $(id);
       btn.textContent = `${name} key · ${money(p.prices[plan])}`;
@@ -287,7 +288,7 @@ footer a:hover{color:var(--text)}
           : el("span", { class: "tag clear", text: "Cleared" });
         sales.append(el("tr", {},
           el("td", { text: date(r.at) }),
-          el("td", { text: r.plan === "lifetime" ? "Lifetime" : "Monthly" }),
+          el("td", { text: PLAN_LABEL[r.plan] || r.plan }),
           el("td", { class: "m", text: money(r.amount) }),
           el("td", { class: "m", text: money(r.cents) }),
           el("td", {}, st)));
@@ -302,7 +303,7 @@ footer a:hover{color:var(--text)}
       pay.append(el("tr", {}, ...["Date", "What", "Amount", "Status"].map((h) => el("th", { text: h }))));
       for (const r of d.payouts) {
         const what = r.kind === "key"
-          ? el("div", {}, el("div", { text: (r.plan === "lifetime" ? "Lifetime" : "Monthly") + " key" }), r.key ? el("div", { class: "keycode", text: r.key }) : null)
+          ? el("div", {}, el("div", { text: (PLAN_LABEL[r.plan] || r.plan) + " key" }), r.key ? el("div", { class: "keycode", text: r.key }) : null)
           : el("div", { text: "Cash via " + (p.methods[r.method] || r.method) });
         const st = r.status === "paid"
           ? el("span", { class: "tag clear", text: r.kind === "key" ? "Delivered" : "Paid" })
