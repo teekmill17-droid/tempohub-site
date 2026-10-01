@@ -219,7 +219,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .exi.more{background:transparent;border-style:dashed}
 
 /* ------------------------------------------------ pricing */
-.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:stretch}
+@media (max-width:1320px){.plans{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:1100px){.plans{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.plans{grid-template-columns:1fr}}
 .plan.soon{opacity:.72}
@@ -432,11 +433,19 @@ footer a:hover{color:var(--text)}
         <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
         <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
       </div>
-      <div class="plan soon reveal">
-        <div class="pl"><h3>Weekly</h3><span class="soonTag">Coming soon</span></div>
-        <div class="price">$2.99<small> / 7 days</small></div>
+      <div class="plan reveal">
+        <div class="pl"><h3>Daily</h3></div>
+        <div class="price" data-price="daily" data-full="$0.99" data-per=" / 24h">$0.99<small> / 24h</small></div>
+        <ul><li>All premium games</li><li>Every farm and auto-quest feature</li><li>Clock starts on your first run</li></ul>
+        <a class="btn" data-buy="daily" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy daily</a>
+        <a class="btn pp" data-paypal="daily" href="#pricing" hidden>Pay with PayPal</a>
+      </div>
+      <div class="plan reveal">
+        <div class="pl"><h3>Weekly</h3></div>
+        <div class="price" data-price="weekly" data-full="$2.99" data-per=" / 7 days">$2.99<small> / 7 days</small></div>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>A cheap way to try premium</li></ul>
-        <span class="btn" aria-disabled="true">Coming soon</span>
+        <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly</a>
+        <a class="btn pp" data-paypal="weekly" href="#pricing" hidden>Pay with PayPal</a>
       </div>
       <div class="plan reveal">
         <div class="pl"><h3>Monthly</h3></div>
@@ -447,7 +456,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="plan lift reveal">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
-        <div class="price" data-price="lifetime" data-full="$19.99" data-per=" / once">$19.99<small> / once</small></div>
+        <div class="price" data-price="lifetime" data-full="$24.99" data-per=" / once">$24.99<small> / once</small></div>
         <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Pay once, never again</li></ul>
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
