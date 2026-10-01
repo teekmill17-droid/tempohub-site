@@ -52,6 +52,7 @@ ol li{margin:8px 0}
       <li>Paste the loadstring into your executor and run it in any premium game.</li>
       <li>The first run locks the key to your PC. If you switch PCs, ask for a reset in the Discord.</li>
     </ol>
+    <p id="renewNote" hidden><strong>This plan renews automatically</strong> every <span id="renewEvery">day</span> on the same card, and the same key keeps working. Cancel anytime at <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">tempo-shop.teekhub.workers.dev/manage</a>. Your key stays active until the end of what you've paid for.</p>
     <p id="roleNote" hidden>You'll get the <strong>Premium</strong> role in the Discord within a few minutes, and Teeky will DM you your key as a backup.</p>
     <a class="btn btn-primary" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
     <a class="btn" href="/">Back to the site</a>
@@ -90,6 +91,9 @@ ol li{margin:8px 0}
       $("key").textContent = r.key;
       $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()`;
       $("roleNote").hidden = !r.discord;
+      const every = ({ daily: "day", weekly: "week", monthly: "month" })[r.plan];
+      $("renewNote").hidden = !every;
+      if (every) $("renewEvery").textContent = every;
       show("done");
       return;
     }
