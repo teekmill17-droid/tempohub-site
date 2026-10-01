@@ -219,8 +219,15 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .exi.more{background:transparent;border-style:dashed}
 
 /* ------------------------------------------------ pricing */
-.plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:stretch}
-@media (max-width:960px){.plans{grid-template-columns:1fr}}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+@media (max-width:1100px){.plans{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.plans{grid-template-columns:1fr}}
+.plan.soon{opacity:.72}
+.plan.soon .btn{pointer-events:none;cursor:default;opacity:.6}
+.soonTag{font:500 10px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:3px 8px}
+.extra{margin-top:16px;border:1px dashed var(--line);border-radius:var(--r);padding:22px 26px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;opacity:.8}
+.extra h3{margin:0}
+.extra p{margin:4px 0 0;color:var(--faint);font-size:14px}
 .plan{border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;background:var(--panel)}
 .plan.lift{border-color:var(--ice);box-shadow:0 0 0 1px var(--ice) inset}
 .plan .pl{display:flex;justify-content:space-between;align-items:center}
@@ -425,6 +432,12 @@ footer a:hover{color:var(--text)}
         <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
         <a class="btn" href="https://discord.gg/mD2byyE27" target="_blank" rel="noopener">Join the Discord</a>
       </div>
+      <div class="plan soon reveal">
+        <div class="pl"><h3>Weekly</h3><span class="soonTag">Coming soon</span></div>
+        <div class="price">$1.99<small> / 7 days</small></div>
+        <ul><li>All premium games</li><li>Every update while it's active</li><li>A cheap way to try premium</li></ul>
+        <span class="btn" aria-disabled="true">Coming soon</span>
+      </div>
       <div class="plan reveal">
         <div class="pl"><h3>Monthly</h3></div>
         <div class="price" data-price="monthly" data-full="$7.99" data-per=" / 30 days">$7.99<small> / 30 days</small></div>
@@ -439,6 +452,13 @@ footer a:hover{color:var(--text)}
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
       </div>
+    </div>
+    <div class="extra reveal">
+      <div>
+        <h3>Roblox HWID Spoofer</h3>
+        <p>Its own product, not part of the key.</p>
+      </div>
+      <span class="soonTag">Coming soon</span>
     </div>
     <p class="paynote reveal">Secure card checkout. Your key shows up right after you pay. <a href="/refunds">Refund policy</a></p>
   </div>
