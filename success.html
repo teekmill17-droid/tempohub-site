@@ -87,7 +87,7 @@ ol li{margin:8px 0}
     if (r && r.status === "ok") {
       $("title").textContent = "You're in.";
       $("sub").textContent = "Payment received. Here's your key.";
-      $("planName").textContent = ({ daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime" })[r.plan] || "Premium";
+      $("planName").textContent = ({ daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime", hider: "Username Hider" })[r.plan] || "Premium";
       $("key").textContent = r.key;
       $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()`;
       $("roleNote").hidden = !r.discord;
