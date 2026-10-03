@@ -61,6 +61,8 @@ h2{font-size:19px;margin:0 0 14px;font-weight:600}
 input,select{height:42px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
 input:focus,select:focus{border-color:var(--ice)}
 input.code{font:500 14px "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase;width:190px}
+textarea{width:100%;margin-top:10px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:13px "Roboto Mono",monospace;padding:10px 12px;outline:none;resize:vertical}
+textarea:focus{border-color:var(--ice)}
 .note{color:var(--faint);font-size:13px;margin:10px 0 0}
 .err{color:var(--red);font-size:13.5px;margin:10px 0 0}
 .ok{color:var(--green)}
@@ -162,6 +164,36 @@ footer a:hover{color:var(--text)}
     <section class="card">
       <h2>Payouts and keys</h2>
       <div class="scroll"><table id="payouts"></table></div>
+    </section>
+
+    <!-- admin only (ADMIN_DISCORD_IDS on the shop) -->
+    <section class="card" id="adminCard" hidden>
+      <span class="eyebrow">Admin</span>
+      <h2 style="margin-top:10px">Key stock</h2>
+      <div class="grid g5" id="adminStock"></div>
+      <div class="grid g2" style="margin-top:20px">
+        <div>
+          <div class="label">Restock</div>
+          <form class="row" id="restockForm">
+            <select id="restockPlan"></select>
+            <input id="restockCount" type="number" min="1" max="100" value="20" style="width:90px">
+            <button class="btn btn-primary" type="submit">Restock</button>
+          </form>
+          <p class="note">Teeky makes the keys in Luarmor and adds them, usually within a minute.</p>
+          <p class="err" id="restockErr" hidden></p>
+        </div>
+        <div>
+          <div class="label">Add keys you already have</div>
+          <form id="addKeysForm">
+            <div class="row"><select id="addPlan"></select><button class="btn" type="submit">Add keys</button></div>
+            <textarea id="addKeys" rows="4" placeholder="One key per line" spellcheck="false"></textarea>
+          </form>
+          <p class="note" id="addNote"></p>
+          <p class="err" id="addErr" hidden></p>
+        </div>
+      </div>
+      <div class="label" style="margin-top:20px">Recent restocks</div>
+      <div class="scroll"><table id="restocks"></table></div>
     </section>
 
     <p class="note" style="margin-top:24px">You can't earn from your own purchases. Say it's your referral link when you post it. Full rules are in the <a href="/terms#affiliates">Terms</a>.</p>
@@ -315,8 +347,47 @@ footer a:hover{color:var(--text)}
     }
   }
 
+  // ---- admin (only shown when the shop says this login is an admin)
+  const PLAN_NAME = { daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime" };
+  let adminTimer = null;
+  function renderAdmin(a) {
+    $("adminCard").hidden = false;
+    const st = $("adminStock");
+    st.textContent = "";
+    for (const p of a.plans) st.append(stat(PLAN_NAME[p] || p, String(a.stock[p] || 0), "in stock", (a.stock[p] || 0) >= 5));
+    st.append(stat("Waiting", String(a.stock.waiting || 0), "paid, no key yet", false));
+    for (const id of ["restockPlan", "addPlan"]) {
+      const sel = $(id);
+      if (!sel.options.length) for (const p of a.plans) sel.append(el("option", { value: p, text: PLAN_NAME[p] || p }));
+    }
+    const t = $("restocks");
+    t.textContent = "";
+    if (!a.requests.length) {
+      t.append(el("tr", {}, el("td", { class: "empty", text: "No restocks from here yet." })));
+    } else {
+      t.append(el("tr", {}, ...["Asked", "Plan", "Count", "Status"].map((h) => el("th", { text: h }))));
+      for (const r of a.requests) {
+        const status = r.done_at
+          ? el("span", { class: "tag " + (r.added ? "clear" : "void"), text: `Added ${r.added || 0}` + (r.result && /then:/.test(r.result) ? " (stopped early)" : "") })
+          : el("span", { class: "tag pend", text: "Queued" });
+        t.append(el("tr", {}, el("td", { text: date(r.created_at) }), el("td", { text: PLAN_NAME[r.plan] || r.plan }),
+          el("td", { class: "m", text: String(r.count) }), el("td", {}, status)));
+      }
+    }
+    // while a restock is queued, refresh every 15 s so it flips to done by itself
+    clearTimeout(adminTimer);
+    if (a.requests.some((r) => !r.done_at)) adminTimer = setTimeout(loadAdmin, 15000);
+  }
+  async function loadAdmin() {
+    try { renderAdmin(await api("/me/admin")); } catch (e) { showErr("restockErr", e.message); }
+  }
+
   async function load() {
-    try { render(await api("/me")); } catch (e) { if (token()) showErr("outErr", e.message); }
+    try {
+      const d = await api("/me");
+      render(d);
+      if (d.admin) loadAdmin();
+    } catch (e) { if (token()) showErr("outErr", e.message); }
   }
 
   // Login: the Worker sends people back with #s=<token> or #error=<why>.
@@ -350,6 +421,24 @@ footer a:hover{color:var(--text)}
       try { render(await api("/me/payout", { kind: "key", plan })); } catch (err) { showErr("keyErr", err.message); }
     });
   }
+  $("restockForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showErr("restockErr", "");
+    const plan = $("restockPlan").value, count = Number($("restockCount").value);
+    if (!confirm(`Make ${count} new ${PLAN_NAME[plan] || plan} key(s) in Luarmor?`)) return;
+    try { renderAdmin(await api("/me/admin/restock", { plan, count })); } catch (err) { showErr("restockErr", err.message); }
+  });
+  $("addKeysForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showErr("addErr", "");
+    $("addNote").textContent = "";
+    try {
+      const a = await api("/me/admin/keys", { plan: $("addPlan").value, keys: $("addKeys").value });
+      renderAdmin(a);
+      $("addKeys").value = "";
+      $("addNote").textContent = `Added ${a.lastAdd.added} key(s)` + (a.lastAdd.filled ? `, ${a.lastAdd.filled} waiting order(s) filled.` : ".");
+    } catch (err) { showErr("addErr", err.message); }
+  });
   document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     const text = $(b.dataset.copy).textContent;
     try { await navigator.clipboard.writeText(text); } catch {}
