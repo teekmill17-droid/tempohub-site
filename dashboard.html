@@ -179,7 +179,7 @@ footer a:hover{color:var(--text)}
             <input id="restockCount" type="number" min="1" max="100" value="20" style="width:90px">
             <button class="btn btn-primary" type="submit">Restock</button>
           </form>
-          <p class="note">Teeky makes the keys in Luarmor and adds them, usually within a minute.</p>
+          <p class="note" id="restockNote">Teeky makes the keys in Luarmor and adds them, usually within a minute.</p>
           <p class="err" id="restockErr" hidden></p>
         </div>
         <div>
@@ -348,7 +348,8 @@ footer a:hover{color:var(--text)}
   }
 
   // ---- admin (only shown when the shop says this login is an admin)
-  const PLAN_NAME = { daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime" };
+  const PLAN_NAME = { daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime", hider: "Username Hider" };
+  const NON_LUARMOR = { hider: true };   // paste keys only; Teeky can't make these
   let adminTimer = null;
   function renderAdmin(a) {
     $("adminCard").hidden = false;
@@ -360,6 +361,13 @@ footer a:hover{color:var(--text)}
       const sel = $(id);
       if (!sel.options.length) for (const p of a.plans) sel.append(el("option", { value: p, text: PLAN_NAME[p] || p }));
     }
+    // Restock dropdown shows only Luarmor plans; paste-keys shows all.
+    const r = $("restockPlan");
+    if (r.options.length === a.plans.length) {
+      r.textContent = "";
+      for (const p of a.plans) if (!NON_LUARMOR[p]) r.append(el("option", { value: p, text: PLAN_NAME[p] || p }));
+    }
+    $("restockNote").textContent = "Teeky makes the keys in Luarmor and adds them, usually within a minute. The Username Hider isn't a Luarmor plan: paste its keys below instead.";
     const t = $("restocks");
     t.textContent = "";
     if (!a.requests.length) {
