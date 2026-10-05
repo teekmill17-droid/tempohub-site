@@ -219,9 +219,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .exi.more{background:transparent;border-style:dashed}
 
 /* ------------------------------------------------ pricing */
-.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:stretch}
-@media (max-width:1320px){.plans{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:1100px){.plans{grid-template-columns:1fr 1fr}}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+@media (max-width:1320px){.plans{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.plans{grid-template-columns:1fr}}
 .plan.soon{opacity:.72}
 .plan.soon .btn{pointer-events:none;cursor:default;opacity:.6}
@@ -238,8 +237,6 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .plan ul{list-style:none;padding:0;margin:18px 0 28px;display:grid;gap:9px;color:#cdd3dc;font-size:14.5px}
 .plan li:before{content:"— ";color:var(--faint)}
 .plan .btn{margin-top:auto;justify-content:center}
-.plan.trial{background:transparent;border-style:dashed}
-.plan.trial .price{color:var(--green)}
 .paynote{margin-top:16px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 [hidden]{display:none!important}
 .pp{margin-top:8px;justify-content:center;background:#ffc439;color:#111;border-color:#ffc439}
@@ -425,12 +422,6 @@ footer a:hover{color:var(--text)}
       <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
     </div>
     <div class="plans">
-      <div class="plan trial reveal">
-        <div class="pl"><h3>Free day</h3><span>Discord</span></div>
-        <div class="price">$0<small> / 24h</small></div>
-        <ul><li>Every premium feature for a day</li><li>Hit level 5 in the Discord</li><li>Clock starts on your first run</li></ul>
-        <a class="btn" href="https://discord.gg/K7Qxnxkk46" target="_blank" rel="noopener">Join the Discord</a>
-      </div>
       <div class="plan reveal">
         <div class="pl"><h3>Daily</h3></div>
         <div class="price" data-price="daily" data-full="$0.99" data-per=" / day">$0.99<small> / day</small></div>
