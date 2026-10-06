@@ -58,50 +58,40 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .navcta{margin-left:auto;display:flex;gap:10px}
 .navcta .btn{height:38px;padding:0 14px;font-size:14px}
 @media (max-width:900px){.links{display:none}.navcta .ghost{display:none}}
-@media (max-width:520px){.wrap{padding:0 16px}.wordmark{font-size:40px}.join{padding:26px}.log{font-size:11px}}
+@media (max-width:520px){.wrap{padding:0 16px}.wordmark{font-size:40px}.join{padding:26px}}
 
 /* ------------------------------------------------ hero */
-.hero{border-top:0;padding:88px 0 72px;position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 70%);pointer-events:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
+.hero{border-top:0;padding:88px 0 72px}
+.hero .wrap{max-width:1160px}
 .wordmark{font:clamp(44px,7vw,84px)/.95 Michroma,sans-serif;letter-spacing:.04em;margin:18px 0 22px}
 .wordmark .wm-hub{color:var(--ice)}
 .hero .lead{font-size:19px}
 .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r);max-width:640px}
 .stat{padding:16px 18px;border-left:1px solid var(--line)}
 .stat:first-child{border-left:0}
 .stat b{display:flex;align-items:center;gap:8px;font:500 24px "Roboto Mono",monospace}
 .stat > span{font:500 10px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
-.stat .live{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.stat .live{width:7px;height:7px;border-radius:50%;background:var(--green)}
 .runs{margin-top:18px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 .runs b{color:var(--dim);font-weight:500}
-@media (max-width:960px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
 
-/* the live meter console */
-.console{border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);overflow:hidden}
-.console-top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
-.console-top .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
-.console-top .t{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.console-top .g{margin-left:auto;font:500 11px "Roboto Mono",monospace;color:var(--faint)}
-.console-body{padding:22px 18px 18px}
+/* the green-window bar (demo) */
 .bar{position:relative;height:18px;border:1px solid var(--line2);border-radius:3px;background:#0a0c0f;overflow:hidden}
 .bar .win{position:absolute;top:0;bottom:0;background:rgba(61,220,132,.16);border-left:1px solid var(--green);border-right:1px solid var(--green)}
 .bar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,#2a3a4a,var(--ice))}
 .bar .rel{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff;opacity:0}
 .scale{display:flex;justify-content:space-between;margin-top:8px;font:11px "Roboto Mono",monospace;color:var(--faint)}
-.log{margin-top:18px;height:168px;overflow:hidden;font:12.5px/1.75 "Roboto Mono",monospace;color:var(--dim);border-top:1px dashed var(--line);padding-top:12px}
-.log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.log .ok{color:var(--green)} .log .ear{color:var(--amber)} .log .k{color:var(--text)}
 .flash{animation:flash .45s ease-out}
 @keyframes flash{0%{box-shadow:0 0 0 0 rgba(61,220,132,.55)}100%{box-shadow:0 0 0 14px rgba(61,220,132,0)}}
 
 /* ------------------------------------------------ premium games */
 .games3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:960px){.games3{grid-template-columns:1fr}}
-.gcard{position:relative;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:26px 24px 24px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+.gcard{position:relative;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:26px 24px 24px;display:flex;flex-direction:column;transition:border-color .2s}
 .gcard:before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:2px;background:var(--acc);border-radius:var(--r) var(--r) 0 0}
-.gcard:hover{border-color:var(--line2);transform:translateY(-2px)}
+.gcard:hover{border-color:var(--line2)}
 .gcard .tag{align-self:flex-start;font:500 10px "Roboto Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);padding:5px 8px;border-radius:3px}
 .gcard h3{font-size:22px;margin:16px 0 6px}
 .gcard .sub{color:var(--dim);font-size:14.5px}
@@ -160,7 +150,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .tier h3{margin:12px 0 6px;font-size:20px}
 .tier p{color:var(--dim);font-size:14.5px}
 .tier ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;font-size:14.5px;color:#cdd3dc}
-.tier li:before{content:"— ";color:var(--faint)}
+.tier li{display:grid;grid-template-columns:12px 1fr;gap:8px}.tier li:before{content:"";width:5px;height:5px;margin-top:9px;background:var(--faint)}
 .howto{margin-top:16px;border:1px dashed var(--line2);border-radius:var(--r);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 .howto p{color:var(--dim);font-size:15px;max-width:720px}
 .howto b{color:var(--text)}
@@ -234,7 +224,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .price{font:500 44px "Roboto Mono",monospace;margin:18px 0 4px;letter-spacing:-.02em}
 .price small{font-size:14px;color:var(--faint);letter-spacing:0}
 .plan ul{list-style:none;padding:0;margin:18px 0 28px;display:grid;gap:9px;color:#cdd3dc;font-size:14.5px}
-.plan li:before{content:"— ";color:var(--faint)}
+.plan li{display:grid;grid-template-columns:12px 1fr;gap:8px}.plan li:before{content:"";width:5px;height:5px;margin-top:9px;background:var(--faint)}
 .plan .btn{margin-top:auto;justify-content:center}
 .paynote{margin-top:16px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 [hidden]{display:none!important}
@@ -288,13 +278,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--faint);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 footer a:hover{color:var(--text)}
-
-.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
-.js .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-<link rel="stylesheet" href="assets/vibe.css">
-<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
@@ -334,45 +319,34 @@ footer a:hover{color:var(--text)}
         <div class="stat"><b>15</b><span>Games</span></div>
         <div class="stat"><b>3</b><span>Premium</span></div>
       </div>
-      <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Solara</b>, <b>Xeno</b>, <b>Wave</b> and more · PC, controller and mobile</p>
-    </div>
-
-    <div class="console" aria-hidden="true">
-      <div class="console-top"><i class="dot"></i><span class="t">M1 trade · live</span><span class="g" id="cGame">Anime Battle Arena</span></div>
-      <div class="console-body">
-        <div class="bar" id="hBar"><div class="win" id="hWin"></div><div class="fill" id="hFill"></div><div class="rel" id="hRel"></div></div>
-        <div class="scale"><span>swing</span><span>+200 ms</span><span>+400 ms</span><span>+600 ms</span></div>
-        <div class="log" id="hLog"></div>
-      </div>
+      <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Solara</b>, <b>Xeno</b>, <b>Wave</b> and more. Works on PC, controller and mobile.</p>
     </div>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true"><div class="track"><span><b>ABA</b> M1 trade</span><span>auto block moves</span><span>pick any prestige</span><span>auto headride</span><span>120 combos</span><span><b>Project Slayers 2</b></span><span>natural auto farm</span><span><b>RH2</b> auto green</span><span>controller support</span><span>mobile support</span><span>saved configs</span><span><b>15</b> games</span><span><b>ABA</b> M1 trade</span><span>auto block moves</span><span>pick any prestige</span><span>auto headride</span><span>120 combos</span><span><b>Project Slayers 2</b></span><span>natural auto farm</span><span><b>RH2</b> auto green</span><span>controller support</span><span>mobile support</span><span>saved configs</span><span><b>15</b> games</span></div></div>
-
 <!-- ============================================================ PREMIUM -->
 <section id="premium">
   <div class="wrap">
-    <div class="head reveal">
-      <h2>Top 3 scripts</h2>
-      <p>One key covers all three. Every feature is built and tested in the live game. When an update breaks something, we fix it fast.</p>
+    <div class="head">
+      <h2>Premium</h2>
+      <p>One key covers all three games. Every feature is tested in the live game, and we patch it when the game updates.</p>
     </div>
     <div class="games3">
-      <div class="gcard reveal" style="--acc:var(--aba)">
+      <div class="gcard" style="--acc:var(--aba)">
         <span class="tag">Main</span>
         <h3>Anime Battle Arena</h3>
-        <p class="sub">Combat that holds up against real players.</p>
+        <p class="sub">Built for PvP.</p>
         <ul>
           <li>Auto M1 trade: blocks their hit and counters before the next one, dash-M1s and stand users included</li>
           <li>Auto block on enemy moves, block as they walk in, turns to block hits from behind</li>
           <li>Pick any prestige character instead of the 3 random ones</li>
-          <li>Auto headride, Kokushibo and Tengen circles, instant move variants, one-key techs</li>
+          <li>Auto headride, 70+ one-key combos, auto Black Flash, Kokushibo and Tengen timing</li>
           <li>Borrowed dodges, macros, anti-stun, and an auto farm that plays like a person</li>
         </ul>
-        <div class="sig"><div>Hit lands <b>+200–218 ms</b> after the swing · <b>20</b> custom M1 sets learned</div></div>
+        <div class="sig"><div>Hits land <b>200–218 ms</b> after the swing. <b>20</b> custom M1 sets learned.</div></div>
       </div>
 
-      <div class="gcard reveal" style="--acc:var(--ps2)">
+      <div class="gcard" style="--acc:var(--ps2)">
         <span class="tag">Grind</span>
         <h3>Project Slayers 2</h3>
         <p class="sub">The whole grind, on autopilot.</p>
@@ -383,9 +357,9 @@ footer a:hover{color:var(--text)}
           <li>Fly, speed, noclip, infinite stamina, no slow, walk on water</li>
           <li>Staff join alert, auto retreat and auto rejoin</li>
         </ul>
-        <div class="sig"><div><b>46</b> toggles · out the week the game launched</div></div>
+        <div class="sig"><div><b>46</b> toggles, out the week the game launched.</div></div>
       </div>
-      <div class="gcard reveal" style="--acc:var(--rh2)">
+      <div class="gcard" style="--acc:var(--rh2)">
         <span class="tag">Basketball</span>
         <h3>RH2 · The Journey</h3>
         <p class="sub">Auto green for every kind of shot.</p>
@@ -406,36 +380,36 @@ footer a:hover{color:var(--text)}
 <!-- ============================================================ PRICING -->
 <section id="pricing">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>Pricing</h2>
       <p>Anime Battle Arena, Project Slayers 2 and RH2, plus any premium game we add after you buy.</p>
       <p class="dnote">Checkout starts with a quick Discord login, so the Premium role lands on your account by itself.</p>
     </div>
-    <form class="codebox reveal" id="codeForm" autocomplete="off">
+    <form class="codebox" id="codeForm" autocomplete="off">
       <input id="codeInput" type="text" maxlength="16" placeholder="Referral code" spellcheck="false" aria-label="Referral code">
       <button class="btn" type="submit">Apply</button>
       <span class="msg" id="codeMsg">Have a code? It takes 10% off.</span>
     </form>
-    <div class="dname reveal" id="dname" hidden>
+    <div class="dname" id="dname" hidden>
       <input id="dnameInput" type="text" maxlength="40" placeholder="Discord username (optional)" autocomplete="off">
       <span>For the Premium role when you pay with PayPal. Card checkout asks on its own page.</span>
     </div>
     <div class="plans">
-      <div class="plan reveal">
+      <div class="plan">
         <div class="pl"><h3>Weekly</h3></div>
         <div class="price" data-price="weekly" data-full="$2.99" data-per=" / week">$2.99<small> / week</small></div>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>Renews weekly, cancel anytime</li></ul>
         <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly</a>
         <a class="btn pp" data-paypal="weekly" href="#pricing" hidden>Pay with PayPal</a>
       </div>
-      <div class="plan reveal">
+      <div class="plan">
         <div class="pl"><h3>Monthly</h3></div>
         <div class="price" data-price="monthly" data-full="$7.99" data-per=" / month">$7.99<small> / month</small></div>
         <ul><li>All premium games</li><li>Support in the Discord</li><li>Renews monthly, cancel anytime</li></ul>
         <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
         <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
       </div>
-      <div class="plan lift reveal">
+      <div class="plan lift">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
         <div class="price" data-price="lifetime" data-full="$24.99" data-per=" / once">$24.99<small> / once</small></div>
         <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Pay once, never again</li></ul>
@@ -443,7 +417,7 @@ footer a:hover{color:var(--text)}
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
       </div>
     </div>
-    <div class="extra reveal">
+    <div class="extra">
       <div>
         <h3>Tempo Username Hider</h3>
         <p>Hides your Roblox username from other players. Client-side, no spoofing. 90 days per key.</p>
@@ -453,18 +427,18 @@ footer a:hover{color:var(--text)}
         <a class="btn" data-buy="hider" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy hider</a>
       </div>
     </div>
-    <p class="paynote reveal">Secure card checkout. Your key shows up right after you pay. Weekly and monthly renew automatically on the same key until you cancel: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. Lifetime is one payment. <a href="/refunds">Refund policy</a></p>
+    <p class="paynote">Secure card checkout. Your key shows up right after you pay. Weekly and monthly renew automatically on the same key until you cancel: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. Lifetime is one payment. <a href="/refunds">Refund policy</a></p>
   </div>
 </section>
 
 <!-- ============================================================ STEPS -->
 <section>
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>Setup</h2>
       <p>Run this in any premium game with your key:</p>
     </div>
-    <div class="code reveal" style="margin-top:20px">
+    <div class="code" style="margin-top:20px">
       <pre id="premiumLs">script_key = "YOUR-KEY"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()</pre>
       <button class="copy" data-copy="premiumLs" type="button">Copy</button>
@@ -475,11 +449,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ EXECUTORS -->
 <section id="executors">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>Supported executors</h2>
-      <p>We've run Tempo on all of these ourselves, premium and free. Check here before you buy.</p>
+      <p>We've tested Tempo on all of these, premium and free. Check this list before you buy.</p>
     </div>
-    <div class="exgrid reveal">
+    <div class="exgrid">
       <div class="exi"><b>Real</b><span class="ok-tag">Tested</span></div>
       <div class="exi"><b>Potassium</b><span class="ok-tag">Tested</span></div>
       <div class="exi"><b>Solara</b><span class="ok-tag">Tested</span></div>
@@ -489,9 +463,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       <div class="exi"><b>Wave</b><span class="ok-tag">Tested</span></div>
       <div class="exi more"><b>+ more</b></div>
     </div>
-    <div class="ex other reveal">
+    <div class="ex other">
       <div class="top"><h3>Yours isn't listed?</h3><span class="ok-tag">Ask first</span></div>
-      <p>Most executors with a normal loadstring run it fine. Before you buy premium on something else, ask in the Discord and we'll tell you straight.</p>
+      <p>Most executors that run a normal loadstring work fine. If yours isn't here, ask in the Discord before you buy.</p>
     </div>
   </div>
 </section>
@@ -499,11 +473,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ TRY THE MENU -->
 <section id="try">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>Try the menu</h2>
       <p>The same layout and themes as the real hub. It doesn't connect to any game.</p>
     </div>
-    <div class="hubwrap reveal" id="hubDemo">
+    <div class="hubwrap" id="hubDemo">
       <div class="hubgames">
         <button class="on" data-game="aba" type="button">Anime Battle Arena</button>
         <button data-game="rh2" type="button">RH2</button>
@@ -536,11 +510,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <section id="games">
   <div class="wrap">
     <div class="head-row">
-      <div class="head reveal">
+      <div class="head">
         <h2>Games</h2>
         <p><span id="gCount">15</span> supported games. Run the loader in any of them and the right script loads. Premium games list their features before you buy.</p>
       </div>
-      <div class="gtools reveal">
+      <div class="gtools">
         <input class="search" id="gSearch" type="search" placeholder="Search games" autocomplete="off">
         <div class="chips" id="gChips">
           <button class="chip on" data-f="all" type="button">All</button>
@@ -551,7 +525,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     </div>
     <div class="glist" id="gList"></div>
     <div class="gempty" id="gEmpty">Nothing matches that. Want it added? Ask in the Discord.</div>
-    <div class="loaderbox reveal">
+    <div class="loaderbox">
       <div class="label">Free loadstring · no key</div>
       <div class="code">
         <pre id="loader">loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Loader.lua"))()</pre>
@@ -565,36 +539,36 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <section id="media">
   <div class="wrap">
     <div class="head-row">
-      <div class="head reveal">
+      <div class="head">
         <h2>Clips</h2>
         <p>Clips from us and the community. Post one and you can earn a free key.</p>
       </div>
-      <a class="btn reveal" href="#creators">Creator program</a>
+      <a class="btn" href="#creators">Creator program</a>
     </div>
     <div class="mgrid" id="mGrid"></div>
 
     <div id="creators" style="scroll-margin-top:80px">
       <div class="creators">
-        <div class="tier reveal">
+        <div class="tier">
           <span class="need">Any clip · 500+ views</span>
           <h3>Clip</h3>
           <p>Post a video that shows Tempo running. TikTok, Shorts, YouTube, anything public.</p>
           <ul><li>7-day premium key</li><li>Once per video</li></ul>
         </div>
-        <div class="tier lift reveal">
+        <div class="tier lift">
           <span class="need">3 videos or 5k+ views</span>
           <h3>Creator</h3>
-          <p>You keep posting, we keep you on premium.</p>
+          <p>Keep posting and your key keeps renewing.</p>
           <ul><li>30-day key, renewed while you post</li><li>Creator role in the Discord</li><li>Early builds to show first</li></ul>
         </div>
-        <div class="tier reveal">
+        <div class="tier">
           <span class="need">25k+ views on one video</span>
           <h3>Partner</h3>
-          <p>For the clips that actually move people to the Discord.</p>
+          <p>For clips that bring a lot of people into the Discord.</p>
           <ul><li>Lifetime key</li><li>Your clips featured on this page</li><li>Direct line for feature requests</li></ul>
         </div>
       </div>
-      <div class="howto reveal">
+      <div class="howto">
         <p><b>How to apply:</b> open a ticket in the Discord with the link to your video. Views get checked by hand, and botted views mean no key.</p>
         <a class="btn" href="https://discord.gg/K7Qxnxkk46" target="_blank" rel="noopener">Open a ticket</a>
       </div>
@@ -605,12 +579,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ MEASURED + DEMO -->
 <section id="measured">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>How it's made</h2>
       <p>Real numbers from the live game. Try them below.</p>
     </div>
     <div class="spec-grid">
-      <div class="spec reveal" style="--acc:var(--aba)">
+      <div class="spec" style="--acc:var(--aba)">
         <div class="sh"><i></i><span>ABA · timing</span></div>
         <table>
           <tr><td>Stock chain</td><td class="v">+218 ms</td><td class="n">swing start to hit</td></tr>
@@ -619,7 +593,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
           <tr><td>Tengen circle</td><td class="v">0.35 s</td><td class="n">hit window after the ring closes</td></tr>
         </table>
       </div>
-      <div class="spec reveal" style="--acc:var(--rh2)">
+      <div class="spec" style="--acc:var(--rh2)">
         <div class="sh"><i></i><span>RH2 · release points</span></div>
         <table>
           <tr><td>Jumper</td><td class="v">74</td><td class="n">a bit early, lands in the 76 window</td></tr>
@@ -628,7 +602,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
           <tr><td>Dunk</td><td class="v">74–78</td><td class="n">ten graded dunks, on Space</td></tr>
         </table>
       </div>
-      <div class="spec reveal" style="--acc:var(--xb)">
+      <div class="spec" style="--acc:var(--xb)">
         <div class="sh"><i></i><span>Xtreme Basketball · green</span></div>
         <table>
           <tr><td>Green window</td><td class="v">30–75 ms</td><td class="n">sent by the server each shot</td></tr>
@@ -639,8 +613,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       </div>
     </div>
 
-    <div class="demo reveal">
-      <div class="demo-title">Try it · hit the green yourself</div>
+    <div class="demo">
+      <div class="demo-title">Try it: hit the green yourself</div>
       <div class="bar" id="dBar"><div class="win" id="dWin"></div><div class="fill" id="dFill"></div><div class="rel" id="dRel"></div></div>
       <div class="demo-foot">
         <div class="readout" id="dRead">Press <b>Space</b> or <b>Release</b> while the bar fills.</div>
@@ -655,7 +629,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ REVIEWS (shown once REVIEWS has entries) -->
 <section id="reviews" hidden>
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>Reviews</h2>
       <p>Straight from our vouch channel, unedited.</p>
     </div>
@@ -666,13 +640,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ FAQ -->
 <section id="faq">
   <div class="wrap">
-    <div class="head reveal">
+    <div class="head">
       <h2>FAQ</h2>
     </div>
-    <div class="faq reveal">
-      <details><summary>Which executors does it work on?</summary><p>We've tested on Real, Potassium, Solara, Xeno, Madium, Volt, Wave and a few others. The full list is in the Works on section. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
-      <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account. Buy it for the gameplay and treat the cosmetics as a bonus.</p></details>
-      <details><summary>Can I get banned?</summary><p>Any script carries some risk, and we won't pretend otherwise. Tempo presses the same buttons you would and sends what the game itself sends. It never fakes server data. Play like a normal player and don't flex features in front of mods.</p></details>
+    <div class="faq">
+      <details><summary>Which executors does it work on?</summary><p>We've tested on Real, Potassium, Solara, Xeno, Madium, Volt, Wave and a few others. The full list is in Supported executors above. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
+      <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account.</p></details>
+      <details><summary>Can I get banned?</summary><p>There's always some risk with scripts. Tempo presses the same buttons you would and sends what the game itself sends. Play normally and don't show features off in front of mods.</p></details>
       <details><summary>What's free and what's premium?</summary><p>Twelve games are completely free, Xtreme Basketball auto green included, plus a free RH2 build with tap auto green. Premium gets you all of Anime Battle Arena, all of Project Slayers 2, and RH2 hold mode, per-shot timing and cosmetics.</p></details>
       <details><summary>Can I try premium first?</summary><p>Yes. Chat in the Discord until you hit level 5 and a one-day key gets DMed to you. The day starts the first time you run it.</p></details>
       <details><summary>What happens when a game updates?</summary><p>Check the status board in the Discord. Most updates don't touch what we time. When one does, we push a fix and post a changelog.</p></details>
@@ -684,7 +658,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <!-- ============================================================ DISCORD -->
 <section>
   <div class="wrap">
-    <div class="join reveal">
+    <div class="join">
       <div>
         <h2>Discord</h2>
         <p>Changelogs, a status board for every game, the free day key, and support from the team. Want a game scripted? Request it there.</p>
@@ -760,7 +734,6 @@ const REVIEWS = [
 
 <script>
 (() => {
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // ------------------------------------------------ live Discord counts
@@ -827,10 +800,6 @@ const REVIEWS = [
     document.getElementById("reviews").hidden = false;
   }
 
-  // ------------------------------------------------ reveal on scroll
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
   // ------------------------------------------------ copy buttons
   document.querySelectorAll(".copy").forEach((b) => b.addEventListener("click", async () => {
     const text = document.getElementById(b.dataset.copy).textContent;
@@ -838,47 +807,6 @@ const REVIEWS = [
     b.textContent = "Copied"; b.classList.add("done");
     setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done"); }, 1600);
   }));
-
-  // ------------------------------------------------ hero console: M1 trade loop
-  // Values in the range measured live in Anime Battle Arena: their hit lands
-  // ~200-218 ms after the swing starts, the block is held until it lands, then
-  // one counter M1 goes out before their next swing (~360 ms apart).
-  const bar = document.getElementById("hBar"), win = document.getElementById("hWin"),
-        fill = document.getElementById("hFill"), rel = document.getElementById("hRel"),
-        log = document.getElementById("hLog"), game = document.getElementById("cGame");
-  const SPAN = 0.8;
-  const FOES = ["Ichigo", "Gojo", "Jotaro", "Alucard", "Sukuna", "Yuji", "Zoro", "Aizen"];
-  let shot = 40;
-  const pct = (s) => (s / SPAN * 100) + "%";
-  function line(html) {
-    const d = document.createElement("div"); d.innerHTML = html; log.appendChild(d);
-    while (log.children.length > 7) log.removeChild(log.firstChild);
-  }
-  function runShot() {
-    shot++;
-    const foe = FOES[shot % FOES.length];
-    const hitNo = 1 + (shot % 4);
-    game.textContent = "Anime Battle Arena · vs " + foe;
-    // their hit lands in a 200-218 ms window; we block until it lands, then counter
-    const hitAt = 0.2 + Math.random() * 0.018, width = 0.03;
-    const holdTo = hitAt - 0.025 + Math.random() * 0.01;     // Hold Block ~175 ms
-    const counterAt = holdTo + 0.105;                        // one counter swing
-    const nextSwing = 0.33 + Math.random() * 0.05;           // their chain speed
-    const traded = counterAt < nextSwing + 0.2 && Math.random() > 0.12;
-    win.style.left = pct(hitAt - width / 2); win.style.width = pct(width);
-    rel.style.opacity = 0; fill.style.transition = "none"; fill.style.width = "0";
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      fill.style.transition = `width ${counterAt}s linear`; fill.style.width = pct(counterAt);
-    }));
-    setTimeout(() => {
-      rel.style.left = pct(counterAt); rel.style.opacity = 1;
-      if (traded) { bar.classList.remove("flash"); void bar.offsetWidth; bar.classList.add("flash"); }
-      line(`<span class="k">#${String(shot).padStart(3, "0")}</span>  ${foe} hit ${hitNo}  lands +${Math.round(hitAt * 1000)}ms  block ${Math.round(holdTo * 1000)}ms  ` +
-           (traded ? `<span class="ok">TRADED</span>` : `<span class="ear">BLOCKED (fast chain)</span>`));
-    }, counterAt * 1000 + 30);
-  }
-  line(`<span class="k">tempo</span>  hit timing learned per character`);
-  if (!reduce) { runShot(); setInterval(runShot, 1700); } else { runShot(); }
 
   // ------------------------------------------------ playable demo
   const dBar = document.getElementById("dBar"), dWin = document.getElementById("dWin"),
@@ -923,6 +851,5 @@ const REVIEWS = [
   drawScore(); newRound();
 })();
 </script>
-<script src="assets/vibe.js"></script>
 </body>
 </html>
