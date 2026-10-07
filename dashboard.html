@@ -80,6 +80,14 @@ footer{border-top:1px solid var(--line);color:var(--faint);font-size:13px}
 footer .wrap{padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:var(--faint);text-decoration:none}
 footer a:hover{color:var(--text)}
+.guides{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:4px}
+.guide{border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);padding:18px;display:grid;gap:6px;align-content:start}
+.guide b{font-size:16.5px}
+.guide p{color:var(--dim);font-size:14px;margin:0 0 8px}
+.guideview{margin-top:20px;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--bg2)}
+.guideview .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line2)}
+.guideview .bar b{font-size:14.5px}
+.guideview iframe{display:block;width:100%;height:900px;border:0;background:#0f1116}
 @media (max-width:520px){.wrap{padding:0 16px}footer .wrap{padding:28px 16px 44px}.big{font-size:28px}}
 </style>
 </head>
@@ -95,7 +103,7 @@ footer a:hover{color:var(--text)}
   <div id="out">
     <span class="eyebrow">Referral program</span>
     <h1>Share Tempo. Get paid.</h1>
-    <p class="lead">Get your own code in one click. Anyone who buys with it gets 10% off, and you get 20% of what they pay.</p>
+    <p class="lead">Get your own code in one click. Anyone who buys with it gets 10% off, and you get 20% of what they pay. Premium members also find their setup guides here.</p>
     <div class="row" style="margin-top:28px">
       <a class="btn btn-discord" id="loginBtn" href="#">Log in with Discord</a>
       <a class="btn" href="/#pricing">See pricing</a>
@@ -127,6 +135,20 @@ footer a:hover{color:var(--text)}
       <p class="note" id="rateNote"></p>
       <p class="err" id="codeErr" hidden></p>
     </div>
+
+    <!-- premium guides (shown once /me/guides answers) -->
+    <section class="card" id="guidesCard" hidden>
+      <span class="eyebrow">Premium</span>
+      <h2 style="margin-top:10px">Guides</h2>
+      <p class="note" id="guidesNote" style="margin:0 0 14px"></p>
+      <div class="guides" id="guideList"></div>
+      <a class="btn btn-primary" id="guidesBuy" href="/#pricing" hidden>Get Premium</a>
+      <p class="err" id="guideErr" hidden></p>
+      <div class="guideview" id="guideView" hidden>
+        <div class="bar"><b id="guideTitle"></b><button class="linkbtn" id="guideClose" type="button">Close</button></div>
+        <iframe id="guideFrame" title="Guide" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+      </div>
+    </section>
 
     <section class="grid g5" id="stats"></section>
 
@@ -388,10 +410,59 @@ footer a:hover{color:var(--text)}
     try { renderAdmin(await api("/me/admin")); } catch (e) { showErr("restockErr", e.message); }
   }
 
+  // ---- premium guides: the shop only lists and hands them out to people with
+  // the Premium role. The guide is shown in a sandboxed frame with no scripts.
+  async function loadGuides() {
+    let g;
+    try { g = await api("/me/guides"); } catch { return; }
+    const list = $("guideList");
+    list.textContent = "";
+    $("guidesCard").hidden = false;
+    $("guidesBuy").hidden = g.premium;
+    $("guidesNote").textContent = g.premium
+      ? "Step-by-step setups for premium features. Only Premium members can open these."
+      : "Setup guides for premium features show up here once you have the Premium role in our Discord.";
+    for (const x of g.guides) {
+      const open = el("button", { class: "btn btn-primary", type: "button", text: "Open guide" });
+      open.addEventListener("click", () => openGuide(x.slug, open));
+      list.append(el("div", { class: "guide" }, el("div", { class: "label", text: x.game }), el("b", { text: x.title }), el("p", { text: x.blurb }), el("div", {}, open)));
+    }
+  }
+  let guideObs = null;
+  async function openGuide(slug, btn) {
+    showErr("guideErr", "");
+    btn.disabled = true;
+    try {
+      const d = await api("/me/guide/" + encodeURIComponent(slug));
+      const f = $("guideFrame");
+      f.onload = () => {
+        try {
+          const doc = f.contentDocument;
+          const fit = () => { f.style.height = doc.documentElement.scrollHeight + "px"; };
+          fit();
+          if (guideObs) guideObs.disconnect();
+          guideObs = new ResizeObserver(fit);
+          guideObs.observe(doc.body);
+        } catch {}
+      };
+      f.srcdoc = d.html;
+      $("guideTitle").textContent = d.title;
+      $("guideView").hidden = false;
+      $("guideView").scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (e) { showErr("guideErr", e.message); }
+    btn.disabled = false;
+  }
+  $("guideClose").addEventListener("click", () => {
+    $("guideView").hidden = true;
+    $("guideFrame").srcdoc = "";
+    if (guideObs) guideObs.disconnect();
+  });
+
   async function load() {
     try {
       const d = await api("/me");
       render(d);
+      loadGuides();
       if (d.admin) loadAdmin();
     } catch (e) { if (token()) showErr("outErr", e.message); }
   }
