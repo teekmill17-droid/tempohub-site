@@ -5,34 +5,36 @@
 <script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tempo Hub</title>
-<meta name="description" content="Roblox scripts built by measuring the game. M1 trading, auto block and techs for Anime Battle Arena, full farming for Project Slayers 2, auto green for RH2. One loadstring, fifteen games.">
+<meta name="description" content="Roblox scripts for Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, plus 13 free games. Weekly $2.99, monthly $7.99, lifetime $24.99.">
 <meta property="og:title" content="Tempo Hub">
-<meta property="og:description" content="Combat, farming and auto green for 15 Roblox games. One loadstring.">
-<meta property="og:image" content="https://tempohub.shop/assets/logo.png">
-<meta name="theme-color" content="#07080a">
-<link rel="icon" href="assets/logo.png">
+<meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines and Project Slayers 2. From $2.99. 25% off all October with TEMPOTOBER.">
+<meta property="og:image" content="https://tempohub.shop/assets/logo-oct.png">
+<meta name="theme-color" content="#060504">
+<link rel="icon" href="assets/logo-oct.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/hubdemo.css">
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07080a; --bg2:#0b0d10; --panel:#0e1014; --line:#1b1f26; --line2:#262b34;
-  --text:#e9edf2; --dim:#8b94a3; --faint:#5a6270;
-  --ice:#7cc4ff; --ice2:#b9e0ff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a;
-  --rh2:#ff8a3d; --aba:#ff4d5e; --ps2:#e0b25a; --xb:#7cc4ff;
+  /* October: orange on black (was ice blue #7cc4ff on blue-black) */
+  --bg:#060504; --bg2:#0c0a08; --panel:#100d0a; --line:#221c16; --line2:#2f271f;
+  --text:#f3ede5; --dim:#a0958a; --faint:#665c53;
+  --ice:#ff8a2a; --ice2:#ffb06a; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a;
+  --rh2:#ff8a3d; --aba:#ff4d5e; --ps2:#e0b25a; --xb:#7cc4ff; --clover:#4fd68b; --bl:#a78bfa;
+  --pumpkin:#ff8a2a;
   --r:6px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);font:16px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);font:17px/1.6 Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
 .mono{font-family:"Roboto Mono",ui-monospace,monospace}
 .eyebrow{display:inline-block;font:500 11px/1 "Roboto Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)}
-h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
-h2{font-size:clamp(28px,4vw,42px);line-height:1.1;margin-top:14px}
-h3{font-size:18px}
+h1,h2,h3{margin:0;font-family:Oswald,sans-serif;font-weight:600;letter-spacing:.01em;text-transform:uppercase}
+h2{font-size:clamp(34px,5vw,54px);font-style:italic;font-weight:700;line-height:1;margin-top:14px}
+h3{font-size:20px}
 p{margin:0}
 .lead{color:var(--dim);font-size:18px;max-width:640px}
 section{border-top:1px solid var(--line);padding:96px 0;scroll-margin-top:64px}
@@ -42,17 +44,17 @@ section{border-top:1px solid var(--line);padding:96px 0;scroll-margin-top:64px}
 .head-row .head{margin-bottom:0}
 
 /* ------------------------------------------------ buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--r);font-weight:600;font-size:15px;border:1px solid var(--line2);transition:border-color .15s,background .15s,transform .15s;cursor:pointer;background:none;color:var(--text);font-family:inherit}
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--r);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line2);transition:border-color .15s,background .15s,transform .15s;cursor:pointer;background:none;color:var(--text);font-family:inherit}
 .btn:hover{border-color:var(--faint)}
-.btn-primary{background:var(--ice);color:#051019;border-color:var(--ice)}
+.btn-primary{background:var(--ice);color:#160900;border-color:var(--ice)}
 .btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
 .btn svg{width:16px;height:16px}
 
 /* ------------------------------------------------ nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(7,8,10,.92);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2)}
+nav{position:sticky;top:0;z-index:50;background:rgba(6,5,4,.92);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2)}
 nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
-.brand{display:flex;align-items:center;gap:10px;font:14px Michroma,sans-serif;letter-spacing:.14em}
-.brand img{width:30px;height:30px}
+.brand{display:flex;align-items:center;gap:10px;font:italic 700 24px Oswald,sans-serif;letter-spacing:.02em}
+.brand img{width:32px;height:32px;border-radius:7px}
 .links{display:flex;gap:24px;margin-left:12px;font-size:14px;color:var(--dim)}
 .links a:hover{color:var(--text)}
 .navcta{margin-left:auto;display:flex;gap:10px}
@@ -63,8 +65,9 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 /* ------------------------------------------------ hero */
 .hero{border-top:0;padding:88px 0 72px}
 .hero .wrap{max-width:1160px}
-.wordmark{font:clamp(44px,7vw,84px)/.95 Michroma,sans-serif;letter-spacing:.04em;margin:18px 0 22px}
-.wordmark .wm-hub{color:var(--ice)}
+.wordmark{font:italic 700 clamp(64px,11vw,136px)/.9 Oswald,sans-serif;letter-spacing:0;text-transform:uppercase;margin:10px 0 22px}
+.wordmark .wm-hub{color:var(--ice);animation:candle 4.5s infinite}
+@keyframes candle{0%,100%{text-shadow:0 0 24px rgba(255,138,42,.35)}20%{text-shadow:0 0 34px rgba(255,138,42,.55)}23%{text-shadow:0 0 18px rgba(255,138,42,.25)}60%{text-shadow:0 0 30px rgba(255,138,42,.5)}}
 .hero .lead{font-size:19px}
 .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r);max-width:640px}
@@ -78,9 +81,9 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 @media (max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
 
 /* the green-window bar (demo) */
-.bar{position:relative;height:18px;border:1px solid var(--line2);border-radius:3px;background:#0a0c0f;overflow:hidden}
+.bar{position:relative;height:18px;border:1px solid var(--line2);border-radius:3px;background:#0c0907;overflow:hidden}
 .bar .win{position:absolute;top:0;bottom:0;background:rgba(61,220,132,.16);border-left:1px solid var(--green);border-right:1px solid var(--green)}
-.bar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,#2a3a4a,var(--ice))}
+.bar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,#4a2a12,var(--ice))}
 .bar .rel{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff;opacity:0}
 .scale{display:flex;justify-content:space-between;margin-top:8px;font:11px "Roboto Mono",monospace;color:var(--faint)}
 .flash{animation:flash .45s ease-out}
@@ -104,7 +107,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 
 /* ------------------------------------------------ games list */
 .gtools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.search{height:40px;min-width:220px;flex:1;max-width:320px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 14px;outline:none}
+.search{height:40px;min-width:220px;flex:1;max-width:320px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Barlow,sans-serif;padding:0 14px;outline:none}
 .search:focus{border-color:var(--ice)}
 .chips{display:flex;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden}
 .chip{height:40px;padding:0 14px;background:none;border:0;border-left:1px solid var(--line2);color:var(--dim);font:500 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
@@ -119,7 +122,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .gi p{color:var(--dim);font-size:13.5px}
 .badge{font:500 10px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:4px 7px;border-radius:3px;white-space:nowrap}
 .badge.free{color:var(--green);border:1px solid rgba(61,220,132,.35)}
-.badge.prem{color:var(--ice);border:1px solid rgba(124,196,255,.4)}
+.badge.prem{color:var(--ice);border:1px solid color-mix(in srgb,var(--ice) 40%,transparent)}
 .badge.new{color:var(--amber);border:1px solid rgba(255,181,71,.4);margin-left:6px}
 .gempty{display:none;color:var(--faint);font:13px "Roboto Mono",monospace;padding:18px 0}
 .loaderbox{margin-top:28px}
@@ -130,17 +133,17 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 @media (max-width:960px){.mgrid{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.mgrid{grid-template-columns:1fr}}
 .clip{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}
-.clip .frame{position:relative;aspect-ratio:16/9;background:#050607 center/cover no-repeat;cursor:pointer}
+.clip .frame{position:relative;aspect-ratio:16/9;background:#040302 center/cover no-repeat;cursor:pointer}
 .clip .frame iframe,.clip .frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .clip .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
-.clip .play i{width:54px;height:54px;border-radius:50%;background:rgba(7,8,10,.75);border:1px solid var(--line2);display:grid;place-items:center;transition:transform .15s,border-color .15s}
+.clip .play i{width:54px;height:54px;border-radius:50%;background:rgba(6,5,4,.75);border:1px solid var(--line2);display:grid;place-items:center;transition:transform .15s,border-color .15s}
 .clip .frame:hover .play i{transform:scale(1.06);border-color:var(--ice)}
 .clip .play svg{width:18px;height:18px;margin-left:3px}
 .clip .cap{padding:12px 14px;display:flex;justify-content:space-between;gap:10px;font-size:14px}
 .clip .cap span{font:12px "Roboto Mono",monospace;color:var(--faint);white-space:nowrap}
-.clip.slot .frame{display:grid;place-items:center;cursor:default;background:repeating-linear-gradient(135deg,#0a0c0f 0 12px,#0c0e12 12px 24px)}
+.clip.slot .frame{display:grid;place-items:center;cursor:default;background:repeating-linear-gradient(135deg,#0b0907 0 12px,#0e0b09 12px 24px)}
 .clip.slot .frame div{text-align:center;color:var(--faint);font:12px "Roboto Mono",monospace;padding:0 16px}
-.clip.slot .frame b{display:block;color:var(--dim);font:600 15px Archivo,sans-serif;margin-bottom:4px}
+.clip.slot .frame b{display:block;color:var(--dim);font:600 15px Barlow,sans-serif;margin-bottom:4px}
 
 .creators{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
 @media (max-width:960px){.creators{grid-template-columns:1fr}}
@@ -184,7 +187,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .demo-title{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
 
 /* ------------------------------------------------ code boxes */
-.code{display:flex;align-items:stretch;border:1px solid var(--line2);border-radius:var(--r);background:#050607;overflow:hidden}
+.code{display:flex;align-items:stretch;border:1px solid var(--line2);border-radius:var(--r);background:#040302;overflow:hidden}
 .code pre{margin:0;padding:18px;overflow-x:auto;font:13px/1.6 "Roboto Mono",monospace;color:var(--ice2);flex:1}
 .copy{border:0;border-left:1px solid var(--line2);background:var(--bg2);color:var(--dim);font:500 11px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:0 18px;cursor:pointer}
 .copy:hover{color:var(--text)}
@@ -232,7 +235,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .pp:hover{background:#ffd466;border-color:#ffd466}
 .plan .pp{margin-top:8px}
 .dname{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
-.dname input{height:40px;min-width:240px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
+.dname input{height:40px;min-width:240px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Barlow,sans-serif;padding:0 12px;outline:none}
 .dname input:focus{border-color:var(--ice)}
 .dname span{font:12px "Roboto Mono",monospace;color:var(--faint)}
 .codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
@@ -243,7 +246,6 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .codebox .msg.ok{color:var(--green)}
 .codebox .msg.bad{color:var(--red)}
 .codebox .msg button{background:none;border:0;color:var(--dim);font:inherit;text-decoration:underline;cursor:pointer;padding:0 0 0 6px}
-.price .was{font-size:.5em;color:var(--faint);text-decoration:line-through;margin-right:10px;vertical-align:middle}
 .paynote a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 
 /* ------------------------------------------------ steps + faq */
@@ -278,17 +280,104 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--faint);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 footer a:hover{color:var(--text)}
+/* ------------------------------------------------ october */
+.promo{background:var(--pumpkin);color:#1a0d02;font:500 13px/1.3 "Roboto Mono",monospace}
+.promo .wrap{display:flex;align-items:center;justify-content:center;gap:8px 18px;flex-wrap:wrap;min-height:40px;padding-top:7px;padding-bottom:7px}
+.promo b{font-weight:700;letter-spacing:.08em}
+.promo s{opacity:.55}
+.promo button{height:28px;padding:0 12px;border:1.5px solid #1a0d02;border-radius:4px;background:#1a0d02;color:var(--pumpkin);font:700 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
+.promo button:hover{background:transparent;color:#1a0d02}
+.promo button.on{background:transparent;color:#1a0d02;cursor:default}
+@media (max-width:640px){.promo .full{display:none}}
+
+/* hero price strip: every plan visible before anyone scrolls */
+.pwrap{position:relative;max-width:760px;margin-top:40px}
+.pstrip{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2)}
+.pcell{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border-left:1px solid var(--line2);transition:background .15s}
+.pcell:first-child{border-left:0}
+.pcell:hover{background:var(--panel)}
+.pcell .pn{display:flex;justify-content:space-between;align-items:center;gap:8px;font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.pcell .pn i{font-style:normal;color:var(--pumpkin);letter-spacing:.1em}
+.amt{font:500 30px/1.15 "Roboto Mono",monospace;letter-spacing:-.02em}
+.amt small{font-size:13px;color:var(--faint);letter-spacing:0}
+.amt .was,.price .was{font-size:.5em;color:var(--faint);text-decoration:line-through;margin-right:8px;vertical-align:middle}
+.pcell .go{margin-top:6px;font:600 13px Barlow,sans-serif;color:var(--ice)}
+.pcell.best{box-shadow:0 0 0 1px var(--ice) inset;border-radius:0 var(--r) var(--r) 0}
+.pfoot{margin-top:12px;font:12px "Roboto Mono",monospace;color:var(--faint)}
+.pfoot a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:640px){.pstrip{grid-template-columns:1fr}.pcell{border-left:0;border-top:1px solid var(--line2);flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between}.pcell:first-child{border-top:0}.pcell .pn{width:100%}.pcell.best{border-radius:0 0 var(--r) var(--r)}}
+
+/* the ghost that lives behind the price strip */
+.spook{position:absolute;right:28px;bottom:calc(100% - 26px);width:86px;z-index:0;animation:bob 3.6s ease-in-out infinite;transform-origin:50% 100%}
+.spook svg{display:block;width:100%;height:auto;overflow:visible}
+.spook .pupil{transition:transform .12s linear}
+.spook:hover{animation-play-state:paused}
+@keyframes bob{0%,100%{transform:translateY(4px) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+@media (max-width:640px){.spook{width:64px;right:14px;bottom:calc(100% - 18px)}}
+
+.games4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media (max-width:860px){.games4{grid-template-columns:1fr}}
+.plan .note{font:12px "Roboto Mono",monospace;color:var(--faint);margin-top:2px}
+/* ------------------------------------------------ october motion: flame logo, embers, bats, reveals */
+.hero{position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2}
+.hero-art{position:absolute;z-index:0;right:-70px;top:10px;width:min(700px,56vw);aspect-ratio:1;pointer-events:none;
+  background:url(assets/hero-oct.jpg) center/cover;
+  -webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);
+  animation:flick 5s infinite,breathe 9s ease-in-out infinite}
+@keyframes flick{0%,100%{filter:brightness(1)}8%{filter:brightness(1.12)}10%{filter:brightness(.94)}34%{filter:brightness(1.06)}52%{filter:brightness(.97)}70%{filter:brightness(1.1)}73%{filter:brightness(1)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.embers{position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%}
+.bat{position:absolute;z-index:1;top:0;left:0;width:46px;pointer-events:none;opacity:0;animation:fly 16s linear infinite}
+.bat svg{display:block;width:100%;fill:#0b0603;animation:flap .18s ease-in-out infinite alternate;transform-origin:50% 40%}
+.bat:nth-of-type(2){width:30px;animation-delay:5.5s;animation-duration:19s}
+.bat:nth-of-type(3){width:38px;animation-delay:11s;animation-duration:15s}
+@keyframes flap{to{transform:scaleY(.35)}}
+@keyframes fly{0%{opacity:0;transform:translate(110vw,260px) rotate(-6deg)}6%{opacity:1}45%{transform:translate(62vw,120px) rotate(4deg)}
+  70%{transform:translate(48vw,190px) rotate(-8deg)}94%{opacity:1}100%{opacity:0;transform:translate(18vw,40px) rotate(5deg)}}
+@media (max-width:900px){.hero-art{opacity:.32;right:-30%;top:60px;width:110vw}.bat{display:none}}
+
+.spook{transition:bottom .25s cubic-bezier(.3,1.5,.5,1)}
+.pwrap:has(.best:hover) .spook{bottom:calc(100% - 4px)}
+.spook .eyes{animation:blink 5s infinite;transform-origin:50% 46px;transform-box:view-box}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.spook{cursor:pointer;pointer-events:auto}
+.boo{position:absolute;right:-6px;top:-30px;padding:4px 10px;border-radius:12px;background:var(--text);color:#111;font:italic 700 15px Oswald,sans-serif;letter-spacing:.04em;
+  opacity:0;transform:translateY(6px) scale(.8);transition:opacity .15s,transform .2s cubic-bezier(.3,1.6,.5,1);pointer-events:none;white-space:nowrap}
+.spook.said .boo{opacity:1;transform:none}
+.spook.jump{animation:jump .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes jump{40%{transform:translateY(-22px) rotate(-6deg)}}
+
+.pcell{position:relative}
+.pcell::after{content:"";position:absolute;left:18px;right:18px;bottom:10px;height:2px;background:var(--ice);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.pcell:hover::after{transform:scaleX(1)}
+.gcard,.plan{transition:transform .18s ease,border-color .18s,box-shadow .18s}
+.gcard:hover,.plan:hover{transform:translateY(-3px);box-shadow:0 22px 50px -28px var(--acc,var(--ice))}
+.promo .cd{opacity:.75}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.hero-art,.wordmark .wm-hub,.bat,.bat svg,.spook .eyes{animation:none}.bat{display:none}.reveal{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.spook{animation:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
+<div class="promo">
+  <div class="wrap">
+    <span><b>TEMPOTOBER</b> · 25% off every plan, all October <span class="cd" id="promoCd"></span></span>
+    <span class="full">Weekly <s>$2.99</s> $2.24 · Monthly <s>$7.99</s> $5.99 · Lifetime <s>$24.99</s> $18.74</span>
+    <button type="button" id="promoBtn">Use code</button>
+  </div>
+</div>
+
 <nav>
   <div class="wrap">
-    <a class="brand" href="#top"><img src="assets/logo.png" alt="">TEMPO</a>
+    <a class="brand" href="#top"><img src="assets/logo-oct.png" alt="">TEMPO</a>
     <div class="links">
-      <a href="#premium">Premium</a>
       <a href="#pricing">Pricing</a>
+      <a href="#premium">Premium</a>
       <a href="#try">Try it</a>
       <a href="#games">Games</a>
       <a href="#media">Media</a>
@@ -304,75 +393,52 @@ footer a:hover{color:var(--text)}
 
 <!-- ============================================================ HERO -->
 <section class="hero" id="top">
+  <div class="hero-art" aria-hidden="true"></div>
+  <canvas class="embers" id="embers" aria-hidden="true"></canvas>
+  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
+  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
+  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
   <div class="wrap">
     <div>
-      <h1 class="wordmark">TEMPO<br><span class="wm-hub">HUB</span></h1>
-      <p class="lead">Scripts for 15 Roblox games.<br>Premium covers ABA, Project Slayers 2 and RH2.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#pricing">Get Premium
-          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6"/></svg></a>
-        <a class="btn" href="#games">Free loadstring</a>
+      <h1 class="wordmark">TEMPO <span class="wm-hub">HUB</span></h1>
+      <p class="lead">Scripts for 17 Roblox games.<br>Premium covers Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2.</p>
+
+      <div class="pwrap">
+        <div class="spook" id="spook" aria-hidden="true"><span class="boo">boo!</span>
+          <svg viewBox="0 0 100 118">
+            <path d="M13 112C10 68 15 13 51 11c35-2 39 50 36 101-5-7-10-7-14 0-5 8-10 7-14-1-4-8-9-8-13 0-4 8-10 8-14 0-4-7-9-7-13 1z" fill="#eef2f7" stroke="#0b0d10" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M70 24c9 9 12 30 11 60" fill="none" stroke="#c9d1dc" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+            <g class="eyes"><g class="pupil"><ellipse cx="38" cy="46" rx="5" ry="7.5" fill="#0b0d10"/><ellipse cx="62" cy="45" rx="5" ry="7.5" fill="#0b0d10"/></g></g>
+            <ellipse cx="50" cy="65" rx="3.6" ry="4.6" fill="#0b0d10"/>
+          </svg>
+        </div>
+        <div class="pstrip">
+          <a class="pcell" data-buy="weekly" href="#pricing">
+            <span class="pn">Weekly</span>
+            <span class="amt" data-price="weekly" data-full="$2.99" data-per=" /wk">$2.99<small> /wk</small></span>
+            <span class="go">Buy weekly →</span>
+          </a>
+          <a class="pcell" data-buy="monthly" href="#pricing">
+            <span class="pn">Monthly</span>
+            <span class="amt" data-price="monthly" data-full="$7.99" data-per=" /mo">$7.99<small> /mo</small></span>
+            <span class="go">Buy monthly →</span>
+          </a>
+          <a class="pcell best" data-buy="lifetime" href="#pricing">
+            <span class="pn">Lifetime <i>Best value</i></span>
+            <span class="amt" data-price="lifetime" data-full="$24.99" data-per=" once">$24.99<small> once</small></span>
+            <span class="go">Get lifetime →</span>
+          </a>
+        </div>
       </div>
+      <p class="pfoot">One key, all four premium games. Weekly and monthly cancel anytime. <a href="#games">Or grab the free loadstring</a></p>
+
       <div class="stats">
         <div class="stat"><b id="stMembers">484</b><span>Members</span></div>
         <div class="stat"><b><i class="live"></i><span id="stOnline">120</span></b><span>Online now</span></div>
-        <div class="stat"><b>15</b><span>Games</span></div>
-        <div class="stat"><b>3</b><span>Premium</span></div>
+        <div class="stat"><b id="stGames">17</b><span>Games</span></div>
+        <div class="stat"><b>4</b><span>Premium</span></div>
       </div>
       <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Solara</b>, <b>Xeno</b>, <b>Wave</b> and more. Works on PC, controller and mobile.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ PREMIUM -->
-<section id="premium">
-  <div class="wrap">
-    <div class="head">
-      <h2>Premium</h2>
-      <p>One key covers all three games. Every feature is tested in the live game, and we patch it when the game updates.</p>
-    </div>
-    <div class="games3">
-      <div class="gcard" style="--acc:var(--aba)">
-        <span class="tag">Main</span>
-        <h3>Anime Battle Arena</h3>
-        <p class="sub">Built for PvP.</p>
-        <ul>
-          <li>Auto M1 trade: blocks their hit and counters before the next one, dash-M1s and stand users included</li>
-          <li>Auto block on enemy moves, block as they walk in, turns to block hits from behind</li>
-          <li>Pick any prestige character instead of the 3 random ones</li>
-          <li>Auto headride, 70+ one-key combos, auto Black Flash, Kokushibo and Tengen timing</li>
-          <li>Borrowed dodges, macros, anti-stun, and an auto farm that plays like a person</li>
-        </ul>
-        <div class="sig"><div>Hits land <b>200–218 ms</b> after the swing. <b>20</b> custom M1 sets learned.</div></div>
-      </div>
-
-      <div class="gcard" style="--acc:var(--ps2)">
-        <span class="tag">Grind</span>
-        <h3>Project Slayers 2</h3>
-        <p class="sub">The whole grind, on autopilot.</p>
-        <ul>
-          <li>Mob farm, boss farm and auto quest, with skills and chest looting</li>
-          <li>Kill aura, auto clan and race reroll</li>
-          <li>ESP for players, bosses, chests, crystals, shrines and spider lilies</li>
-          <li>Fly, speed, noclip, infinite stamina, no slow, walk on water</li>
-          <li>Staff join alert, auto retreat and auto rejoin</li>
-        </ul>
-        <div class="sig"><div><b>46</b> toggles, out the week the game launched.</div></div>
-      </div>
-      <div class="gcard" style="--acc:var(--rh2)">
-        <span class="tag">Basketball</span>
-        <h3>RH2 · The Journey</h3>
-        <p class="sub">Auto green for every kind of shot.</p>
-        <ul>
-          <li>Hold-mode auto green on PC, controller and mobile</li>
-          <li>Its own release point for jumpers, layups, floaters and dunks, plus Calibrate</li>
-          <li>A feedback card after every shot: timing, contest, grade</li>
-          <li>Every mascot fitted 1:1, every wardrobe, 272 animation packages</li>
-          <li>82 green effects and ball trails that fire on the game's own PERFECT</li>
-        </ul>
-        <div class="sig"><div>Jumper release <b>74</b> → lands on the game's <b>76</b></div></div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -382,7 +448,7 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div class="head">
       <h2>Pricing</h2>
-      <p>Anime Battle Arena, Project Slayers 2 and RH2, plus any premium game we add after you buy.</p>
+      <p>Every plan unlocks all four premium games: Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2. New premium games are included.</p>
       <p class="dnote">Checkout starts with a quick Discord login, so the Premium role lands on your account by itself.</p>
     </div>
     <form class="codebox" id="codeForm" autocomplete="off">
@@ -398,6 +464,7 @@ footer a:hover{color:var(--text)}
       <div class="plan">
         <div class="pl"><h3>Weekly</h3></div>
         <div class="price" data-price="weekly" data-full="$2.99" data-per=" / week">$2.99<small> / week</small></div>
+        <p class="note">Good for trying it out</p>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>Renews weekly, cancel anytime</li></ul>
         <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly</a>
         <a class="btn pp" data-paypal="weekly" href="#pricing" hidden>Pay with PayPal</a>
@@ -405,6 +472,7 @@ footer a:hover{color:var(--text)}
       <div class="plan">
         <div class="pl"><h3>Monthly</h3></div>
         <div class="price" data-price="monthly" data-full="$7.99" data-per=" / month">$7.99<small> / month</small></div>
+        <p class="note">Cancel anytime from the manage page</p>
         <ul><li>All premium games</li><li>Support in the Discord</li><li>Renews monthly, cancel anytime</li></ul>
         <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
         <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
@@ -412,6 +480,7 @@ footer a:hover{color:var(--text)}
       <div class="plan lift">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
         <div class="price" data-price="lifetime" data-full="$24.99" data-per=" / once">$24.99<small> / once</small></div>
+        <p class="note">About three months of Monthly</p>
         <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Pay once, never again</li></ul>
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
@@ -428,6 +497,73 @@ footer a:hover{color:var(--text)}
       </div>
     </div>
     <p class="paynote">Secure card checkout. Your key shows up right after you pay. Weekly and monthly renew automatically on the same key until you cancel: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. Lifetime is one payment. <a href="/refunds">Refund policy</a></p>
+  </div>
+</section>
+
+<!-- ============================================================ PREMIUM -->
+<section id="premium">
+  <div class="wrap">
+    <div class="head">
+      <h2>Premium</h2>
+      <p>One key covers all four games, plus any premium game we add after you buy. Every feature is tested in the live game, and we patch it when the game updates.</p>
+    </div>
+    <div class="games4">
+      <div class="gcard" style="--acc:var(--clover)">
+        <span class="tag">New</span>
+        <h3>Clover Retribution</h3>
+        <p class="sub">Story, quests and the grind, start to finish.</p>
+        <ul>
+          <li>Auto main story: talks to the NPCs, picks the right dialog, fights the bosses</li>
+          <li>Auto quest with level checks, and it skips dailies you've already done</li>
+          <li>Auto farm with kill aura, mastery farm, ore and flower farm</li>
+          <li>Auto spin for magic, race and trait, and auto prestige at the level cap</li>
+          <li>Insta kill for event waves, server hop, staff alert, ESP</li>
+        </ul>
+        <div class="sig"><div><b>219</b> quests mapped. Story runs on its own through <b>The Aether</b>.</div></div>
+      </div>
+
+      <div class="gcard" style="--acc:var(--aba)">
+        <span class="tag">PvP</span>
+        <h3>Anime Battle Arena</h3>
+        <p class="sub">Built for fighting real players.</p>
+        <ul>
+          <li>Auto M1 trade: blocks their hit and counters, plus a Smart mode that knows when to just block</li>
+          <li>Auto block on enemy moves, including hits from behind</li>
+          <li>Auto Black Flash for every character, Law Shambles and Gojo Max Blue lock-on</li>
+          <li>Gold Skin Farm: the whole Juggernaut method, then public matches on autopilot</li>
+          <li>70+ one-key combos, auto headride, macros, anti-stun</li>
+        </ul>
+        <div class="sig"><div>Hits land <b>200–218 ms</b> after the swing. <b>20</b> custom M1 sets learned.</div></div>
+      </div>
+
+      <div class="gcard" style="--acc:var(--bl)">
+        <span class="tag">New</span>
+        <h3>Bloodlines</h3>
+        <p class="sub">Missions, bosses and items while you're away.</p>
+        <ul>
+          <li>Mission farm, boss farm and tailed beast farm</li>
+          <li>Item farm, and sell fruit from anywhere on the map</li>
+          <li>Kill aura, auto heavy, auto skills, infinite chakra, aimbot</li>
+          <li>Repair armor, reset sins, reroll traits and upgrade without walking anywhere</li>
+          <li>Panic mode pulls you out before you lose LifeForce</li>
+        </ul>
+        <div class="sig"><div>Item farm: <b>33</b> pickups every <b>2 minutes</b>.</div></div>
+      </div>
+
+      <div class="gcard" style="--acc:var(--ps2)">
+        <span class="tag">Grind</span>
+        <h3>Project Slayers 2</h3>
+        <p class="sub">The whole grind, on autopilot.</p>
+        <ul>
+          <li>Mob farm, boss farm and auto quest, with skills and chest looting</li>
+          <li>Kill aura, auto clan and race reroll</li>
+          <li>ESP for players, bosses, chests, crystals, shrines and spider lilies</li>
+          <li>Fly, speed, noclip, infinite stamina, no slow, walk on water</li>
+          <li>Staff join alert, auto retreat and auto rejoin</li>
+        </ul>
+        <div class="sig"><div><b>46</b> toggles, out the week the game launched.</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -485,7 +621,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       </div>
       <div class="hub">
         <div class="hub-top">
-          <img src="assets/logo.png" alt="">
+          <img src="assets/logo-oct.png" alt="">
           <div class="tt"><b>Tempo Hub</b><span>Anime Battle Arena  -  v6</span></div>
           <div class="win" aria-hidden="true">
             <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></i>
@@ -512,7 +648,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     <div class="head-row">
       <div class="head">
         <h2>Games</h2>
-        <p><span id="gCount">15</span> supported games. Run the loader in any of them and the right script loads. Premium games list their features before you buy.</p>
+        <p><span id="gCount">17</span> supported games. Run the loader in any of them and the right script loads. Premium games list their features before you buy.</p>
       </div>
       <div class="gtools">
         <input class="search" id="gSearch" type="search" placeholder="Search games" autocomplete="off">
@@ -647,7 +783,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       <details><summary>Which executors does it work on?</summary><p>We've tested on Real, Potassium, Solara, Xeno, Madium, Volt, Wave and a few others. The full list is in Supported executors above. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
       <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account.</p></details>
       <details><summary>Can I get banned?</summary><p>There's always some risk with scripts. Tempo presses the same buttons you would and sends what the game itself sends. Play normally and don't show features off in front of mods.</p></details>
-      <details><summary>What's free and what's premium?</summary><p>Twelve games are completely free, Xtreme Basketball auto green included, plus a free RH2 build with tap auto green. Premium gets you all of Anime Battle Arena, all of Project Slayers 2, and RH2 hold mode, per-shot timing and cosmetics.</p></details>
+      <details><summary>What's free and what's premium?</summary><p>Thirteen games are completely free, RH2 and Xtreme Basketball auto green included. Premium is Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, and any premium game we add later. Weekly is $2.99, monthly $7.99, lifetime $24.99.</p></details>
       <details><summary>Can I try premium first?</summary><p>Yes. Chat in the Discord until you hit level 5 and a one-day key gets DMed to you. The day starts the first time you run it.</p></details>
       <details><summary>What happens when a game updates?</summary><p>Check the status board in the Discord. Most updates don't touch what we time. When one does, we push a fix and post a changelog.</p></details>
       <details><summary>Can I get a refund?</summary><p>If your key never worked and we can't get it running for you within 72 hours, yes. The full policy is on the <a href="/refunds" style="text-decoration:underline">refunds page</a>.</p></details>
@@ -700,11 +836,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 // ================================================================ content
 // Add a game: one line here. tier "prem" or "free"; isNew puts a badge on it.
 const GAMES = [
-  { name: "RH2 · The Journey", tier: "prem", what: "Hold auto green, per-shot timing, cosmetics" },
-  { name: "Anime Battle Arena", tier: "prem", what: "M1 trade, auto farm, techs, timing checks", isNew: true },
+  { name: "Clover Retribution", tier: "prem", what: "Auto story, auto quest, farms, spins, prestige", isNew: true },
+  { name: "Anime Battle Arena", tier: "prem", what: "M1 trade, auto block, gold skin farm, combos" },
+  { name: "Bloodlines", tier: "prem", what: "Mission, boss and item farm, kill aura", isNew: true },
   { name: "Project Slayers 2", tier: "prem", what: "Mob, boss and quest farm, ESP" },
-  { name: "Xtreme Basketball", tier: "free", what: "Auto green, cosmetics unlock", isNew: true },
-  { name: "RH2 (free build)", tier: "free", what: "Tap auto green", sameGame: true },
+  { name: "RH2 · The Journey", tier: "free", what: "Auto green, per-shot timing, cosmetics" },
+  { name: "Xtreme Basketball", tier: "free", what: "Auto green, cosmetics unlock" },
   { name: "Blox Fruits", tier: "free", what: "Farm, teleports" },
   { name: "Blade Ball", tier: "free", what: "Auto parry" },
   { name: "Fisch", tier: "free", what: "Auto fish" },
@@ -749,7 +886,7 @@ const REVIEWS = [
   // ------------------------------------------------ games list
   const gList = document.getElementById("gList"), gEmpty = document.getElementById("gEmpty"),
         gSearch = document.getElementById("gSearch");
-  document.getElementById("gCount").textContent = GAMES.filter((g) => !g.sameGame).length;
+  document.getElementById("gCount").textContent = document.getElementById("stGames").textContent = GAMES.filter((g) => !g.sameGame).length;
   let filter = "all";
   function drawGames() {
     const q = gSearch.value.trim().toLowerCase();
@@ -798,6 +935,79 @@ const REVIEWS = [
     document.getElementById("rvGrid").innerHTML = REVIEWS.map((r) =>
       `<div class="rv"><p>${esc(r.text)}</p><div class="who">${esc(r.by)}${r.game ? " · " + esc(r.game) : ""}</div></div>`).join("");
     document.getElementById("reviews").hidden = false;
+  }
+
+  // ------------------------------------------------ TEMPOTOBER: one click puts the code through the normal code box
+  const promoBtn = document.getElementById("promoBtn"), codeMsg = document.getElementById("codeMsg");
+  promoBtn.addEventListener("click", () => {
+    if (promoBtn.classList.contains("on")) return;
+    document.getElementById("codeInput").value = "TEMPOTOBER";
+    document.getElementById("codeForm").requestSubmit();
+  });
+  const promoSync = () => {
+    const on = /TEMPOTOBER applied/i.test(codeMsg.textContent);
+    promoBtn.classList.toggle("on", on);
+    promoBtn.textContent = on ? "Code applied ✓" : "Use code";
+  };
+  new MutationObserver(promoSync).observe(codeMsg, { childList: true, characterData: true, subtree: true });
+  promoSync();
+
+  // ------------------------------------------------ the ghost watches your cursor
+  const spook = document.getElementById("spook"), pupils = spook.querySelector(".pupil");
+  addEventListener("pointermove", (e) => {
+    const r = spook.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.4);
+    const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 300) * 3.5;
+    pupils.style.transform = `translate(${(dx / d) * k}px,${(dy / d) * k}px)`;
+  }, { passive: true });
+
+  // ------------------------------------------------ the ghost says boo when poked
+  spook.addEventListener("click", () => {
+    spook.classList.remove("jump"); void spook.offsetWidth; spook.classList.add("jump", "said");
+    clearTimeout(spook._t); spook._t = setTimeout(() => spook.classList.remove("said"), 1400);
+  });
+
+  // ------------------------------------------------ TEMPOTOBER countdown (ends when November starts, viewer's time)
+  const cd = document.getElementById("promoCd");
+  const tickCd = () => {
+    const now = new Date(), end = new Date(now.getFullYear(), 10, 1);
+    const ms = end - now;
+    if (now.getMonth() !== 9 || ms <= 0) { cd.textContent = ""; return; }
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
+    cd.textContent = "· ends in " + (d ? `${d}d ${h}h` : `${h}h ${m}m`);
+  };
+  tickCd(); setInterval(tickCd, 60000);
+
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ------------------------------------------------ embers rising off the logo (only while the hero is on screen)
+  const cv = document.getElementById("embers"), cx = cv.getContext("2d");
+  let embers = [], live = false, emRaf = 0;
+  const fit = () => { cv.width = cv.offsetWidth * devicePixelRatio; cv.height = cv.offsetHeight * devicePixelRatio; };
+  const spawn = (y) => ({ x: cv.width * (0.45 + Math.random() * 0.55), y: y ?? cv.height + 10, r: (0.6 + Math.random() * 1.8) * devicePixelRatio,
+    vy: (0.35 + Math.random() * 0.9) * devicePixelRatio, vx: (Math.random() - 0.5) * 0.4, ph: Math.random() * 6.28, life: 1 });
+  function frame() {
+    cx.clearRect(0, 0, cv.width, cv.height);
+    for (const e of embers) {
+      e.y -= e.vy; e.ph += 0.05; e.x += e.vx + Math.sin(e.ph) * 0.35; e.life -= 0.0016;
+      if (e.y < -10 || e.life <= 0) Object.assign(e, spawn());
+      const a = Math.max(0, Math.min(1, e.life)) * (0.55 + 0.45 * Math.sin(e.ph * 3));
+      cx.fillStyle = `rgba(255,${150 + (e.r * 20 | 0)},60,${a})`;
+      cx.beginPath(); cx.arc(e.x, e.y, e.r, 0, 6.29); cx.fill();
+    }
+    if (live) emRaf = requestAnimationFrame(frame);
+  }
+  if (!calm) {
+    fit(); addEventListener("resize", fit);
+    embers = Array.from({ length: innerWidth < 700 ? 22 : 46 }, () => spawn(Math.random() * cv.height));
+    new IntersectionObserver(([en]) => { live = en.isIntersecting; cancelAnimationFrame(emRaf); if (live) frame(); }).observe(cv);
+  }
+
+  // ------------------------------------------------ sections slide in as you scroll
+  if (!calm && "IntersectionObserver" in window) {
+    const els = document.querySelectorAll("section:not(.hero) .head, .gcard, .plan, .exi, .gi, .clip, .tier, .spec, .step, .join");
+    const io = new IntersectionObserver((list) => list.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { rootMargin: "0px 0px -8% 0px" });
+    els.forEach((el, i) => { el.classList.add("reveal"); el.style.transitionDelay = (i % 4) * 60 + "ms"; io.observe(el); });
   }
 
   // ------------------------------------------------ copy buttons

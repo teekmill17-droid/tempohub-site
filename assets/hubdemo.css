@@ -2,13 +2,13 @@
    THEMES): every theme button just swaps these variables. */
 .hubwrap{display:flex;flex-direction:column;gap:14px}
 .hubgames{display:flex;gap:8px;flex-wrap:wrap}
-.hubgames button{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:var(--bg2);color:var(--dim);font:500 13px Archivo,sans-serif;cursor:pointer}
-.hubgames button.on{color:#051019;background:var(--ice);border-color:var(--ice)}
+.hubgames button{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:var(--bg2);color:var(--dim);font:500 13px Barlow,sans-serif;cursor:pointer}
+.hubgames button.on{color:#160900;background:var(--ice);border-color:var(--ice)}
 
 .hub{--h-deep:#000;--h-panel:#0A0A0B;--h-top:#0D0D0F;--h-card:#111113;--h-hover:#1A1A1D;--h-off:#303034;--h-div:#1E1E21;
-  --h-acc:#2E9BFF;--h-glow:#A8D5FF;--h-btn:#1B4F80;--h-text:#E8ECF1;--h-dim:#8C9198;--h-faint:#5C6066;
+  --h-acc:#FF8A2A;--h-glow:#FFC48F;--h-btn:#7A3A10;--h-text:#E8ECF1;--h-dim:#8C9198;--h-faint:#5C6066;
   position:relative;height:540px;border-radius:14px;overflow:hidden;background:var(--h-panel);border:1px solid var(--h-div);
-  display:grid;grid-template-rows:52px 1fr;color:var(--h-text);font:14px/1.4 Archivo,system-ui,sans-serif;
+  display:grid;grid-template-rows:52px 1fr;color:var(--h-text);font:14px/1.4 Barlow,system-ui,sans-serif;
   box-shadow:0 30px 80px -30px rgba(0,0,0,.8);transition:background .25s,color .25s}
 .hub *{box-sizing:border-box}
 .hub-top{display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--h-top);border-bottom:1px solid var(--h-div)}
@@ -22,11 +22,11 @@
 .hub-top .win svg{width:14px;height:14px}
 .hub-body{display:grid;grid-template-columns:190px 1fr;min-height:0}
 .hub-side{border-right:1px solid var(--h-div);padding:12px 10px;display:flex;flex-direction:column;gap:8px;min-height:0}
-.hub-search{height:34px;border-radius:9px;background:var(--h-card);border:1px solid var(--h-div);color:var(--h-text);font:13px Archivo,sans-serif;padding:0 10px;outline:none;width:100%}
+.hub-search{height:34px;border-radius:9px;background:var(--h-card);border:1px solid var(--h-div);color:var(--h-text);font:13px Barlow,sans-serif;padding:0 10px;outline:none;width:100%}
 .hub-search::placeholder{color:var(--h-dim)}
 .hub-tabs{display:flex;flex-direction:column;gap:2px;overflow-y:auto;scrollbar-width:none}
 .hub-tabs::-webkit-scrollbar{display:none}
-.hub-tab{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:9px;border:0;background:none;color:var(--h-dim);font:500 13.5px Archivo,sans-serif;cursor:pointer;text-align:left;white-space:nowrap}
+.hub-tab{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:9px;border:0;background:none;color:var(--h-dim);font:500 13.5px Barlow,sans-serif;cursor:pointer;text-align:left;white-space:nowrap}
 .hub-tab:hover{background:var(--h-hover);color:var(--h-text)}
 .hub-tab.on{background:var(--h-btn);color:var(--h-onbtn,var(--h-text))}
 .hub-tab svg{width:16px;height:16px;flex:none}
@@ -48,16 +48,16 @@
 .hub-sl input{flex:1;accent-color:var(--h-acc);height:4px;cursor:pointer}
 .hub-sl output{min-width:58px;text-align:right;font:500 12px "Roboto Mono",monospace;color:var(--h-text);background:var(--h-panel);border:1px solid var(--h-div);border-radius:7px;padding:3px 7px}
 .hub-dd{position:relative;flex:none}
-.hub-dd>button{min-width:130px;height:30px;border-radius:8px;background:var(--h-panel);border:1px solid var(--h-div);color:var(--h-text);font:500 12.5px Archivo,sans-serif;padding:0 28px 0 10px;text-align:left;cursor:pointer;position:relative}
+.hub-dd>button{min-width:130px;height:30px;border-radius:8px;background:var(--h-panel);border:1px solid var(--h-div);color:var(--h-text);font:500 12.5px Barlow,sans-serif;padding:0 28px 0 10px;text-align:left;cursor:pointer;position:relative}
 .hub-dd>button:after{content:"";position:absolute;right:10px;top:11px;width:6px;height:6px;border-right:1.5px solid var(--h-dim);border-bottom:1.5px solid var(--h-dim);transform:rotate(45deg)}
 .hub-dd ul{position:absolute;right:0;top:34px;z-index:5;min-width:100%;list-style:none;margin:0;padding:4px;background:var(--h-card);border:1px solid var(--h-div);border-radius:9px;box-shadow:0 12px 30px rgba(0,0,0,.5);max-height:190px;overflow-y:auto}
-.hub-dd li button{width:100%;text-align:left;border:0;background:none;color:var(--h-dim);font:12.5px Archivo,sans-serif;padding:6px 8px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.hub-dd li button{width:100%;text-align:left;border:0;background:none;color:var(--h-dim);font:12.5px Barlow,sans-serif;padding:6px 8px;border-radius:6px;cursor:pointer;white-space:nowrap}
 .hub-dd li button:hover,.hub-dd li button.on{background:var(--h-hover);color:var(--h-text)}
-.hub-btn{flex:none;height:30px;padding:0 14px;border-radius:8px;border:0;background:var(--h-btn);color:var(--h-onbtn,var(--h-text));font:600 12.5px Archivo,sans-serif;cursor:pointer}
+.hub-btn{flex:none;height:30px;padding:0 14px;border-radius:8px;border:0;background:var(--h-btn);color:var(--h-onbtn,var(--h-text));font:600 12.5px Barlow,sans-serif;cursor:pointer}
 .hub-btn:hover{filter:brightness(1.2)}
 .hub-stat{font:500 12px "Roboto Mono",monospace;color:var(--h-acc);text-align:right;max-width:55%}
 .hub-themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
-.hub-themes button{display:flex;align-items:center;gap:8px;height:36px;border-radius:9px;border:1px solid var(--h-div);background:var(--h-card);color:var(--h-text);font:500 12.5px Archivo,sans-serif;cursor:pointer;padding:0 10px}
+.hub-themes button{display:flex;align-items:center;gap:8px;height:36px;border-radius:9px;border:1px solid var(--h-div);background:var(--h-card);color:var(--h-text);font:500 12.5px Barlow,sans-serif;cursor:pointer;padding:0 10px}
 .hub-themes button.on{border-color:var(--h-acc)}
 .hub-themes i{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid rgba(255,255,255,.2)}
 .hub-empty{color:var(--h-dim);font-size:13px;padding:20px 4px}
