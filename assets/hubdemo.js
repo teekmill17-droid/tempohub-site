@@ -6,7 +6,7 @@
 
   // Theme rows copied from WindLib THEMES (panel, top, card, hover, off, divider, accent, glow, btn, text, dim, faint).
   const THEMES = {
-    Tempo:    ["#0A0A0B","#0D0D0F","#111113","#1A1A1D","#303034","#1E1E21","#2E9BFF","#A8D5FF","#1B4F80","#E8ECF1","#8C9198","#5C6066"],
+    Tempo:    ["#0A0A0B","#0D0D0F","#111113","#1A1A1D","#303034","#1E1E21","#FF8A2A","#FFC48F","#7A3A10","#E8ECF1","#8C9198","#5C6066"],
     Ember:    ["#0B0908","#0F0C0A","#141010","#1E1815","#38302C","#241D1A","#FF7A3D","#FFC9A8","#7A3A1C","#F2EAE5","#9A8E87","#665D58"],
     Verdant:  ["#080B09","#0A0F0C","#0F1411","#161E1A","#2C382F","#18231C","#3DD68C","#B4F2D6","#1C6B44","#E6F2EB","#879A8F","#586660"],
     Orchid:   ["#0A080C","#0D0A10","#131017","#1C1622","#362C40","#221B29","#A87BFF","#DCC9FF","#4E2E80","#EDE8F2","#918799","#5F5866"],
