@@ -2,6 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+// October theme runs itself: from November 1 (viewer's clock) the site goes back to
+// the ice-blue look and the Halloween bits hide. ?season=off previews that.
+(function(){
+  if (new Date().getMonth() === 9 && !/season=off/.test(location.search)) return;
+  document.documentElement.dataset.season = "off";
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll('img[src*="logo-oct"],link[href*="logo-oct"]').forEach(function(e){
+      if (e.tagName === "IMG") e.src = e.getAttribute("src").replace("logo-oct", "logo"); else e.href = e.getAttribute("href").replace("logo-oct", "logo");
+    });
+  });
+})();
+</script>
 <script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tempo Hub</title>
@@ -359,6 +372,11 @@ footer a:hover{color:var(--text)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.hero-art,.wordmark .wm-hub,.bat,.bat svg,.spook .eyes{animation:none}.bat{display:none}.reveal{opacity:1;transform:none;transition:none}}
 @media (prefers-reduced-motion:reduce){.spook{animation:none}}
+/* off season (see the script at the top) */
+[data-season=off]{--bg:#07080a;--bg2:#0b0d10;--panel:#0e1014;--line:#1b1f26;--line2:#262b34;--text:#e9edf2;--dim:#8b94a3;--faint:#5a6270;--ice:#7cc4ff;--ice2:#b9e0ff;--pumpkin:#7cc4ff}
+[data-season=off] .promo,[data-season=off] .hero-art,[data-season=off] .embers,[data-season=off] .bat,[data-season=off] .spook{display:none}
+[data-season=off] .wordmark .wm-hub{animation:none}
+[data-season=off] nav{background:rgba(7,8,10,.92)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
