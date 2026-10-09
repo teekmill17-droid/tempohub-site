@@ -52,7 +52,7 @@
     <div class="label">Your key</div>
     <div class="code"><pre id="key"></pre><button class="copy" id="copy">Copy</button></div>
     <p class="note" id="exp"></p>
-    <p class="note">Paste it into the key box in the hub. It only works on this device. Do the steps again any time to add 24 h (up to 72 h).</p>
+    <p class="note">Paste it into the key box in the script. It works on the first device you use it on. Press Get key in the script and do the steps again any time to add 24 h (up to 72 h).</p>
   </div>
 
   <p class="err" id="err" hidden></p>
@@ -140,11 +140,10 @@
     });
   };
 
-  if (!/^[a-f0-9]{32}$/.test(h)) {
-    $("sub").textContent = "Open this page from the Get Key button in the hub - the link ties the key to your device.";
-    return;
-  }
-  post("/fk/start", { h: h }).then(function (j) {
+  // no ?h= (the Discord panel's link): still works, the key locks to the
+  // first device that uses it
+  if (!/^[a-f0-9]{32}$/.test(h)) h = "";
+  post("/fk/start", h ? { h: h } : {}).then(function (j) {
     if (!j.ok) return fail(j.why || "couldn't start");
     sid = j.sid; minAway = j.minAway || minAway; steps = j.steps || [];
     if (j.current) {
