@@ -18,7 +18,7 @@
 <script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tempo Hub</title>
-<meta name="description" content="Roblox scripts for Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, plus 13 free games. Weekly $2.99, monthly $7.99, lifetime $24.99.">
+<meta name="description" content="Roblox scripts for Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, plus 16 free games. Weekly $2.99, monthly $7.99, lifetime $24.99.">
 <meta property="og:title" content="Tempo Hub">
 <meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines and Project Slayers 2. From $2.99. 25% off all October with TEMPOTOBER.">
 <meta property="og:image" content="https://tempohub.shop/assets/logo-oct.png">
@@ -126,16 +126,27 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .chip{height:40px;padding:0 14px;background:none;border:0;border-left:1px solid var(--line2);color:var(--dim);font:500 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
 .chip:first-child{border-left:0}
 .chip.on{background:var(--bg2);color:var(--text)}
-.glist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.glist{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media (max-width:960px){.glist{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.glist{grid-template-columns:1fr}}
-.gi{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
-.gi .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.gi b{font-weight:600}
-.gi p{color:var(--dim);font-size:13.5px}
+.gc{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+.gc:hover{border-color:var(--line2);transform:translateY(-3px)}
+.gc .pic{aspect-ratio:16/9;background:var(--bg2);overflow:hidden}
+.gc .pic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.gc:hover .pic img{transform:scale(1.04)}
+.gc .body{padding:16px 18px 14px;display:flex;flex-direction:column;gap:12px;flex:1}
+.gc .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.gc b{font-weight:700;font-size:17px}
+.gc .ok{flex:none;width:20px;height:20px;color:var(--green)}
+.gc .feat{display:none;color:var(--dim);font-size:13.5px;margin:0}
+.gc.open .feat{display:block}
+.gc .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:13px 18px;color:var(--dim);font-weight:600;font-size:14px;background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;font-family:inherit;text-decoration:none;width:100%}
+.gc .foot:hover{color:var(--text)}
+.gc .foot span{color:var(--ice)}
+.badge.both{color:#c9a3ff;border:1px solid rgba(180,130,255,.4)}
 .badge{font:500 10px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:4px 7px;border-radius:3px;white-space:nowrap}
 .badge.free{color:var(--green);border:1px solid rgba(61,220,132,.35)}
-.badge.prem{color:var(--ice);border:1px solid color-mix(in srgb,var(--ice) 40%,transparent)}
+.badge.prem{color:var(--amber);border-color:rgba(255,181,71,.4)!important;border:1px solid color-mix(in srgb,var(--ice) 40%,transparent)}
 .badge.new{color:var(--amber);border:1px solid rgba(255,181,71,.4);margin-left:6px}
 .gempty{display:none;color:var(--faint);font:13px "Roboto Mono",monospace;padding:18px 0}
 .loaderbox{margin-top:28px}
@@ -419,7 +430,7 @@ footer a:hover{color:var(--text)}
   <div class="wrap">
     <div>
       <h1 class="wordmark">TEMPO <span class="wm-hub">HUB</span></h1>
-      <p class="lead">Scripts for 17 Roblox games.<br>Premium covers Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2.</p>
+      <p class="lead">Scripts for 20 Roblox games.<br>Premium covers Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2.</p>
 
       <div class="pwrap">
         <div class="spook" id="spook" aria-hidden="true"><span class="boo">boo!</span>
@@ -453,7 +464,7 @@ footer a:hover{color:var(--text)}
       <div class="stats">
         <div class="stat"><b id="stMembers">484</b><span>Members</span></div>
         <div class="stat"><b><i class="live"></i><span id="stOnline">120</span></b><span>Online now</span></div>
-        <div class="stat"><b id="stGames">17</b><span>Games</span></div>
+        <div class="stat"><b id="stGames">20</b><span>Games</span></div>
         <div class="stat"><b>4</b><span>Premium</span></div>
       </div>
       <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Wave</b>, <b>Volt</b>, <b>Madium</b> and more. Works on PC, controller and mobile.</p>
@@ -664,7 +675,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
     <div class="head-row">
       <div class="head">
         <h2>Games</h2>
-        <p><span id="gCount">17</span> supported games. Run the loader in any of them and the right script loads. Premium games list their features before you buy.</p>
+        <p><span id="gCount">20</span> supported games. Run the loader in any of them and the right script loads. Premium games list their features before you buy.</p>
       </div>
       <div class="gtools">
         <input class="search" id="gSearch" type="search" placeholder="Search games" autocomplete="off">
@@ -799,7 +810,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       <details><summary>Which executors does it work on?</summary><p>We've tested on Real, Potassium, Madium, Volt, Wave and a few others - the full list is in Supported executors above. Xeno and Solara are not supported: they're missing functions the scripts need. The shooting scripts work with keyboard, controller and mobile. If yours throws an error, post it in the Discord support channel and we'll look at it.</p></details>
       <details><summary>Can other players see the cosmetics?</summary><p>No. Mascots, outfits, animations, meters and effects are only on your screen. Other players see your normal look, and nothing gets saved to your account.</p></details>
       <details><summary>Can I get banned?</summary><p>There's always some risk with scripts. Tempo presses the same buttons you would and sends what the game itself sends. Play normally and don't show features off in front of mods.</p></details>
-      <details><summary>What's free and what's premium?</summary><p>Thirteen games are completely free, RH2 and Xtreme Basketball auto green included. Premium is Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, and any premium game we add later. Weekly is $2.99, monthly $7.99, lifetime $24.99.</p></details>
+      <details><summary>What's free and what's premium?</summary><p>Sixteen games are completely free, including Rivals, Azure Latch and auto green for RH2, Xtreme Basketball and Streetball. Premium is Clover Retribution, Anime Battle Arena, Bloodlines and Project Slayers 2, and any premium game we add later. Weekly is $2.99, monthly $7.99, lifetime $24.99.</p></details>
       <details><summary>Can I try premium first?</summary><p>Yes. Chat in the Discord until you hit level 5 and a one-day key gets DMed to you. The day starts the first time you run it.</p></details>
       <details><summary>What happens when a game updates?</summary><p>Check the status board in the Discord. Most updates don't touch what we time. When one does, we push a fix and post a changelog.</p></details>
       <details><summary>Can I get a refund?</summary><p>If your key never worked and we can't get it running for you within 72 hours, yes. The full policy is on the <a href="/refunds" style="text-decoration:underline">refunds page</a>.</p></details>
@@ -850,25 +861,29 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
 <script src="assets/hubdemo.js" defer></script>
 <script>
 // ================================================================ content
-// Add a game: one line here. tier "prem" or "free"; isNew puts a badge on it.
+// Add a game: one line here. tier "prem", "free" or "both"; img = the game's
+// Roblox thumbnail in assets/games/; isNew puts a badge on it.
 const GAMES = [
-  { name: "Clover Retribution", tier: "prem", what: "Auto story, auto quest, farms, spins, prestige", isNew: true },
-  { name: "Anime Battle Arena", tier: "prem", what: "M1 trade, auto block, gold skin farm, combos" },
-  { name: "Bloodlines", tier: "prem", what: "Mission, boss and item farm, kill aura", isNew: true },
-  { name: "Project Slayers 2", tier: "prem", what: "Mob, boss and quest farm, ESP" },
-  { name: "RH2 · The Journey", tier: "free", what: "Auto green, per-shot timing, cosmetics" },
-  { name: "Xtreme Basketball", tier: "free", what: "Auto green, cosmetics unlock" },
-  { name: "Blox Fruits", tier: "free", what: "Farm, teleports" },
-  { name: "Blade Ball", tier: "free", what: "Auto parry" },
-  { name: "Fisch", tier: "free", what: "Auto fish" },
-  { name: "Jailbreak", tier: "free", what: "ESP, farm" },
-  { name: "Sniper Arena", tier: "free", what: "Aim, ESP" },
-  { name: "All Star Tower Defense", tier: "free", what: "Auto farm" },
-  { name: "My Animal Farm", tier: "free", what: "Auto farm" },
-  { name: "Steal an Egg", tier: "free", what: "Auto steal" },
-  { name: "Sell Ores", tier: "free", what: "Auto sell" },
-  { name: "Speedsters Beyond", tier: "free", what: "Auto farm" },
-  { name: "Anime Card Farm", tier: "free", what: "Auto farm" },
+  { name: "Clover Retribution", tier: "prem", img: "clover", what: "Auto story, auto quest, farms, spins, prestige", isNew: true },
+  { name: "Anime Battle Arena", tier: "prem", img: "aba", what: "M1 trade, auto block, gold skin farm, combos" },
+  { name: "Bloodlines", tier: "prem", img: "bloodlines", what: "Mission, boss and item farm, kill aura", isNew: true },
+  { name: "Project Slayers 2", tier: "prem", img: "slayers2", what: "Mob, boss and quest farm, ESP" },
+  { name: "RH2 · The Journey", tier: "both", img: "rh2", what: "Auto green, per-shot timing, cosmetics" },
+  { name: "Rivals", tier: "free", img: "rivals", what: "Silent aim, aimbot, ragebot, ESP, anti aim, skins", isNew: true },
+  { name: "Azure Latch", tier: "free", img: "azurelatch", what: "Shot aimbot, auto shoot, ball reach + magnet, auto tackle/dribble", isNew: true },
+  { name: "Streetball", tier: "free", img: "streetball", what: "Auto green on every shot" },
+  { name: "Xtreme Basketball", tier: "free", img: "xtreme", what: "Auto green, cosmetics unlock" },
+  { name: "Blox Fruits", tier: "free", img: "bloxfruits", what: "Farm, teleports" },
+  { name: "Blade Ball", tier: "free", img: "bladeball", what: "Auto parry" },
+  { name: "Fisch", tier: "free", img: "fisch", what: "Auto fish" },
+  { name: "Jailbreak", tier: "free", img: "jailbreak", what: "ESP, farm" },
+  { name: "Sniper Arena", tier: "free", img: "sniperarena", what: "Aim, ESP" },
+  { name: "All Star Tower Defense", tier: "free", img: "astd", what: "Auto farm" },
+  { name: "My Animal Farm", tier: "free", img: "animalfarm", what: "Auto farm" },
+  { name: "Steal an Egg", tier: "free", img: "stealanegg", what: "Auto steal" },
+  { name: "Sell Ores", tier: "free", img: "sellores", what: "Auto sell" },
+  { name: "Speedsters Beyond", tier: "free", img: "speedsters", what: "Auto farm" },
+  { name: "Anime Card Farm", tier: "free", img: "animecardfarm", what: "Auto farm" },
 ];
 
 // Add a clip: { yt: "VIDEO_ID", title: "...", by: "@name" } for YouTube,
@@ -906,14 +921,26 @@ const REVIEWS = [
   let filter = "all";
   function drawGames() {
     const q = gSearch.value.trim().toLowerCase();
-    const shown = GAMES.filter((g) => (filter === "all" || g.tier === filter) &&
+    const shown = GAMES.filter((g) => (filter === "all" || g.tier === filter || g.tier === "both") &&
       (!q || g.name.toLowerCase().includes(q) || g.what.toLowerCase().includes(q)));
-    gList.innerHTML = shown.map((g) => `<div class="gi"><div class="top"><b>${esc(g.name)}</b><span>` +
-      `<span class="badge ${g.tier}">${g.tier === "prem" ? "Premium" : "Free"}</span>` +
-      (g.isNew ? `<span class="badge new">New</span>` : "") + `</span></div><p>${esc(g.what)}</p></div>`).join("");
+    const LABEL = { prem: "Paid", free: "Free", both: "Free &amp; Paid" };
+    const OK = `<svg class="ok" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="10" r="8.2"/><path d="M6.4 10.2l2.4 2.4 4.8-5"/></svg>`;
+    gList.innerHTML = shown.map((g) => `<article class="gc">` +
+      `<div class="pic"><img src="assets/games/${esc(g.img)}.jpg" alt="${esc(g.name)}" loading="lazy"></div>` +
+      `<div class="body"><div class="top"><b>${esc(g.name)}</b>${OK}</div>` +
+      `<div><span class="badge ${g.tier}">${LABEL[g.tier]}</span>` + (g.isNew ? `<span class="badge new">New</span>` : "") + `</div>` +
+      `<p class="feat">${esc(g.what)}</p></div>` +
+      (g.tier === "prem"
+        ? `<a class="foot" href="#premium">View Features <span>&#8599;</span></a>`
+        : `<button class="foot" type="button">View Features <span>&#8599;</span></button>`) +
+      `</article>`).join("");
     gEmpty.style.display = shown.length ? "none" : "block";
   }
   gSearch.addEventListener("input", drawGames);
+  gList.addEventListener("click", (e) => {
+    const b = e.target.closest("button.foot"); if (!b) return;
+    b.closest(".gc").classList.toggle("open");
+  });
   document.getElementById("gChips").addEventListener("click", (e) => {
     const b = e.target.closest(".chip"); if (!b) return;
     filter = b.dataset.f;
