@@ -39,12 +39,12 @@
 <main>
   <span class="eyebrow">Free key</span>
   <h1>Get your key</h1>
-  <p class="date" id="sub">Like both videos and subscribe to both channels. Each one opens YouTube - come back here when you're done.</p>
+  <p class="date" id="sub">One quick unlock: subscribe and like on the next page, then you come straight back here for your key.</p>
 
-  <div class="card" id="stepsCard" hidden>
-    <div class="label">Steps</div>
-    <div id="steps"></div>
-    <button class="btn" id="claim" disabled>Get my key</button>
+  <div class="card" id="goCard" hidden>
+    <div class="label" id="goLabel">Step 1 of 2</div>
+    <p class="what" id="goText">Taking you to the unlock page...</p>
+    <a class="btn" id="go" href="#">Continue to unlock</a>
     <p class="note" id="stack" hidden></p>
   </div>
 
@@ -52,7 +52,7 @@
     <div class="label">Your key</div>
     <div class="code"><pre id="key"></pre><button class="copy" id="copy">Copy</button></div>
     <p class="note" id="exp"></p>
-    <p class="note">Paste it into the key box in the script. It works on the first device you use it on. Press Get key in the script and do the steps again any time to add 24 h (up to 72 h).</p>
+    <p class="note">Paste it into the key box in the script. It works on the first device you use it on. Press Get key in the script and unlock again any time to add 24 h (up to 72 h).</p>
   </div>
 
   <p class="err" id="err" hidden></p>
@@ -60,100 +60,70 @@
 </main>
 <script>
 (function () {
+  // sub2unlock flow (10-12): the server hands out a one-time ticket, we keep it
+  // here and go to sub2unlock; sub2unlock sends you back to this page and the
+  // ticket is cashed for the key. The server decides everything (ticket age,
+  // same network, one key per ticket) - this page only carries the ticket.
   var API = "https://teekhub-keys.teekhub.workers.dev";
-  var h = new URLSearchParams(location.search).get("h") || "";
-  var sid = null, minAway = 15000, opened = {}, done = {}, steps = [];
+  var STORE = "tempo_key_ticket";
   var $ = function (id) { return document.getElementById(id); };
-
   function fail(msg) { var e = $("err"); e.textContent = msg; e.hidden = false; }
   function post(path, body) {
     return fetch(API + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
       .then(function (r) { return r.json().then(function (j) { j._status = r.status; return j; }); });
   }
   function hours(ms) { return Math.max(0, Math.round(ms / 3600000)); }
+  function load() { try { return JSON.parse(localStorage.getItem(STORE) || "null"); } catch (_) { return null; } }
+  function save(t) { try { localStorage.setItem(STORE, JSON.stringify(t)); } catch (_) {} }
+  function clear() { try { localStorage.removeItem(STORE); } catch (_) {} }
 
-  function render() {
-    var box = $("steps");
-    box.textContent = "";
-    steps.forEach(function (s, i) {
-      var row = document.createElement("div");
-      row.className = "step" + (done[s.id] ? " ok" : "");
-      var n = document.createElement("div"); n.className = "num"; n.textContent = done[s.id] ? "✓" : String(i + 1);
-      var w = document.createElement("div"); w.className = "what"; w.textContent = s.label;
-      var sm = document.createElement("small");
-      if (done[s.id]) sm.textContent = "done";
-      else if (opened[s.id]) {
-        var left = Math.ceil((minAway - (Date.now() - opened[s.id])) / 1000);
-        sm.textContent = left > 0 ? "come back in " + left + "s" : "checking...";
-      } else sm.textContent = "opens YouTube";
-      w.appendChild(sm);
-      var b = document.createElement("button"); b.className = "go";
-      b.textContent = done[s.id] ? "Done" : (opened[s.id] ? "Open again" : "Open");
-      b.disabled = !!done[s.id];
-      b.onclick = function () { openStep(s.id); };
-      row.appendChild(n); row.appendChild(w); row.appendChild(b);
-      box.appendChild(row);
-    });
-    $("claim").disabled = !steps.every(function (s) { return done[s.id]; });
+  function sendTo(url, text, label) {
+    $("goText").textContent = text;
+    $("goLabel").textContent = label || "Step 1 of 2";
+    $("go").href = url;
+    $("goCard").hidden = false;
   }
-
-  function openStep(id) {
-    // open the tab first (popup blockers only allow it inside the click)
-    var tab = window.open("about:blank", "_blank");
-    post("/fk/open", { sid: sid, step: id }).then(function (j) {
-      if (!j.ok) { if (tab) tab.close(); return fail(j.why || "something went wrong"); }
-      if (tab) tab.location = j.url; else location.href = j.url;
-      opened[id] = opened[id] || Date.now();
-      render();
-    });
+  function showKey(j) {
+    $("key").textContent = j.key;
+    $("exp").textContent = "Good for " + hours(j.expires - Date.now()) + " hours (until " + new Date(j.expires).toLocaleString() + ").";
+    $("keyCard").hidden = false;
+    $("goCard").hidden = true;
+    $("sub").textContent = "Done - here's your key.";
   }
-
-  function tryDone() {
-    steps.forEach(function (s) {
-      if (opened[s.id] && !done[s.id] && Date.now() - opened[s.id] >= minAway) {
-        done[s.id] = "pending";
-        post("/fk/done", { sid: sid, step: s.id }).then(function (j) {
-          if (j.ok) done[s.id] = true; else delete done[s.id];
-          render();
-        });
-      }
-    });
-    render();
-  }
-  setInterval(tryDone, 1000);
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) tryDone(); });
-
-  $("claim").onclick = function () {
-    $("claim").disabled = true;
-    post("/fk/claim", { sid: sid }).then(function (j) {
-      if (!j.key) { $("claim").disabled = false; return fail(j.why || "couldn't make a key"); }
-      $("key").textContent = j.key;
-      $("exp").textContent = "Good for " + hours(j.expires - Date.now()) + " hours (until " + new Date(j.expires).toLocaleString() + ").";
-      $("keyCard").hidden = false;
-      $("stepsCard").hidden = true;
-      if (!j.ok) fail(j.why);
-    });
-  };
   $("copy").onclick = function () {
     navigator.clipboard.writeText($("key").textContent).then(function () {
       $("copy").textContent = "Copied"; $("copy").classList.add("done");
     });
   };
 
-  // no ?h= (the Discord panel's link): still works, the key locks to the
-  // first device that uses it
+  // a fresh ticket, then off to sub2unlock
+  function start(h) {
+    return post("/fk/start", h ? { h: h } : {}).then(function (j) {
+      if (!j.ok) return fail(j.why || "couldn't start");
+      save({ sid: j.sid, h: h });
+      if (j.current) {
+        var st = $("stack");
+        st.textContent = "Your key still has " + hours(j.current - Date.now()) + " h left - unlocking again adds 24 h (max 72 h).";
+        st.hidden = false;
+      }
+      sendTo(j.unlock, "Taking you to the unlock page - subscribe and like there, then press its Get Link button.");
+      setTimeout(function () { location.href = j.unlock; }, 1500);
+    });
+  }
+
+  // ?h= comes from the script's Get key button; it rides along on the ticket
+  var h = new URLSearchParams(location.search).get("h") || "";
   if (!/^[a-f0-9]{32}$/.test(h)) h = "";
-  post("/fk/start", h ? { h: h } : {}).then(function (j) {
-    if (!j.ok) return fail(j.why || "couldn't start");
-    sid = j.sid; minAway = j.minAway || minAway; steps = j.steps || [];
-    if (j.current) {
-      var st = $("stack");
-      st.textContent = "Your key still has " + hours(j.current - Date.now()) + " h left - doing the steps again adds 24 h (max 72 h).";
-      st.hidden = false;
-    }
-    $("stepsCard").hidden = false;
-    render();
-  }).catch(function () { fail("Couldn't reach the key server. Try again in a minute."); });
+  var t = load();
+  var go = (t && t.sid && !(h && t.h !== h))
+    ? post("/fk/claim", { sid: t.sid, ref: document.referrer || "" }).then(function (j) {
+        if (j.key) { clear(); showKey(j); if (!j.ok) fail(j.why); return; }
+        if (j.code === "unlock") return sendTo(j.unlock, "Finish the steps on the unlock page first, then press its Get Link button - it brings you back here.", "Not unlocked yet");
+        clear();
+        return start(h || (t && t.h) || "");
+      })
+    : start(h);
+  go.catch(function () { fail("Couldn't reach the key server. Try again in a minute."); });
 })();
 </script>
 </body>
