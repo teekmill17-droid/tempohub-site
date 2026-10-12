@@ -23,7 +23,8 @@
 <meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines, Project Slayers 2 and Bridger Western. From $2.99. 25% off all October with TEMPOTOBER.">
 <meta property="og:image" content="https://tempohub.shop/assets/logo-oct.png">
 <meta name="theme-color" content="#060504">
-<link rel="icon" href="assets/logo-oct.png">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/hubdemo.css">
@@ -353,7 +354,7 @@ footer a:hover{color:var(--text)}
 .hero{position:relative;overflow:hidden}
 .hero .wrap{position:relative;z-index:2}
 .hero-art{position:absolute;z-index:0;right:-70px;top:10px;width:min(700px,56vw);aspect-ratio:1;pointer-events:none;
-  background:url(assets/hero-oct.jpg) center/cover;
+  background:url(assets/hero-oct.png) center/cover;
   -webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);
   animation:flick 5s infinite,breathe 9s ease-in-out infinite}
 @keyframes flick{0%,100%{filter:brightness(1)}8%{filter:brightness(1.12)}10%{filter:brightness(.94)}34%{filter:brightness(1.06)}52%{filter:brightness(.97)}70%{filter:brightness(1.1)}73%{filter:brightness(1)}}
@@ -797,16 +798,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       </div>
     </div>
 
-    <div class="demo">
-      <div class="demo-title">Try it: hit the green yourself</div>
-      <div class="bar" id="dBar"><div class="win" id="dWin"></div><div class="fill" id="dFill"></div><div class="rel" id="dRel"></div></div>
-      <div class="demo-foot">
-        <div class="readout" id="dRead">Press <b>Space</b> or <b>Release</b> while the bar fills.</div>
-        <label class="toggle" id="dTog"><span class="sw"></span>Tempo auto green</label>
-        <button class="btn btn-primary" id="dBtn" type="button">Release</button>
-      </div>
-      <div class="score"><span>You <b id="sYou">0 / 0</b></span><span>Tempo <b id="sTempo">0 / 0</b></span></div>
-    </div>
   </div>
 </section>
 
@@ -1087,47 +1078,6 @@ const REVIEWS = [
     setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done"); }, 1600);
   }));
 
-  // ------------------------------------------------ playable demo
-  const dBar = document.getElementById("dBar"), dWin = document.getElementById("dWin"),
-        dFill = document.getElementById("dFill"), dRel = document.getElementById("dRel"),
-        dRead = document.getElementById("dRead"), dBtn = document.getElementById("dBtn"),
-        dTog = document.getElementById("dTog"), sYou = document.getElementById("sYou"),
-        sTempo = document.getElementById("sTempo");
-  const DUR = 1.4, LAG = 0.06;       // bar fill time, and the delay before a release "arrives"
-  let t0 = 0, raf = 0, running = false, auto = false, lo = 0, hi = 0;
-  const score = { you: [0, 0], tempo: [0, 0] };
-  function drawScore() { sYou.textContent = score.you.join(" / "); sTempo.textContent = score.tempo.join(" / "); }
-  function newRound() {
-    const c = 0.55 + Math.random() * 0.3, w = 0.035 + Math.random() * 0.03;
-    lo = c - w / 2; hi = c + w / 2;
-    dWin.style.left = (lo * 100) + "%"; dWin.style.width = (w * 100) + "%";
-    dRel.style.opacity = 0; t0 = performance.now(); running = true;
-    cancelAnimationFrame(raf); tick();
-  }
-  function tick() {
-    const p = (performance.now() - t0) / 1000 / DUR;
-    dFill.style.width = Math.min(100, p * 100) + "%";
-    if (auto && running && p >= (lo + hi) / 2 - LAG / DUR) return release(true);
-    if (p >= 1.05 && running) { running = false; dRead.innerHTML = "Too late, the shot never came out. Again?"; setTimeout(newRound, 900); return; }
-    if (running) raf = requestAnimationFrame(tick);
-  }
-  function release(byTempo) {
-    if (!running) { newRound(); return; }
-    running = false; cancelAnimationFrame(raf);
-    const p = (performance.now() - t0) / 1000 / DUR + LAG / DUR;   // where it lands after the lag
-    dRel.style.left = (Math.min(1, p) * 100) + "%"; dRel.style.opacity = 1;
-    const ok = p >= lo && p <= hi, who = byTempo ? "tempo" : "you";
-    score[who][1]++; if (ok) score[who][0]++; drawScore();
-    if (ok) { dBar.classList.remove("flash"); void dBar.offsetWidth; dBar.classList.add("flash"); }
-    const ms = Math.round((p - (lo + hi) / 2) * DUR * 1000);
-    dRead.innerHTML = (byTempo ? "<b>Tempo</b> " : "") + (ok ? "<b style='color:var(--green)'>PERFECT</b>" : `<b style="color:var(--amber)">${ms < 0 ? "EARLY" : "LATE"}</b>`) +
-      ` · landed ${ms > 0 ? "+" : ""}${ms} ms from the center` + (byTempo ? "" : ` · your release took ${LAG * 1000} ms to arrive`);
-    setTimeout(newRound, 1100);
-  }
-  dBtn.addEventListener("click", () => release(false));
-  addEventListener("keydown", (e) => { if (e.code === "Space" && document.activeElement === document.body) { e.preventDefault(); release(false); } });
-  dTog.addEventListener("click", () => { auto = !auto; dTog.classList.toggle("on", auto); if (auto && !running) newRound(); });
-  drawScore(); newRound();
 })();
 </script>
 </body>
