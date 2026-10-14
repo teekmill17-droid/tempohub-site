@@ -20,6 +20,9 @@ window.TEMPO_PAYPAL = false;
   const $ = (id) => document.getElementById(id);
   const money = (c) => "$" + (c / 100).toFixed(2);
   let ref = null; // { code, prices, discount } once checked
+  let sale = null; // { percent, end, prices: { plan: { was, now } } } while a sale runs
+  const FIRST = { weekly: " first week", monthly: " first month" };
+  const FIRST_SHORT = { weekly: " 1st wk", monthly: " 1st mo" }; // the hero strip
 
   function stored() {
     try {
@@ -44,7 +47,14 @@ window.TEMPO_PAYPAL = false;
     document.querySelectorAll("[data-price]").forEach((el) => {
       const plan = el.dataset.price;
       el.textContent = "";
-      if (ref && ref.prices[plan]) {
+      const onSale = sale && sale.prices[plan];
+      if (onSale) {
+        // the sale beats a code (they don't stack); renewals are full price
+        const was = document.createElement("span");
+        was.className = "was";
+        was.textContent = el.dataset.full;
+        el.append(was, money(onSale.now));
+      } else if (ref && ref.prices[plan]) {
         const was = document.createElement("span");
         was.className = "was";
         was.textContent = el.dataset.full;
@@ -53,13 +63,15 @@ window.TEMPO_PAYPAL = false;
         el.append(el.dataset.full);
       }
       const per = document.createElement("small");
-      per.textContent = el.dataset.per;
+      per.textContent = onSale && FIRST[plan] ? (el.classList.contains("amt") ? FIRST_SHORT : FIRST)[plan] : el.dataset.per;
       el.append(per);
     });
     const msg = $("codeMsg");
     if (msg) {
       msg.className = "msg" + (ref ? " ok" : "");
-      msg.textContent = ref ? `Code ${ref.code} applied: ${ref.discount}% off.` : "Have a code? Enter it here.";
+      msg.textContent = ref
+        ? (sale ? `Code ${ref.code} saved - the ${sale.percent}% sale is better, so you get that (codes don't stack).` : `Code ${ref.code} applied: ${ref.discount}% off.`)
+        : (sale ? `${sale.percent}% off your first payment today - no code needed.` : "Have a code? Enter it here.");
       if (ref) {
         const x = document.createElement("button");
         x.type = "button";
@@ -119,6 +131,45 @@ window.TEMPO_PAYPAL = false;
   }
 
   wire();
+
+  // ONE-DAY SALE: the Worker says if one is running (GET /sale). The bar at the
+  // top becomes the sale bar with a countdown to the end.
+  fetch(`${SHOP}/sale`).then((r) => r.json()).then((d) => {
+    if (!d || !d.on) return;
+    sale = d;
+    wire();
+    const bar = document.querySelector(".promo .wrap");
+    if (!bar) return;
+    bar.parentElement.classList.add("sale");
+    bar.textContent = "";
+    const t = document.createElement("span");
+    const b = document.createElement("b");
+    b.textContent = `${d.percent}% OFF`;
+    const cd = document.createElement("span");
+    cd.className = "cd";
+    t.append(b, ` · today only · your first payment on any plan `, cd);
+    const full = document.createElement("span");
+    full.className = "full";
+    full.textContent = Object.entries(d.prices).map(([p, v]) => `${p[0].toUpperCase() + p.slice(1)} ${money(v.now)}`).join(" · ");
+    bar.append(t, full);
+    const end = Date.parse(d.end);
+    const tick = () => {
+      const left = end - Date.now();
+      if (left <= 0) {
+        // over: back to normal prices (and a saved code's own prices) at once
+        cd.textContent = "· ended";
+        clearInterval(iv);
+        sale = null;
+        if (ref) check(ref.code, false).then((r) => { ref = r; wire(); });
+        else wire();
+        return;
+      }
+      const h = Math.floor(left / 3600e3), m = Math.floor(left / 60e3) % 60, s = Math.floor(left / 1e3) % 60;
+      cd.textContent = `· ends in ${h}h ${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`;
+    };
+    const iv = setInterval(tick, 1000);
+    tick();
+  }).catch(() => {});
 
   // A share link wins over a remembered code, and is counted as a click.
   const params = new URLSearchParams(location.search);
