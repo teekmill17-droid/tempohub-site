@@ -49,7 +49,7 @@ ol li{margin:8px 0}
     <h2>What now</h2>
     <ol>
       <li><strong>Save your key</strong> somewhere safe. Screenshot this page if you want.</li>
-      <li>Paste the loadstring into your executor and run it in any premium game.</li>
+      <li>Paste the loadstring into your executor and run it in any game - Premium games open their Premium script, every other game gets the free hub.</li>
       <li>The first run locks the key to your PC. If you switch PCs, ask for a reset in the Discord.</li>
     </ol>
     <p id="renewNote" hidden><strong>This plan renews automatically</strong> every <span id="renewEvery">day</span> on the same card, and the same key keeps working. Cancel anytime at <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">tempo-shop.teekhub.workers.dev/manage</a>. Your key stays active until the end of what you've paid for.</p>
@@ -89,7 +89,9 @@ ol li{margin:8px 0}
       $("sub").textContent = "Payment received. Here's your key.";
       $("planName").textContent = ({ daily: "Daily", weekly: "Weekly", monthly: "Monthly", lifetime: "Lifetime", hider: "Username Hider" })[r.plan] || "Premium";
       $("key").textContent = r.key;
-      $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/Premium.lua"))()`;
+      // one loadstring for every game; the key line skips the key box (the
+      // Username Hider is its own Luarmor project and keeps its own line)
+      $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/${r.plan === "hider" ? "Premium" : "Loader"}.lua"))()`;
       $("roleNote").hidden = !r.discord;
       const every = ({ daily: "day", weekly: "week", monthly: "month" })[r.plan];
       $("renewNote").hidden = !every;
