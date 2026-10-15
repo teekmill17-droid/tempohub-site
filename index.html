@@ -161,22 +161,38 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .loaderbox{margin-top:28px}
 .loaderbox .label{font:500 11px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 
-/* ------------------------------------------------ media */
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:960px){.mgrid{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.mgrid{grid-template-columns:1fr}}
-.clip{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}
-.clip .frame{position:relative;aspect-ratio:16/9;background:#040302 center/cover no-repeat;cursor:pointer}
-.clip .frame iframe,.clip .frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
-.clip .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
-.clip .play i{width:54px;height:54px;border-radius:50%;background:rgba(6,5,4,.75);border:1px solid var(--line2);display:grid;place-items:center;transition:transform .15s,border-color .15s}
-.clip .frame:hover .play i{transform:scale(1.06);border-color:var(--ice)}
-.clip .play svg{width:18px;height:18px;margin-left:3px}
-.clip .cap{padding:12px 14px;display:flex;justify-content:space-between;gap:10px;font-size:14px}
-.clip .cap span{font:12px "Roboto Mono",monospace;color:var(--faint);white-space:nowrap}
-.clip.slot .frame{display:grid;place-items:center;cursor:default;background:repeating-linear-gradient(135deg,#0b0907 0 12px,#0e0b09 12px 24px)}
-.clip.slot .frame div{text-align:center;color:var(--faint);font:12px "Roboto Mono",monospace;padding:0 16px}
-.clip.slot .frame b{display:block;color:var(--dim);font:600 15px Barlow,sans-serif;margin-bottom:4px}
+/* ------------------------------------------------ media: revolving reel */
+.reel{position:relative;height:calc(min(560px,74vw) * 9 / 16 + 8px);perspective:1400px;margin-top:6px;user-select:none;touch-action:pan-y}
+.reel .card{position:absolute;left:50%;top:0;width:min(560px,74vw);aspect-ratio:16/9;margin-left:calc(min(560px,74vw) / -2);
+  border-radius:var(--r);overflow:hidden;border:1px solid var(--line2);background:#040302 center/cover no-repeat;cursor:pointer;
+  transition:transform .7s cubic-bezier(.2,.75,.2,1),opacity .7s,filter .7s,border-color .3s;will-change:transform;box-shadow:0 24px 60px -24px rgba(0,0,0,.85)}
+.reel .card .kb{position:absolute;inset:0;background:inherit;background-size:cover;background-position:center;animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+.reel .card.front{border-color:var(--ice);box-shadow:0 0 0 1px var(--ice),0 30px 80px -20px rgba(0,0,0,.9),0 0 60px -18px var(--ice)}
+.reel .card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .6s;transform:scale(1.32)}
+.reel .card iframe.on{opacity:1}
+.reel .card .show{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.reel .card .show.on{opacity:1}
+.reel .card .show i{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;animation:frame 8s infinite,kb 8s ease-in-out infinite alternate}
+.reel .card .show i:nth-child(2){animation-delay:2s,0s}.reel .card .show i:nth-child(3){animation-delay:4s,0s}.reel .card .show i:nth-child(4){animation-delay:6s,0s}
+@keyframes frame{0%{opacity:0}6%{opacity:1}25%{opacity:1}31%{opacity:0}100%{opacity:0}}
+.reel .card.live iframe{pointer-events:auto;transform:none}
+.reel .card .shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.72));pointer-events:none}
+.reel .card .tag{position:absolute;left:12px;bottom:10px;right:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;pointer-events:none}
+.reel .card .tag b{font:600 14px/1.25 Barlow,sans-serif;text-shadow:0 1px 3px #000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.reel .card .tag span{font:11px "Roboto Mono",monospace;color:#ddd;white-space:nowrap;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:3px}
+.reel .card.live .shade,.reel .card.live .tag{display:none}
+.reel .card .shade,.reel .card .tag{transition:opacity .5s}
+.reel .card.playing .shade,.reel .card.playing .tag{opacity:0}
+.reel .card .snd{position:absolute;right:10px;top:10px;font:600 11px "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(6,5,4,.8);border:1px solid var(--line2);color:var(--text);padding:5px 9px;border-radius:3px;opacity:0;transition:opacity .3s;pointer-events:none}
+.reel .card.front .snd{opacity:1}
+.reel .card.live .snd{display:none}
+.reelnav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:18px}
+.reelnav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);color:var(--text);cursor:pointer;font-size:18px;transition:border-color .15s}
+.reelnav button:hover{border-color:var(--ice)}
+.reelnav .count{font:12px "Roboto Mono",monospace;color:var(--faint);min-width:64px;text-align:center}
+@media (prefers-reduced-motion:reduce){.reel .card{transition:none}.reel .card .kb{animation:none}}
 
 .creators{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
 @media (max-width:960px){.creators{grid-template-columns:1fr}}
@@ -740,12 +756,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
   <div class="wrap">
     <div class="head-row">
       <div class="head">
-        <h2>Clips</h2>
-        <p>Clips from us and the community. Post one and you can earn a free key.</p>
+        <h2>Videos</h2>
+        <p>Straight from our YouTube - every hub in action. Post your own clip and you can earn a free key.</p>
       </div>
-      <a class="btn" href="#creators">Creator program</a>
+      <a class="btn" href="https://www.youtube.com/@TempoHubb?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
     </div>
-    <div class="mgrid" id="mGrid"></div>
+    <div class="reel" id="reel" aria-label="Tempo Hub videos"></div>
+    <div class="reelnav"><button type="button" id="reelPrev" aria-label="Previous video">&#8249;</button><span class="count" id="reelCount"></span><button type="button" id="reelNext" aria-label="Next video">&#8250;</button></div>
 
     <div id="creators" style="scroll-margin-top:80px">
       <div class="creators">
@@ -915,13 +932,27 @@ const GAMES = [
   { name: "Anime Card Farm", tier: "free", img: "animecardfarm", what: "Auto farm" },
 ];
 
-// Add a clip: { yt: "VIDEO_ID", title: "...", by: "@name" } for YouTube,
-// or { mp4: "assets/media/file.mp4", poster: "assets/media/file.jpg", title, by }.
-// Empty spots show a "your clip here" tile that points at the creator program.
+// The revolving reel on the Videos section: youtube.com/@TempoHubb, newest
+// first. Add one: { yt: "VIDEO_ID", title: "...", views: "1.2K", len: "1:23" }.
 const MEDIA = [
-  { yt: "r8dZzJRpNcw", title: "ABA: M1 trade, techs, auto timing", by: "@tempohub" },
-  { yt: "DBFOrpE_3KA", title: "RH2 duo glitchtape", by: "@tempohub" },
-  { yt: "b3W0iLhLGo8", title: "RH2 montage", by: "@teekgobrzy" },
+  { yt: "Zz9T2CWlgFE", title: "BEST [ FREE ] KEYLESS FISCH SCRIPT (instant reel, auto farm, auto quest, auto bestiary, fly/tp, etc)", views: "186", len: "1:18" },
+  { yt: "1dged2aYBfk", title: "BEST FREE ROBLOX BLOX FRUITS SCRIPT! | AUTO FARM, AUTO RACE V4, AUTO ISLANDS, AUTO DRACO", views: "189", len: "7:31" },
+  { yt: "CKjGSzpZOio", title: "BEST FREE BLOODLINES SCRIPT (auto parry, hitbox extender, auto bosses, auto prog)", views: "120", len: "1:37" },
+  { yt: "wtXlF1R1ccA", title: "BEST ABA SCRIPT 2026 | ANIME BATTLE ARENA AUTO FARM, AUTO GOLD SKIN FARM, AUTO KILL", views: "414", len: "8:56" },
+  { yt: "URKqehkhO8Q", title: "[ UPDATED ] BEST FREE ABA SCRIPT (m1 trade, auto headrides, all techs, auto timings", views: "322", len: "2:16" },
+  { yt: "NfcXl98JyXY", title: "THE BEST FREE BLOODLINES SCRIPT | Features Auto Parry, Auto Farm, Mod Detector and more. (Tempo hub)", views: "543", len: "1:08" },
+  { yt: "4JX02BfERTM", title: "TEMPO HUB CLOVER RETRIBUTION SCRIPT | UNDETECTED, FAST LEVELS.", views: "356", len: "3:40" },
+  { yt: "KjZsgKdl1w0", title: "BEST FREE CLOVER RETRIBUTION SCRIPT | AUTO MAIN STORY, AUTO QUEST, INSTA KILL, SERVER HOP, MORE", views: "359", len: "1:37" },
+  { yt: "PYx8Yu6L2AM", title: "Best: Clover Retribution Script (tempo)📜", views: "1.2K", len: "0:58" },
+  { yt: "a1xanAWWO6E", title: "BEST FREE ABA SCRIPT (GOLD SKIN METHOD 🤑, m1 trade, techs, auto qtes)", views: "2.5K", len: "1:23" },
+  { yt: "VyRUlDXf9IU", title: "HOW TO STOP GETTING API BANNED ON ROBLOX (Tempo Spoofer)", views: "73", len: "1:02" },
+  { yt: "wj0z2aTeOdM", title: "Tempo Hub (THE ONLY SCRIPT HUB WITH HEADRIDE) also m1 trade, auto farm, all techs, auto qtes/timings", views: "285", len: "1:21" },
+  { yt: "avPHdsIZ5qM", title: "BEST FREE ABA SCRIPT (GOLD SKIN FARM🪙, M1 TRADE, HEADRIDES, PICK ANY PRESTIGE)", views: "2.1K", len: "2:16" },
+  { yt: "J5Kn3cbD8Bg", title: "Best FREE ABA script 😱 (M1 TRADE, HEADRIDES, TECHS, MACROS, AUTO QTES)", views: "866", len: "1:25" },
+  { yt: "5wOFNP-KGY8", title: "(INF XP AND GOLD 🤑) BEST FREE ABA SCRIPT INF QUEST, M1 TRADE, HEADRIDES, TECHS, AND MORE.", views: "1.2K", len: "1:04" },
+  { yt: "Ri7xavGNvfE", title: "BEST FREE ABA SCRIPT (AUTO INFINITE QUESTS, M1 TRADE, ALL TECHS, AUTO HEADRIDES, AND MORE)", views: "1.2K", len: "1:31" },
+  { yt: "zFU-OdWRWYQ", title: "BEST ABA SCRIPT (AUTO HEADRIDE, M1 TRADE, ALL TECHS)", views: "2.1K", len: "0:57" },
+  { yt: "r8dZzJRpNcw", title: "BEST ABA SCRIPT TEMPOHUB (M1 TRADE, SO MANY TECHS, AUTO TIMINGS, etc", views: "1.7K", len: "2:16" },
 ];
 
 // Real vouches only, copied from the Discord. The section stays hidden while this is empty.
@@ -982,29 +1013,105 @@ const REVIEWS = [
   });
   drawGames();
 
-  // ------------------------------------------------ media grid
-  // Nothing loads from YouTube until someone clicks a clip.
-  const mGrid = document.getElementById("mGrid");
-  const PLAY = `<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>`;
-  const tiles = MEDIA.map((m, i) => {
-    const poster = m.yt ? `https://i.ytimg.com/vi/${encodeURIComponent(m.yt)}/hqdefault.jpg` : (m.poster || "");
-    return `<div class="clip"><div class="frame" data-i="${i}" style="background-image:url('${esc(poster)}')">` +
-      `<div class="play"><i>${PLAY}</i></div></div>` +
-      `<div class="cap"><b>${esc(m.title || "")}</b><span>${esc(m.by || "")}</span></div></div>`;
-  });
-  const SLOTS = ["Your clip here", "Your clip here", "Your clip here"];
-  for (let i = tiles.length; i < 3; i++) {
-    tiles.push(`<div class="clip slot"><div class="frame"><div><b>${SLOTS[i]}</b>Post a video of Tempo and get a free key</div></div>` +
-      `<div class="cap"><b>Open spot</b><span>creator program</span></div></div>`);
-  }
-  mGrid.innerHTML = tiles.join("");
-  mGrid.addEventListener("click", (e) => {
-    const f = e.target.closest(".frame[data-i]"); if (!f || f.dataset.loaded) return;
-    const m = MEDIA[+f.dataset.i]; f.dataset.loaded = "1";
-    f.innerHTML = m.yt
-      ? `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(m.yt)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${esc(m.title || "clip")}"></iframe>`
-      : `<video src="${esc(m.mp4)}" controls autoplay playsinline></video>`;
-  });
+  // ------------------------------------------------ media: revolving reel
+  // Cover-flow of the channel's videos. The front card plays a muted looping
+  // preview (one YouTube player at a time, made only once it's in front);
+  // click it for sound + controls, click a side card to spin to it. Turns
+  // every 7 s, pauses while you hover or watch.
+  (() => {
+    const reel = document.getElementById("reel");
+    const N = MEDIA.length; if (!N) return;
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const yt = (id, q) => `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?${q}`;
+    reel.innerHTML = MEDIA.map((m, i) =>
+      `<div class="card" data-i="${i}" style="background-image:url('https://i.ytimg.com/vi/${encodeURIComponent(m.yt)}/hqdefault.jpg')">` +
+      `<div class="kb"></div><div class="shade"></div><span class="snd">&#9654; Watch</span>` +
+      `<div class="tag"><b>${esc(m.title)}</b><span>${esc([m.views && m.views + " views", m.len].filter(Boolean).join(" · "))}</span></div></div>`).join("");
+    const cards = [...reel.children];
+    const count = document.getElementById("reelCount");
+    let at = 0, hold = false, live = false, timer, prevTimer;
+    const wide = () => reel.clientWidth;
+    function layout() {
+      const step = Math.min(wide() * 0.34, 300);
+      cards.forEach((c, i) => {
+        let o = i - at; if (o > N / 2) o -= N; if (o < -N / 2) o += N;
+        const a = Math.abs(o);
+        c.style.transform = `translateX(${o * step}px) translateZ(${-a * 160}px) rotateY(${-o * 28}deg)`;
+        c.style.opacity = a > 2 ? 0 : 1 - a * 0.22;
+        c.style.filter = a ? `brightness(${1 - a * 0.25}) saturate(${1 - a * 0.2})` : "none";
+        c.style.zIndex = 50 - a;
+        c.style.pointerEvents = a > 2 ? "none" : "auto";
+        c.classList.toggle("front", a === 0);
+      });
+      count.textContent = `${at + 1} / ${N}`;
+    }
+    function clearPlayers() {
+      live = false;
+      cards.forEach((c) => { c.classList.remove("live", "playing"); c.querySelectorAll("iframe,.show").forEach((x) => x.remove()); });
+    }
+    // the front card comes alive: the cover and three moments from the video
+    // (YouTube's own frames) crossfading under a slow zoom. A muted embed was
+    // tried first - YouTube draws its title / buttons / "More videos" over it
+    // and that can't be hidden from outside the player.
+    function preview() {
+      clearTimeout(prevTimer);
+      if (calm) return;
+      prevTimer = setTimeout(() => {
+        const c = cards[at], id = encodeURIComponent(MEDIA[at].yt);
+        const d = document.createElement("div");
+        d.className = "show";
+        d.innerHTML = ["hqdefault", "hq1", "hq2", "hq3"].map((f) => `<i style="background-image:url('https://i.ytimg.com/vi/${id}/${f}.jpg')"></i>`).join("");
+        c.insertBefore(d, c.querySelector(".shade"));
+        requestAnimationFrame(() => d.classList.add("on"));
+      }, 700);
+    }
+    function go(i) {
+      at = (i + N) % N;
+      clearPlayers();
+      layout();
+      preview();
+    }
+    function auto() {
+      clearInterval(timer);
+      if (calm) return;
+      timer = setInterval(() => { if (!hold && !live && !document.hidden) go(at + 1); }, 7000);
+    }
+    reel.addEventListener("click", (e) => {
+      const c = e.target.closest(".card"); if (!c) return;
+      const i = +c.dataset.i;
+      if (i !== at) { go(i); auto(); return; }
+      if (live) return;
+      // front card: the real player, sound on
+      clearPlayers();
+      live = true;
+      c.classList.add("live");
+      const f = document.createElement("iframe");
+      f.className = "on";
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      f.allowFullscreen = true;
+      f.title = MEDIA[i].title;
+      f.src = yt(MEDIA[i].yt, "autoplay=1&rel=0&playsinline=1&modestbranding=1");
+      c.appendChild(f);
+    });
+    reel.addEventListener("mouseenter", () => { hold = true; });
+    reel.addEventListener("mouseleave", () => { hold = false; });
+    // swipe on phones
+    let sx = null;
+    reel.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    reel.addEventListener("touchend", (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 40 && !live) { go(at + (dx < 0 ? 1 : -1)); auto(); }
+    });
+    document.getElementById("reelPrev").addEventListener("click", () => { go(at - 1); auto(); });
+    document.getElementById("reelNext").addEventListener("click", () => { go(at + 1); auto(); });
+    addEventListener("resize", layout);
+    // nothing loads from YouTube until the section is on screen
+    new IntersectionObserver((es, ob) => {
+      if (es.some((x) => x.isIntersecting)) { ob.disconnect(); preview(); auto(); }
+    }, { rootMargin: "200px" }).observe(reel);
+    layout();
+  })();
 
   // ------------------------------------------------ reviews
   if (REVIEWS.length) {
