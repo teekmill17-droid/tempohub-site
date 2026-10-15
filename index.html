@@ -188,10 +188,9 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
   background:rgba(6,5,4,.8);border:1px solid var(--line2);color:var(--text);padding:5px 9px;border-radius:3px;opacity:0;transition:opacity .3s;pointer-events:none}
 .reel .card.front .snd{opacity:1}
 .reel .card.live .snd{display:none}
-.reelnav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:18px}
-.reelnav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);background:var(--panel);color:var(--text);cursor:pointer;font-size:18px;transition:border-color .15s}
-.reelnav button:hover{border-color:var(--ice)}
-.reelnav .count{font:12px "Roboto Mono",monospace;color:var(--faint);min-width:64px;text-align:center}
+.reeldots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.reeldots i{width:7px;height:7px;border-radius:50%;background:var(--line2);transition:background .3s,width .3s,border-radius .3s}
+.reeldots i.on{width:22px;border-radius:4px;background:var(--ice)}
 @media (prefers-reduced-motion:reduce){.reel .card{transition:none}.reel .card .kb{animation:none}}
 
 .creators{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
@@ -762,7 +761,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/Temp
       <a class="btn" href="https://www.youtube.com/@TempoHubb?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
     </div>
     <div class="reel" id="reel" aria-label="Tempo Hub videos"></div>
-    <div class="reelnav"><button type="button" id="reelPrev" aria-label="Previous video">&#8249;</button><span class="count" id="reelCount"></span><button type="button" id="reelNext" aria-label="Next video">&#8250;</button></div>
+    <div class="reeldots" id="reelDots" aria-hidden="true"></div>
 
     <div id="creators" style="scroll-margin-top:80px">
       <div class="creators">
@@ -1016,8 +1015,8 @@ const REVIEWS = [
   // ------------------------------------------------ media: revolving reel
   // Cover-flow of the channel's videos. The front card plays a muted looping
   // preview (one YouTube player at a time, made only once it's in front);
-  // click it for sound + controls, click a side card to spin to it. Turns
-  // every 7 s, pauses while you hover or watch.
+  // click it for sound + controls, click a side card to spin to it. Turns by
+  // itself every 5 s (no buttons - teek 10-15); stops only while a video plays.
   (() => {
     const reel = document.getElementById("reel");
     const N = MEDIA.length; if (!N) return;
@@ -1028,8 +1027,9 @@ const REVIEWS = [
       `<div class="kb"></div><div class="shade"></div><span class="snd">&#9654; Watch</span>` +
       `<div class="tag"><b>${esc(m.title)}</b><span>${esc([m.views && m.views + " views", m.len].filter(Boolean).join(" · "))}</span></div></div>`).join("");
     const cards = [...reel.children];
-    const count = document.getElementById("reelCount");
-    let at = 0, hold = false, live = false, timer, prevTimer;
+    const dots = document.getElementById("reelDots");
+    dots.innerHTML = "<i></i>".repeat(N);
+    let at = 0, live = false, timer, prevTimer;
     const wide = () => reel.clientWidth;
     function layout() {
       const step = Math.min(wide() * 0.34, 300);
@@ -1043,7 +1043,7 @@ const REVIEWS = [
         c.style.pointerEvents = a > 2 ? "none" : "auto";
         c.classList.toggle("front", a === 0);
       });
-      count.textContent = `${at + 1} / ${N}`;
+      [...dots.children].forEach((d, i) => d.classList.toggle("on", i === at));
     }
     function clearPlayers() {
       live = false;
@@ -1074,7 +1074,7 @@ const REVIEWS = [
     function auto() {
       clearInterval(timer);
       if (calm) return;
-      timer = setInterval(() => { if (!hold && !live && !document.hidden) go(at + 1); }, 7000);
+      timer = setInterval(() => { if (!live && !document.hidden) go(at + 1); }, 5000);
     }
     reel.addEventListener("click", (e) => {
       const c = e.target.closest(".card"); if (!c) return;
@@ -1093,8 +1093,6 @@ const REVIEWS = [
       f.src = yt(MEDIA[i].yt, "autoplay=1&rel=0&playsinline=1&modestbranding=1");
       c.appendChild(f);
     });
-    reel.addEventListener("mouseenter", () => { hold = true; });
-    reel.addEventListener("mouseleave", () => { hold = false; });
     // swipe on phones
     let sx = null;
     reel.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
@@ -1103,8 +1101,6 @@ const REVIEWS = [
       const dx = e.changedTouches[0].clientX - sx; sx = null;
       if (Math.abs(dx) > 40 && !live) { go(at + (dx < 0 ? 1 : -1)); auto(); }
     });
-    document.getElementById("reelPrev").addEventListener("click", () => { go(at - 1); auto(); });
-    document.getElementById("reelNext").addEventListener("click", () => { go(at + 1); auto(); });
     addEventListener("resize", layout);
     // nothing loads from YouTube until the section is on screen
     new IntersectionObserver((es, ob) => {
