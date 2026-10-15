@@ -116,6 +116,10 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .gcard ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px;font-size:14.5px}
 .gcard li{display:grid;grid-template-columns:14px 1fr;gap:10px;color:#cdd3dc}
 .gcard li:before{content:"";width:6px;height:6px;margin-top:9px;background:var(--acc);border-radius:1px}
+.gcard ol.gs{margin:8px 0 0;padding-left:18px;display:grid;gap:4px;font-size:13.5px;color:#aab2bd}
+.gcard ol.gs li{display:list-item}
+.gcard ol.gs li:before{content:none}
+.gcard ol.gs li::marker{color:var(--acc);font-weight:700}
 .gcard .sig{margin-top:auto;padding-top:22px}
 .gcard .sig div{border-top:1px solid var(--line);padding-top:14px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 .gcard .sig b{color:var(--text);font-weight:500}
@@ -583,7 +587,14 @@ footer a:hover{color:var(--text)}
           <li>Auto M1 trade: blocks their hit and counters, plus a Smart mode that knows when to just block</li>
           <li>Auto block on enemy moves, including hits from behind</li>
           <li>Auto Black Flash for every character, Law Shambles and Gojo Max Blue lock-on</li>
-          <li>Gold Skin Farm: the whole Juggernaut method, then public matches on autopilot</li>
+          <li><span>Gold Skin Farm: set it up, turn it on on every account, it does the rest
+            <ol class="gs">
+              <li>Private server, 6 players including you</li>
+              <li>Juggernaut, 1 stock, no modifiers</li>
+              <li>Kill everyone, then the roaches, 650 times (training pads are fine)</li>
+              <li>At 650 kills, the death pad</li>
+              <li>Play public matches, 1 min to 1.5 h, for the gold</li>
+            </ol></span></li>
           <li>70+ one-key combos, auto headride, macros, anti-stun</li>
         </ul>
         <div class="sig"><div>Hits land <b>200–218 ms</b> after the swing. <b>20</b> custom M1 sets learned.</div></div>
