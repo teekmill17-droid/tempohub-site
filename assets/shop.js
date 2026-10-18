@@ -20,6 +20,7 @@ window.TEMPO_PAYPAL = false;
   const $ = (id) => document.getElementById(id);
   const money = (c) => "$" + (c / 100).toFixed(2);
   let ref = null; // { code, prices, discount } once checked
+  let local = null; // { cur, rate, fmt } when the visitor's money isn't USD
   let sale = null; // { percent, end, prices: { plan: { was, now } } } while a sale runs
   const FIRST = { weekly: " first week", monthly: " first month" };
   const FIRST_SHORT = { weekly: " 1st wk", monthly: " 1st mo" }; // the hero strip
@@ -65,6 +66,15 @@ window.TEMPO_PAYPAL = false;
       const per = document.createElement("small");
       per.textContent = onSale && FIRST[plan] ? (el.classList.contains("amt") ? FIRST_SHORT : FIRST)[plan] : el.dataset.per;
       el.append(per);
+      // the same price in the visitor's money (plan cards only, not the hero strip)
+      if (local && !el.classList.contains("amt")) {
+        const cents = onSale ? onSale.now : ref && ref.prices[plan] ? ref.prices[plan] : Math.round(parseFloat(el.dataset.full.replace(/[^0-9.]/g, "")) * 100);
+        const loc = document.createElement("span");
+        loc.className = "local";
+        loc.textContent = "≈ " + local.fmt.format((cents / 100) * local.rate);
+        loc.title = "Charged in US dollars - your bank converts it at its own rate";
+        el.append(loc);
+      }
     });
     const msg = $("codeMsg");
     if (msg) {
@@ -131,6 +141,40 @@ window.TEMPO_PAYPAL = false;
   }
 
   wire();
+
+  // LOCAL PRICES (teek 10-18: "people from brazil saying it's too expensive" -
+  // show what it costs in their money). The country comes from the browser's
+  // language (pt-BR) or its time zone; rates from open.er-api.com, kept 12 h.
+  (async () => {
+    const TZ = { "America/Sao_Paulo": "BR", "America/Fortaleza": "BR", "America/Recife": "BR", "America/Bahia": "BR", "America/Manaus": "BR", "America/Belem": "BR", "America/Cuiaba": "BR", "America/Campo_Grande": "BR", "America/Maceio": "BR", "America/Porto_Velho": "BR", "America/Mexico_City": "MX", "America/Argentina/Buenos_Aires": "AR", "America/Bogota": "CO", "America/Santiago": "CL", "America/Lima": "PE", "Asia/Manila": "PH", "Asia/Jakarta": "ID", "Asia/Kolkata": "IN", "Europe/London": "GB", "Europe/Istanbul": "TR" };
+    const CUR = { BR: "BRL", MX: "MXN", AR: "ARS", CO: "COP", CL: "CLP", PE: "PEN", PH: "PHP", ID: "IDR", IN: "INR", GB: "GBP", TR: "TRY", CA: "CAD", AU: "AUD", NZ: "NZD", PL: "PLN", SE: "SEK", NO: "NOK", DK: "DKK", CH: "CHF", JP: "JPY", KR: "KRW", ZA: "ZAR", MY: "MYR", TH: "THB", VN: "VND", RU: "RUB", UA: "UAH", RO: "RON", CZ: "CZK", HU: "HUF", SA: "SAR", AE: "AED", EG: "EGP", NG: "NGN",
+      DE: "EUR", FR: "EUR", ES: "EUR", IT: "EUR", PT: "EUR", NL: "EUR", BE: "EUR", AT: "EUR", IE: "EUR", FI: "EUR", GR: "EUR" };
+    let tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch {}
+    let country = TZ[tz];
+    if (!country) for (const l of navigator.languages || [navigator.language]) { const m = /-([A-Z]{2})$/i.exec(l || ""); if (m) { country = m[1].toUpperCase(); break; } }
+    const cur = CUR[country];
+    if (!cur) return;
+    let rates = null;
+    try {
+      const c = JSON.parse(localStorage.getItem("tempo_fx") || "null");
+      if (c && Date.now() - c.at < 12 * 3600e3) rates = c.rates;
+    } catch {}
+    if (!rates) {
+      try {
+        const d = await (await fetch("https://open.er-api.com/v6/latest/USD")).json();
+        if (d && d.result === "success") {
+          rates = d.rates;
+          try { localStorage.setItem("tempo_fx", JSON.stringify({ at: Date.now(), rates })); } catch {}
+        }
+      } catch {}
+    }
+    if (!rates || !rates[cur]) return;
+    let fmt;
+    try { fmt = new Intl.NumberFormat(navigator.language || "en", { style: "currency", currency: cur, maximumFractionDigits: rates[cur] > 50 ? 0 : 2 }); } catch { return; }
+    local = { cur, rate: rates[cur], fmt };
+    wire();
+  })();
 
   // ONE-DAY SALE: the Worker says if one is running (GET /sale). The bar at the
   // top becomes the sale bar with a countdown to the end.
