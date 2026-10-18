@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Earn · Tempo Hub</title>
+<title>Account · Tempo Hub</title>
 <meta name="description" content="Share your Tempo Hub code. Buyers get 10% off, you get 20% of every sale.">
 <meta name="theme-color" content="#07080a">
 <link rel="icon" href="assets/logo-oct.png">
@@ -101,9 +101,9 @@ footer a:hover{color:var(--text)}
 
   <!-- signed out -->
   <div id="out">
-    <span class="eyebrow">Referral program</span>
-    <h1>Share Tempo. Get paid.</h1>
-    <p class="lead">Get your own code in one click. Anyone who buys with it gets 10% off, and you get 20% of what they pay. Premium members also find their setup guides here.</p>
+    <span class="eyebrow">Your Tempo account</span>
+    <h1>Log in with Discord.</h1>
+    <p class="lead">Your keys and payments, your referral earnings, Premium setup guides, and the suggestion board - all on one page. There's no password: your Discord account is your login.</p>
     <div class="row" style="margin-top:28px">
       <a class="btn btn-discord" id="loginBtn" href="#">Log in with Discord</a>
       <a class="btn" href="/#pricing">See pricing</a>
@@ -121,6 +121,27 @@ footer a:hover{color:var(--text)}
   <div id="in" hidden>
     <span class="eyebrow">Your dashboard</span>
     <h1 id="hello">Your code</h1>
+
+    <!-- your premium: keys + payments (orders bought on this Discord account) -->
+    <section class="card" id="premCard" style="margin-top:0;margin-bottom:28px">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Your Premium</h2>
+        <a class="btn" href="/#pricing" id="premBuy">Get Premium</a>
+      </div>
+      <div id="premKeys" style="margin-top:14px"></div>
+      <details id="premPayWrap" style="margin-top:16px" hidden>
+        <summary class="label" style="cursor:pointer">Payments</summary>
+        <div class="scroll"><table id="premPay"></table></div>
+      </details>
+    </section>
+
+    <!-- suggestion board -->
+    <section class="card" style="margin-top:0;margin-bottom:28px">
+      <div class="row" style="justify-content:space-between">
+        <div><h2 style="margin:0 0 4px">Suggestion board</h2><p class="note" style="margin:0">Post the game or feature you want next and vote on everyone else's. The top ideas get built first.</p></div>
+        <a class="btn btn-primary" href="/board">Open the board</a>
+      </div>
+    </section>
 
     <div class="card">
       <div class="label">Your code</div>
@@ -275,6 +296,54 @@ footer a:hover{color:var(--text)}
     return el("div", { class: "card stat" + (hi ? " hi" : "") }, el("div", { class: "label", text: label }), el("div", { class: "v", text: value }), sub ? el("div", { class: "s", text: sub }) : null);
   }
 
+  // YOUR PREMIUM: one row per key, with its plan and how long it runs
+  function renderPremium(pr) {
+    const box = $("premKeys");
+    box.textContent = "";
+    const orders = pr.orders || [];
+    $("premBuy").textContent = orders.length ? "Extend or upgrade" : "Get Premium";
+    if (!orders.length) {
+      box.append(el("p", { class: "empty", text: "No purchases on this Discord account yet. Bought before logging in, or with another account? Open a ticket in the Discord and we'll link it." }));
+    }
+    for (const o of orders) {
+      const now = Date.now();
+      let status, cls;
+      if (!o.paidUntil) { status = "Lifetime"; cls = "clear"; }
+      else if (o.renews && o.paidUntil > now) { status = "Renews " + date(o.paidUntil); cls = "clear"; }
+      else if (o.paidUntil > now) { status = "Ends " + date(o.paidUntil); cls = "pend"; }
+      else { status = "Expired " + date(o.paidUntil); cls = "void"; }
+      const keyId = "pk" + Math.random().toString(36).slice(2);
+      const keyRow = o.key
+        ? el("div", { class: "copyrow", style: "margin-top:10px" }, el("code", { id: keyId, text: o.key }), (() => {
+            const b = el("button", { type: "button", text: "Copy" });
+            b.addEventListener("click", async () => {
+              try { await navigator.clipboard.writeText(o.key); } catch {}
+              b.textContent = "Copied";
+              setTimeout(() => { b.textContent = "Copy"; }, 1500);
+            });
+            return b;
+          })())
+        : el("p", { class: "note", text: "Your key is on its way - refresh in a minute." });
+      box.append(el("div", { style: "padding:14px 0;border-top:1px solid var(--line)" },
+        el("div", { class: "row", style: "justify-content:space-between" },
+          el("b", { text: o.name }),
+          el("span", { class: "tag " + cls, text: status })),
+        el("div", { class: "note", style: "margin-top:2px", text: "Bought " + date(o.at) + (o.canceled ? " · auto-renew is off" : "") }),
+        keyRow));
+    }
+    const pays = pr.payments || [];
+    $("premPayWrap").hidden = !pays.length;
+    const t = $("premPay");
+    t.textContent = "";
+    if (pays.length) {
+      t.append(el("tr", {}, el("th", { text: "Date" }), el("th", { text: "Plan" }), el("th", { text: "Amount" }), el("th", { text: "Type" })));
+      for (const x of pays) {
+        t.append(el("tr", {}, el("td", { text: date(x.at) }), el("td", { text: PLAN_NAME[x.plan] || x.plan }),
+          el("td", { class: "m", text: x.amount != null ? money(x.amount) : "-" }), el("td", { text: x.kind === "renewal" ? "Renewal" : "Purchase" })));
+      }
+    }
+  }
+
   function render(d) {
     data = d;
     $("out").hidden = true; $("in").hidden = false;
@@ -289,6 +358,8 @@ footer a:hover{color:var(--text)}
     out.addEventListener("click", async () => { try { await api("/me/logout", {}); } catch {} setToken(null); showOut(); });
     who.append(pic, el("span", { text: u.username || "" }), out);
     who.hidden = false;
+
+    renderPremium(d.premium || { orders: [], payments: [] });
 
     const a = d.affiliate, p = d.program, b = d.balance;
     $("hello").textContent = u.username ? `Hey ${u.username}` : "Your code";

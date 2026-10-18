@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestion Board · Tempo Hub</title>
+<meta name="description" content="Vote on the next Tempo Hub game and features. Log in with Discord, post an idea, upvote the ones you want.">
+<meta name="theme-color" content="#07080a">
+<link rel="icon" href="assets/logo-oct.png">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080a; --bg2:#0b0d10; --panel:#0e1014; --line:#1b1f26; --line2:#262b34;
+  --text:#e9edf2; --dim:#8b94a3; --faint:#5a6270;
+  --ice:#7cc4ff; --ice2:#b9e0ff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a; --violet:#9b7bff;
+  --r:6px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--ice)}
+[hidden]{display:none!important}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+nav{border-bottom:1px solid var(--line)}
+nav .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:14px Michroma,sans-serif;letter-spacing:.14em;color:var(--text);text-decoration:none}
+.brand img{width:30px;height:30px}
+.navr{display:flex;align-items:center;gap:18px;font-size:14px}
+.navr a{color:var(--dim);text-decoration:none}
+.navr a:hover{color:var(--text)}
+.who{display:flex;align-items:center;gap:10px;color:var(--dim)}
+.who img,.who .ph{width:28px;height:28px;border-radius:50%;background:var(--line2);display:grid;place-items:center;font-weight:600;color:var(--text);font-size:13px}
+main{padding:48px 0 96px}
+.eyebrow{font:500 11px/1 "Roboto Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin:14px 0 12px;font-weight:600;letter-spacing:-.01em}
+.lead{color:var(--dim);font-size:17px;max-width:640px;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:42px;padding:0 16px;border-radius:var(--r);font:600 14.5px Archivo,sans-serif;border:1px solid var(--line2);background:none;color:var(--text);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--faint)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--ice);color:#051019;border-color:var(--ice)}
+.btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
+.btn-discord{background:#5865f2;border-color:#5865f2;color:#fff}
+.btn-discord:hover{background:#6d78f5;border-color:#6d78f5}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+input,select,textarea{background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Archivo,sans-serif;padding:0 12px;outline:none}
+input,select{height:42px}
+textarea{width:100%;padding:10px 12px;resize:vertical;min-height:84px}
+input:focus,select:focus,textarea:focus{border-color:var(--ice)}
+.err{color:var(--red);font-size:13.5px;margin:10px 0 0}
+.note{color:var(--faint);font-size:13px;margin:10px 0 0}
+
+/* the most-wanted strip */
+.top{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 8px}
+.chip{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:999px;padding:7px 14px 7px 8px;background:var(--panel);font-size:14px;cursor:pointer}
+.chip b{font:500 12px "Roboto Mono",monospace;background:var(--line2);border-radius:999px;padding:2px 8px;color:var(--ice2)}
+.chip.on{border-color:var(--ice)}
+.chip .rank{font:500 11px "Roboto Mono",monospace;color:var(--faint);padding-left:4px}
+
+.tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 18px}
+.tools input{width:260px}
+
+/* the board */
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+.col{border:1px solid var(--line);border-radius:var(--r);background:var(--bg2);min-height:220px}
+.colh{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;border-bottom:1px solid var(--line)}
+.colh b{font:500 11.5px "Roboto Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.colh span{font:500 11px "Roboto Mono",monospace;color:var(--faint)}
+.col[data-s=open] .colh b{color:var(--ice)}
+.col[data-s=planned] .colh b{color:var(--violet)}
+.col[data-s=building] .colh b{color:var(--amber)}
+.col[data-s=done] .colh b{color:var(--green)}
+.cards{display:grid;gap:10px;padding:12px}
+.card{display:grid;grid-template-columns:auto 1fr;gap:12px;border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:12px}
+.vote{display:grid;justify-items:center;align-content:start;gap:2px;width:42px;height:52px;border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);color:var(--dim);cursor:pointer;font:500 13px "Roboto Mono",monospace;padding-top:6px}
+.vote:hover{border-color:var(--faint);color:var(--text)}
+.vote.on{border-color:var(--ice);color:var(--ice2);background:rgba(124,196,255,.08)}
+.vote i{font-style:normal;font-size:11px;line-height:1}
+.game{font:500 10.5px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ice)}
+.title{font-weight:600;font-size:15px;line-height:1.35;margin:3px 0 4px;word-break:break-word}
+.body{color:var(--dim);font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.body.open{display:block}
+.meta{color:var(--faint);font-size:12px;margin-top:6px}
+.admin{display:flex;gap:6px;margin-top:8px}
+.admin select{height:30px;font-size:12px;padding:0 6px}
+.admin button{height:30px;font-size:12px;padding:0 8px;border:1px solid var(--line2);border-radius:var(--r);background:none;color:var(--red);cursor:pointer}
+.empty{color:var(--faint);font-size:13.5px;padding:6px 2px}
+
+/* the post form */
+.post{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:20px;margin-top:22px}
+.post h2{font-size:18px;margin:0 0 12px}
+.post .grid2{display:grid;grid-template-columns:240px 1fr;gap:10px}
+
+footer{border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+footer .wrap{padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--faint);text-decoration:none}
+footer a:hover{color:var(--text)}
+@media (max-width:1000px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.wrap{padding:0 16px}.board{grid-template-columns:1fr}.post .grid2{grid-template-columns:1fr}.tools input{width:100%}.navr .hide-s{display:none}footer .wrap{padding:28px 16px 44px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="/"><img src="assets/logo-oct.png" alt="">TEMPO</a>
+  <div class="navr">
+    <a class="hide-s" href="/">Home</a>
+    <a class="hide-s" href="/#pricing">Pricing</a>
+    <a href="/dashboard">Account</a>
+    <div class="who" id="who" hidden></div>
+    <a class="btn btn-discord" id="loginTop" href="#" hidden style="height:36px">Log in</a>
+  </div>
+</div></nav>
+
+<main><div class="wrap">
+  <span class="eyebrow">Suggestion board</span>
+  <h1>What should we build next?</h1>
+  <p class="lead">Post the game or feature you want, and upvote the ones you'd use. The most-voted ideas get built first. Teeky posts the leaderboard in the Discord every hour.</p>
+
+  <div class="top" id="top"></div>
+
+  <div class="post" id="postBox">
+    <h2>Suggest something</h2>
+    <div id="postOut">
+      <p class="note" style="margin:0 0 14px">Log in with Discord to post and vote. One vote per idea, five new ideas a day.</p>
+      <a class="btn btn-discord" id="loginBtn" href="#">Log in with Discord</a>
+    </div>
+    <form id="postForm" hidden>
+      <div class="grid2">
+        <input id="pGame" maxlength="40" placeholder="Game (e.g. Deepwoken)" list="games" autocomplete="off" required>
+        <input id="pTitle" maxlength="90" placeholder="Short title (e.g. Auto dungeon + auto parry)" autocomplete="off" required>
+      </div>
+      <textarea id="pBody" maxlength="600" placeholder="Details: what it should do, where in the game, anything that helps (optional)"></textarea>
+      <div class="row" style="margin-top:10px;justify-content:space-between">
+        <span class="note" id="postNote" style="margin:0">The same idea twice just adds your vote to the first one.</span>
+        <button class="btn btn-primary" type="submit">Post it</button>
+      </div>
+      <p class="err" id="postErr" hidden></p>
+    </form>
+    <datalist id="games"></datalist>
+  </div>
+
+  <div class="tools">
+    <div class="row">
+      <input id="search" placeholder="Search games and ideas" autocomplete="off">
+      <select id="sort"><option value="votes">Most votes</option><option value="new">Newest</option></select>
+    </div>
+    <span class="note" id="count" style="margin:0"></span>
+  </div>
+
+  <div class="board" id="board"></div>
+  <p class="err" id="boardErr" hidden></p>
+</div></main>
+
+<footer><div class="wrap"><span>© 2026 Tempo Hub</span><span><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/dashboard">Account</a> · <a href="https://discord.gg/K7Qxnxkk46" target="_blank" rel="noopener">Discord</a></span></div></footer>
+
+<script src="assets/shop.js"></script>
+<script>
+(() => {
+  const API = window.TEMPO_SHOP;
+  const KEY = "tempo_session"; // the same login as the dashboard
+  const $ = (id) => document.getElementById(id);
+  const COLS = [["open", "Suggested"], ["planned", "Planned"], ["building", "In progress"], ["done", "Done"]];
+  let state = { cards: [], voted: new Set(), signedIn: false, admin: false };
+  let filterGame = null;
+
+  // text only - nothing from the server is ever parsed as HTML
+  function el(tag, props, ...kids) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === "class") e.className = v; else if (k === "text") e.textContent = v; else e.setAttribute(k, v);
+    }
+    for (const k of kids) if (k != null) e.append(k);
+    return e;
+  }
+  const token = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const setToken = (t) => { try { t ? localStorage.setItem(KEY, t) : localStorage.removeItem(KEY); } catch {} };
+  async function api(path, body) {
+    const t = token();
+    const r = await fetch(API + path, {
+      method: body ? "POST" : "GET",
+      headers: Object.assign(t ? { Authorization: "Bearer " + t } : {}, body ? { "Content-Type": "application/json" } : {}),
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const d = await r.json().catch(() => ({}));
+    if (r.status === 401) { setToken(null); state.signedIn = false; paintLogin(); throw new Error("Log in with Discord first."); }
+    if (!r.ok || d.error) throw new Error(d.error || "Something went wrong. Try again.");
+    return d;
+  }
+  const ago = (ms) => {
+    const m = Math.round((Date.now() - ms) / 60000);
+    if (m < 60) return m <= 1 ? "just now" : m + " min ago";
+    const h = Math.round(m / 60);
+    if (h < 48) return h + " h ago";
+    return Math.round(h / 24) + " days ago";
+  };
+
+  function paintLogin() {
+    $("postOut").hidden = state.signedIn;
+    $("postForm").hidden = !state.signedIn;
+    $("loginTop").hidden = state.signedIn;
+  }
+
+  async function paintWho() {
+    if (!token()) return;
+    try {
+      const d = await api("/me");
+      const u = d.user || {};
+      const who = $("who");
+      who.textContent = "";
+      who.append(u.avatar
+        ? el("img", { src: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`, alt: "" })
+        : el("span", { class: "ph", text: (u.username || "?").slice(0, 1).toUpperCase() }));
+      who.hidden = false;
+    } catch {}
+  }
+
+  function gamesRanked() {
+    const by = new Map();
+    for (const c of state.cards) {
+      if (c.status !== "open" && c.status !== "planned") continue;
+      const k = c.game.toLowerCase();
+      const g = by.get(k) || { game: c.game, votes: 0 };
+      g.votes += c.votes;
+      by.set(k, g);
+    }
+    return [...by.values()].sort((a, b) => b.votes - a.votes);
+  }
+
+  function paintTop() {
+    const top = $("top");
+    top.textContent = "";
+    const ranked = gamesRanked();
+    const list = $("games");
+    list.textContent = "";
+    for (const g of ranked) list.append(el("option", { value: g.game }));
+    ranked.slice(0, 8).forEach((g, i) => {
+      const chip = el("button", { class: "chip" + (filterGame === g.game.toLowerCase() ? " on" : ""), type: "button" },
+        el("span", { class: "rank", text: "#" + (i + 1) }), el("span", { text: g.game }), el("b", { text: String(g.votes) }));
+      chip.addEventListener("click", () => {
+        filterGame = filterGame === g.game.toLowerCase() ? null : g.game.toLowerCase();
+        paint();
+      });
+      top.append(chip);
+    });
+  }
+
+  function cardEl(c) {
+    const on = state.voted.has(c.id);
+    const v = el("button", { class: "vote" + (on ? " on" : ""), type: "button", title: on ? "Take your vote back" : "Upvote" },
+      el("i", { text: "▲" }), el("span", { text: String(c.votes) }));
+    v.addEventListener("click", async () => {
+      if (!state.signedIn) { location.href = API + "/auth/login?next=/board"; return; }
+      v.disabled = true;
+      try {
+        const r = await api("/me/vote", { id: c.id });
+        c.votes = r.votes;
+        if (r.voted) state.voted.add(c.id); else state.voted.delete(c.id);
+        paint();
+      } catch (e) { alert(e.message); }
+      v.disabled = false;
+    });
+    const body = c.body ? el("div", { class: "body", text: c.body }) : null;
+    if (body) body.addEventListener("click", () => body.classList.toggle("open"));
+    const info = el("div", {},
+      el("div", { class: "game", text: c.game }),
+      el("div", { class: "title", text: c.title }),
+      body,
+      el("div", { class: "meta", text: (c.author ? c.author + " · " : "") + ago(c.at) }));
+    if (state.admin) {
+      const sel = el("select", {});
+      for (const [s, label] of [...COLS, ["declined", "Declined"]]) {
+        const o = el("option", { value: s, text: label });
+        if (s === c.status) o.selected = true;
+        sel.append(o);
+      }
+      sel.addEventListener("change", async () => {
+        try { await api("/me/admin/suggestion", { id: c.id, status: sel.value }); c.status = sel.value; paint(); } catch (e) { alert(e.message); }
+      });
+      const del = el("button", { type: "button", text: "Delete" });
+      del.addEventListener("click", async () => {
+        if (!confirm(`Delete "${c.title}"?`)) return;
+        try { await api("/me/admin/suggestion", { id: c.id, delete: true }); state.cards = state.cards.filter((x) => x.id !== c.id); paint(); } catch (e) { alert(e.message); }
+      });
+      info.append(el("div", { class: "admin" }, sel, del));
+    }
+    return el("div", { class: "card" }, v, info);
+  }
+
+  function paint() {
+    paintTop();
+    const q = $("search").value.trim().toLowerCase();
+    const sort = $("sort").value;
+    const shown = state.cards.filter((c) => c.status !== "declined"
+      && (!filterGame || c.game.toLowerCase() === filterGame)
+      && (!q || (c.game + " " + c.title + " " + (c.body || "")).toLowerCase().includes(q)));
+    shown.sort((a, b) => sort === "new" ? b.at - a.at : (b.votes - a.votes) || (b.at - a.at));
+    const board = $("board");
+    board.textContent = "";
+    for (const [s, label] of COLS) {
+      const mine = shown.filter((c) => c.status === s);
+      const cards = el("div", { class: "cards" });
+      if (!mine.length) cards.append(el("div", { class: "empty", text: s === "open" ? "Nothing here yet - post the first idea." : "Nothing here yet." }));
+      for (const c of mine) cards.append(cardEl(c));
+      board.append(el("div", { class: "col", "data-s": s },
+        el("div", { class: "colh" }, el("b", { text: label }), el("span", { text: String(mine.length) })), cards));
+    }
+    $("count").textContent = `${shown.length} idea${shown.length === 1 ? "" : "s"}` + (filterGame ? " · filtered (click the game again to clear)" : "");
+  }
+
+  async function load() {
+    try {
+      const d = await api("/board");
+      state = { cards: d.cards || [], voted: new Set(d.voted || []), signedIn: d.signedIn, admin: d.admin };
+      if (!d.signedIn && token()) setToken(null);
+      paintLogin();
+      paint();
+    } catch (e) {
+      const b = $("boardErr");
+      b.textContent = "Couldn't load the board: " + e.message;
+      b.hidden = false;
+    }
+  }
+
+  $("postForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = $("postErr");
+    err.hidden = true;
+    try {
+      const r = await api("/me/suggest", { game: $("pGame").value, title: $("pTitle").value, body: $("pBody").value });
+      $("pTitle").value = ""; $("pBody").value = "";
+      $("postNote").textContent = r.duplicate ? "That idea was already on the board - your vote went to it." : "Posted. Share the board so people vote for it.";
+      await load();
+    } catch (ex) { err.textContent = ex.message; err.hidden = false; }
+  });
+  $("search").addEventListener("input", paint);
+  $("sort").addEventListener("change", paint);
+
+  // the Worker sends people back here with #s=<token> after the Discord login
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("s")) setToken(h.get("s"));
+  if (h.has("s") || h.has("error")) history.replaceState(null, "", location.pathname);
+  $("loginBtn").href = $("loginTop").href = API + "/auth/login?next=/board";
+
+  paintLogin();
+  load();
+  paintWho();
+})();
+</script>
+</body>
+</html>
