@@ -20,7 +20,7 @@
 <title>Tempo Hub</title>
 <meta name="description" content="Roblox scripts for Clover Retribution, Anime Battle Arena, Bloodlines, Project Slayers 2, Bridger Western and Clover Time, plus 16 free games. Weekly $2.99, monthly $7.99, lifetime $24.99.">
 <meta property="og:title" content="Tempo Hub">
-<meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines, Project Slayers 2, Bridger Western and Clover Time. From $2.99. 25% off all October with TEMPOTOBER.">
+<meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines, Project Slayers 2, Bridger Western and Clover Time. From $2.99.">
 <meta property="og:image" content="https://tempohub.shop/assets/logo-oct.png?v=2">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tempohub.shop/assets/logo-oct.png?v=2">
@@ -407,6 +407,34 @@ footer a:hover{color:var(--text)}
 .gcard,.plan{transition:transform .18s ease,border-color .18s,box-shadow .18s}
 .gcard:hover,.plan:hover{transform:translateY(-3px);box-shadow:0 22px 50px -28px var(--acc,var(--ice))}
 .promo .cd{opacity:.75}
+.promo #rollCode{display:inline-block}
+.promo #rollCode.spin{animation:rollblur .09s linear infinite}
+@keyframes rollblur{50%{opacity:.45;transform:translateY(-2px)}}
+.promo #rollCode.landed{animation:landpop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes landpop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+/* SPOOKY pop-up */
+.deal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px;background:rgba(4,3,2,.72);backdrop-filter:blur(6px);animation:dealfade .35s ease}
+.deal[hidden]{display:none}
+@keyframes dealfade{from{opacity:0}}
+.deal-card{position:relative;width:min(420px,100%);padding:34px 28px 28px;text-align:center;border:1px solid var(--pumpkin);border-radius:14px;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,138,42,.22),transparent 60%),var(--panel);
+  box-shadow:0 0 0 1px rgba(255,138,42,.15),0 30px 80px -20px rgba(255,138,42,.45);animation:dealpop .55s cubic-bezier(.2,1.5,.4,1)}
+@keyframes dealpop{0%{transform:translateY(30px) scale(.85) rotate(-2deg);opacity:0}100%{transform:none;opacity:1}}
+.deal-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;background:none;color:var(--dim);font-size:26px;line-height:1;cursor:pointer}
+.deal-x:hover{color:var(--text)}
+.deal-tag{display:inline-block;padding:4px 12px;border-radius:20px;background:var(--pumpkin);color:#1a0d02;font:700 12px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;animation:tagwob 2.4s ease-in-out infinite}
+@keyframes tagwob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.deal-big{margin:14px 0 2px;font:italic 700 clamp(56px,16vw,84px)/.95 Oswald,sans-serif;text-transform:uppercase;color:var(--text)}
+.deal-big span{color:var(--pumpkin);display:inline-block;animation:dealglow 1.6s ease-in-out infinite}
+@keyframes dealglow{0%,100%{text-shadow:0 0 0 rgba(255,138,42,0)}50%{text-shadow:0 0 26px rgba(255,138,42,.85)}}
+.deal-sub{color:var(--dim);font-size:15px}
+.deal-code{display:inline-block;margin:10px 0 16px;padding:8px 18px;border:2px dashed var(--pumpkin);border-radius:8px;font:700 26px "Roboto Mono",monospace;letter-spacing:.18em;color:var(--pumpkin)}
+.deal-cd{font:700 34px "Roboto Mono",monospace;letter-spacing:.04em}
+.deal-cd span{display:inline-block;min-width:1.3em}
+.deal-until{color:var(--faint);font:500 12px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase;margin:2px 0 20px}
+.deal-go{width:100%;justify-content:center;background:var(--pumpkin);border-color:var(--pumpkin);color:#1a0d02}
+.deal-go:hover{background:transparent;color:var(--pumpkin)}
+@media (prefers-reduced-motion:reduce){.deal,.deal-card,.deal-tag,.deal-big span{animation:none}}
 
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
@@ -422,11 +450,28 @@ footer a:hover{color:var(--text)}
 </head>
 <body>
 
-<div class="promo">
-  <div class="wrap">
-    <span><b>TEMPOTOBER</b> · 25% off every plan, all October <span class="cd" id="promoCd"></span></span>
-    <span class="full">Weekly <s>$2.99</s> $2.24 · Monthly <s>$7.99</s> $5.99 · Lifetime <s>$24.99</s> $18.74</span>
-    <button type="button" id="promoBtn">Use code</button>
+<div class="promo" id="promo">
+  <div class="wrap" id="promoSpooky">
+    <span><b>SPOOKY</b> · 50% off every plan until 12 AM CST <span class="cd" id="promoCd"></span></span>
+    <span class="full">Weekly <s>$2.99</s> $1.50 · Monthly <s>$7.99</s> $4.00 · Lifetime <s>$24.99</s> $12.50</span>
+    <button type="button" id="promoBtn" data-code="SPOOKY">Use code</button>
+  </div>
+  <div class="wrap" id="promoRoll" hidden>
+    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· 25% off any plan</span></span>
+    <button type="button" id="rollBtn">Roll</button>
+  </div>
+</div>
+
+<div class="deal" id="deal" hidden role="dialog" aria-modal="true" aria-labelledby="dealTitle">
+  <div class="deal-card">
+    <button type="button" class="deal-x" id="dealX" aria-label="Close">&times;</button>
+    <div class="deal-tag">Flash sale</div>
+    <div class="deal-big" id="dealTitle"><span>50%</span> off</div>
+    <div class="deal-sub">every plan with code</div>
+    <div class="deal-code">SPOOKY</div>
+    <div class="deal-cd"><span id="dealH">00</span>:<span id="dealM">00</span>:<span id="dealS">00</span></div>
+    <div class="deal-until">until 12 AM CST</div>
+    <button type="button" class="btn deal-go" id="dealGo">Use code</button>
   </div>
 </div>
 
@@ -1128,20 +1173,84 @@ const REVIEWS = [
     document.getElementById("reviews").hidden = false;
   }
 
-  // ------------------------------------------------ TEMPOTOBER: one click puts the code through the normal code box
+  // ------------------------------------------------ promo bar: SPOOKY (50% off) until 12 AM CST on Oct 20,
+  // then "roll a discount code" (one of the media codes). One click puts a code
+  // through the normal code box.
+  const SPOOKY_END = Date.parse("2026-10-20T00:00:00-05:00");
+  const ROLL_CODES = ["SINNER", "TAESKI", "GUMMY"];
   const promoBtn = document.getElementById("promoBtn"), codeMsg = document.getElementById("codeMsg");
-  promoBtn.addEventListener("click", () => {
-    if (promoBtn.classList.contains("on")) return;
-    document.getElementById("codeInput").value = "TEMPOTOBER";
+  const applyCode = (code) => {
+    document.getElementById("codeInput").value = code;
     document.getElementById("codeForm").requestSubmit();
-  });
+  };
+  promoBtn.addEventListener("click", () => { if (!promoBtn.classList.contains("on")) applyCode(promoBtn.dataset.code); });
   const promoSync = () => {
-    const on = /TEMPOTOBER applied/i.test(codeMsg.textContent);
+    const on = new RegExp(promoBtn.dataset.code + " applied", "i").test(codeMsg.textContent);
     promoBtn.classList.toggle("on", on);
     promoBtn.textContent = on ? "Code applied ✓" : "Use code";
   };
   new MutationObserver(promoSync).observe(codeMsg, { childList: true, characterData: true, subtree: true });
   promoSync();
+  // after the sale: the roll
+  const spookyOver = () => Date.now() >= SPOOKY_END;
+  const showRoll = () => {
+    document.getElementById("promoSpooky").hidden = true;
+    document.getElementById("promoRoll").hidden = false;
+  };
+  if (spookyOver()) showRoll();
+  const rollBtn = document.getElementById("rollBtn"), rollCode = document.getElementById("rollCode"), rollSub = document.getElementById("rollSub");
+  rollBtn.addEventListener("click", () => {
+    if (rollBtn.disabled) return;
+    rollBtn.disabled = true;
+    const pick = ROLL_CODES[Math.floor(Math.random() * ROLL_CODES.length)];
+    rollCode.classList.remove("landed");
+    rollCode.classList.add("spin");
+    let i = 0, delay = 55;
+    const step = () => {
+      rollCode.textContent = ROLL_CODES[i++ % ROLL_CODES.length];
+      delay *= 1.12;
+      if (delay < 380) { setTimeout(step, delay); return; }
+      rollCode.textContent = pick;
+      rollCode.classList.remove("spin");
+      void rollCode.offsetWidth;
+      rollCode.classList.add("landed");
+      rollSub.textContent = "· 25% off any plan - applied";
+      rollBtn.textContent = "Roll again";
+      rollBtn.disabled = false;
+      applyCode(pick);
+    };
+    step();
+  });
+
+  // ------------------------------------------------ SPOOKY pop-up (once a visit, only while the sale is on)
+  const deal = document.getElementById("deal");
+  const dealClose = () => { deal.hidden = true; };
+  document.getElementById("dealX").addEventListener("click", dealClose);
+  deal.addEventListener("click", (e) => { if (e.target === deal) dealClose(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !deal.hidden) dealClose(); });
+  document.getElementById("dealGo").addEventListener("click", () => {
+    dealClose();
+    applyCode("SPOOKY");
+    const pr = document.getElementById("pricing");
+    if (pr) pr.scrollIntoView({ behavior: "smooth" });
+  });
+  const pad = (n) => String(n).padStart(2, "0");
+  const tickDeal = () => {
+    const ms = SPOOKY_END - Date.now();
+    if (ms <= 0) { dealClose(); showRoll(); return false; }
+    document.getElementById("dealH").textContent = pad(Math.floor(ms / 36e5));
+    document.getElementById("dealM").textContent = pad(Math.floor(ms / 6e4) % 60);
+    document.getElementById("dealS").textContent = pad(Math.floor(ms / 1e3) % 60);
+    return true;
+  };
+  if (!spookyOver()) {
+    let seen = false;
+    try { seen = sessionStorage.getItem("spookySeen") === "1"; } catch (e) {}
+    if (!seen && tickDeal()) {
+      setTimeout(() => { deal.hidden = false; try { sessionStorage.setItem("spookySeen", "1"); } catch (e) {} }, 1200);
+    }
+    const dealTimer = setInterval(() => { if (!tickDeal()) clearInterval(dealTimer); }, 1000);
+  }
 
   // ------------------------------------------------ the ghost watches your cursor
   const spook = document.getElementById("spook"), pupils = spook.querySelector(".pupil");
@@ -1158,16 +1267,15 @@ const REVIEWS = [
     clearTimeout(spook._t); spook._t = setTimeout(() => spook.classList.remove("said"), 1400);
   });
 
-  // ------------------------------------------------ TEMPOTOBER countdown (ends when November starts, viewer's time)
+  // ------------------------------------------------ SPOOKY countdown in the bar
   const cd = document.getElementById("promoCd");
   const tickCd = () => {
-    const now = new Date(), end = new Date(now.getFullYear(), 10, 1);
-    const ms = end - now;
-    if (now.getMonth() !== 9 || ms <= 0) { cd.textContent = ""; return; }
-    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
-    cd.textContent = "· ends in " + (d ? `${d}d ${h}h` : `${h}h ${m}m`);
+    const ms = SPOOKY_END - Date.now();
+    if (ms <= 0) { cd.textContent = ""; showRoll(); return; }
+    const h = Math.floor(ms / 36e5), m = Math.floor(ms / 6e4) % 60;
+    cd.textContent = `· ends in ${h}h ${m}m`;
   };
-  tickCd(); setInterval(tickCd, 60000);
+  tickCd(); setInterval(tickCd, 30000);
 
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
