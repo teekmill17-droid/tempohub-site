@@ -428,6 +428,8 @@ footer a:hover{color:var(--text)}
 .deal-big span{color:var(--pumpkin);display:inline-block;animation:dealglow 1.6s ease-in-out infinite}
 @keyframes dealglow{0%,100%{text-shadow:0 0 0 rgba(255,138,42,0)}50%{text-shadow:0 0 26px rgba(255,138,42,.85)}}
 .deal-sub{color:var(--dim);font-size:15px}
+.deal-code.spin{animation:rollblur .09s linear infinite}
+.deal-code.landed{animation:landpop .45s cubic-bezier(.3,1.6,.5,1)}
 .deal-code{display:inline-block;margin:10px 0 16px;padding:8px 18px;border:2px dashed var(--pumpkin);border-radius:8px;font:700 26px "Roboto Mono",monospace;letter-spacing:.18em;color:var(--pumpkin)}
 .deal-cd{font:700 34px "Roboto Mono",monospace;letter-spacing:.04em}
 .deal-cd span{display:inline-block;min-width:1.3em}
@@ -465,12 +467,12 @@ footer a:hover{color:var(--text)}
 <div class="deal" id="deal" hidden role="dialog" aria-modal="true" aria-labelledby="dealTitle">
   <div class="deal-card">
     <button type="button" class="deal-x" id="dealX" aria-label="Close">&times;</button>
-    <div class="deal-tag">Flash sale</div>
-    <div class="deal-big" id="dealTitle"><span>50%</span> off</div>
-    <div class="deal-sub">every plan with code</div>
-    <div class="deal-code">SPOOKY</div>
-    <div class="deal-cd"><span id="dealH">00</span>:<span id="dealM">00</span>:<span id="dealS">00</span></div>
-    <div class="deal-until">until 12 AM CST</div>
+    <div class="deal-tag" id="dealTag">Flash sale</div>
+    <div class="deal-big" id="dealTitle"><span id="dealPct">50%</span> off</div>
+    <div class="deal-sub" id="dealSub">every plan with code</div>
+    <div class="deal-code" id="dealCode">SPOOKY</div>
+    <div class="deal-cd" id="dealCd"><span id="dealH">00</span>:<span id="dealM">00</span>:<span id="dealS">00</span></div>
+    <div class="deal-until" id="dealUntil">until 12 AM CST</div>
     <button type="button" class="btn deal-go" id="dealGo">Use code</button>
   </div>
 </div>
@@ -1198,28 +1200,34 @@ const REVIEWS = [
     document.getElementById("promoRoll").hidden = false;
   };
   if (spookyOver()) showRoll();
+  // spin a code label through the media codes, slowing down, and land on one
+  const rollAnim = (el, done) => {
+    const pick = ROLL_CODES[Math.floor(Math.random() * ROLL_CODES.length)];
+    el.classList.remove("landed");
+    el.classList.add("spin");
+    let i = Math.floor(Math.random() * ROLL_CODES.length), delay = 55;
+    const step = () => {
+      el.textContent = ROLL_CODES[i++ % ROLL_CODES.length];
+      delay *= 1.12;
+      if (delay < 380) { setTimeout(step, delay); return; }
+      el.textContent = pick;
+      el.classList.remove("spin");
+      void el.offsetWidth;
+      el.classList.add("landed");
+      done(pick);
+    };
+    step();
+  };
   const rollBtn = document.getElementById("rollBtn"), rollCode = document.getElementById("rollCode"), rollSub = document.getElementById("rollSub");
   rollBtn.addEventListener("click", () => {
     if (rollBtn.disabled) return;
     rollBtn.disabled = true;
-    const pick = ROLL_CODES[Math.floor(Math.random() * ROLL_CODES.length)];
-    rollCode.classList.remove("landed");
-    rollCode.classList.add("spin");
-    let i = 0, delay = 55;
-    const step = () => {
-      rollCode.textContent = ROLL_CODES[i++ % ROLL_CODES.length];
-      delay *= 1.12;
-      if (delay < 380) { setTimeout(step, delay); return; }
-      rollCode.textContent = pick;
-      rollCode.classList.remove("spin");
-      void rollCode.offsetWidth;
-      rollCode.classList.add("landed");
+    rollAnim(rollCode, (pick) => {
       rollSub.textContent = "· 25% off any plan - applied";
       rollBtn.textContent = "Roll again";
       rollBtn.disabled = false;
       applyCode(pick);
-    };
-    step();
+    });
   });
 
   // ------------------------------------------------ SPOOKY pop-up (once a visit, only while the sale is on)
@@ -1228,9 +1236,11 @@ const REVIEWS = [
   document.getElementById("dealX").addEventListener("click", dealClose);
   deal.addEventListener("click", (e) => { if (e.target === deal) dealClose(); });
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !deal.hidden) dealClose(); });
+  let dealPick = "SPOOKY";
   document.getElementById("dealGo").addEventListener("click", () => {
+    if (!dealPick) return;
     dealClose();
-    applyCode("SPOOKY");
+    applyCode(dealPick);
     const pr = document.getElementById("pricing");
     if (pr) pr.scrollIntoView({ behavior: "smooth" });
   });
@@ -1250,6 +1260,32 @@ const REVIEWS = [
       setTimeout(() => { deal.hidden = false; try { sessionStorage.setItem("spookySeen", "1"); } catch (e) {} }, 1200);
     }
     const dealTimer = setInterval(() => { if (!tickDeal()) clearInterval(dealTimer); }, 1000);
+  } else {
+    // after the sale (teek 10-19): "25% off if you roll a code" - and then it rolls
+    let seen = false;
+    try { seen = sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
+    if (!seen) {
+      document.getElementById("dealTag").textContent = "Lucky roll";
+      document.getElementById("dealPct").textContent = "25%";
+      document.getElementById("dealSub").textContent = "off any plan if you roll a code";
+      document.getElementById("dealCd").hidden = true;
+      document.getElementById("dealUntil").hidden = true;
+      const dc = document.getElementById("dealCode"), go = document.getElementById("dealGo");
+      dc.textContent = "? ? ?";
+      dealPick = null;
+      go.disabled = true;
+      go.textContent = "Rolling...";
+      setTimeout(() => {
+        deal.hidden = false;
+        try { sessionStorage.setItem("rollSeen", "1"); } catch (e) {}
+        setTimeout(() => rollAnim(dc, (pick) => {
+          dealPick = pick;
+          document.getElementById("dealSub").textContent = "you rolled a code - 25% off any plan";
+          go.disabled = false;
+          go.textContent = "Use " + pick;
+        }), 900);
+      }, 1200);
+    }
   }
 
   // ------------------------------------------------ the ghost watches your cursor
