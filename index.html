@@ -1194,7 +1194,9 @@ const REVIEWS = [
   new MutationObserver(promoSync).observe(codeMsg, { childList: true, characterData: true, subtree: true });
   promoSync();
   // after the sale: the roll
-  const spookyOver = () => Date.now() >= SPOOKY_END;
+  // ?roll=1 previews the after-sale roll (bar + pop-up) any time, for testing
+  const FORCE_ROLL = /[?&]roll=1(&|$)/.test(location.search);
+  const spookyOver = () => FORCE_ROLL || Date.now() >= SPOOKY_END;
   const showRoll = () => {
     document.getElementById("promoSpooky").hidden = true;
     document.getElementById("promoRoll").hidden = false;
@@ -1247,7 +1249,7 @@ const REVIEWS = [
   const pad = (n) => String(n).padStart(2, "0");
   const tickDeal = () => {
     const ms = SPOOKY_END - Date.now();
-    if (ms <= 0) { dealClose(); showRoll(); return false; }
+    if (ms <= 0 || FORCE_ROLL) { dealClose(); showRoll(); return false; }
     document.getElementById("dealH").textContent = pad(Math.floor(ms / 36e5));
     document.getElementById("dealM").textContent = pad(Math.floor(ms / 6e4) % 60);
     document.getElementById("dealS").textContent = pad(Math.floor(ms / 1e3) % 60);
@@ -1263,7 +1265,7 @@ const REVIEWS = [
   } else {
     // after the sale (teek 10-19): "25% off if you roll a code" - and then it rolls
     let seen = false;
-    try { seen = sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
+    try { seen = !FORCE_ROLL && sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
     if (!seen) {
       document.getElementById("dealTag").textContent = "Lucky roll";
       document.getElementById("dealPct").textContent = "25%";
@@ -1307,7 +1309,7 @@ const REVIEWS = [
   const cd = document.getElementById("promoCd");
   const tickCd = () => {
     const ms = SPOOKY_END - Date.now();
-    if (ms <= 0) { cd.textContent = ""; showRoll(); return; }
+    if (ms <= 0 || FORCE_ROLL) { cd.textContent = ""; showRoll(); return; }
     const h = Math.floor(ms / 36e5), m = Math.floor(ms / 6e4) % 60;
     cd.textContent = `· ends in ${h}h ${m}m`;
   };
