@@ -459,7 +459,7 @@ footer a:hover{color:var(--text)}
     <button type="button" id="promoBtn" data-code="SPOOKY">Use code</button>
   </div>
   <div class="wrap" id="promoRoll" hidden>
-    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· 25% off any plan</span></span>
+    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· 30% off any plan</span></span>
     <button type="button" id="rollBtn">Roll</button>
   </div>
 </div>
@@ -1209,6 +1209,7 @@ const REVIEWS = [
     el.classList.add("spin");
     let i = Math.floor(Math.random() * ROLL_CODES.length), delay = 55;
     const step = () => {
+      if (el.dataset.lock) return;   // the leave offer took this box over
       el.textContent = ROLL_CODES[i++ % ROLL_CODES.length];
       delay *= 1.12;
       if (delay < 380) { setTimeout(step, delay); return; }
@@ -1225,7 +1226,7 @@ const REVIEWS = [
     if (rollBtn.disabled) return;
     rollBtn.disabled = true;
     rollAnim(rollCode, (pick) => {
-      rollSub.textContent = "· 25% off any plan - applied";
+      rollSub.textContent = "· 30% off any plan - applied";
       rollBtn.textContent = "Roll again";
       rollBtn.disabled = false;
       applyCode(pick);
@@ -1263,12 +1264,12 @@ const REVIEWS = [
     }
     const dealTimer = setInterval(() => { if (!tickDeal()) clearInterval(dealTimer); }, 1000);
   } else {
-    // after the sale (teek 10-19): "25% off if you roll a code" - and then it rolls
+    // after the sale (teek 10-19): "30% off if you roll a code" - and then it rolls
     let seen = false;
     try { seen = !FORCE_ROLL && sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
     if (!seen) {
       document.getElementById("dealTag").textContent = "Lucky roll";
-      document.getElementById("dealPct").textContent = "25%";
+      document.getElementById("dealPct").textContent = "30%";
       document.getElementById("dealSub").textContent = "off any plan if you roll a code";
       document.getElementById("dealCd").hidden = true;
       document.getElementById("dealUntil").hidden = true;
@@ -1281,14 +1282,48 @@ const REVIEWS = [
         deal.hidden = false;
         try { sessionStorage.setItem("rollSeen", "1"); } catch (e) {}
         setTimeout(() => rollAnim(dc, (pick) => {
+          if (dc.dataset.lock) return;
           dealPick = pick;
-          document.getElementById("dealSub").textContent = "you rolled a code - 25% off any plan";
+          document.getElementById("dealSub").textContent = "you rolled a code - 30% off any plan";
           go.disabled = false;
           go.textContent = "Use " + pick;
         }), 900);
       }, 1200);
     }
   }
+
+  // ------------------------------------------------ leaving? one more 5% (teek 10-19): TEMPO35 = 35% off
+  // Desktop: the cursor heads for the tab bar. Phones have no cursor, so it shows
+  // when they come back to the tab. Once a visit, never during the SPOOKY sale.
+  const EXIT_CODE = "TEMPO35";
+  let exitArmed = false, exitDone = false, leftAt = 0;
+  try { exitDone = sessionStorage.getItem("exitSeen") === "1"; } catch (e) {}
+  setTimeout(() => { exitArmed = true; }, 6000);
+  const exitOffer = () => {
+    if (!exitArmed || exitDone || !spookyOver() || !deal.hidden) return;
+    if (new RegExp(EXIT_CODE + " applied", "i").test(codeMsg.textContent)) return;
+    exitDone = true;
+    try { sessionStorage.setItem("exitSeen", "1"); } catch (e) {}
+    document.getElementById("dealTag").textContent = "Wait - before you go";
+    document.getElementById("dealPct").textContent = "35%";
+    document.getElementById("dealSub").textContent = "off any plan - 5% more than any code";
+    const dcode = document.getElementById("dealCode");
+    dcode.dataset.lock = "1";
+    dcode.classList.remove("spin");
+    dcode.textContent = EXIT_CODE;
+    document.getElementById("dealCd").hidden = true;
+    document.getElementById("dealUntil").hidden = true;
+    const go = document.getElementById("dealGo");
+    dealPick = EXIT_CODE;
+    go.disabled = false;
+    go.textContent = "Use " + EXIT_CODE;
+    deal.hidden = false;
+  };
+  document.addEventListener("mouseout", (e) => { if (!e.relatedTarget && e.clientY <= 0) exitOffer(); });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) leftAt = Date.now();
+    else if (leftAt && Date.now() - leftAt > 3000) exitOffer();
+  });
 
   // ------------------------------------------------ the ghost watches your cursor
   const spook = document.getElementById("spook"), pupils = spook.querySelector(".pupil");
