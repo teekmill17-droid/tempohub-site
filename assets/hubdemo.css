@@ -67,8 +67,11 @@
 .hubhint{font:12px "Roboto Mono",monospace;color:var(--faint)}
 
 @media (max-width:700px){
-  .hub{height:600px}
-  .hub-body{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .hub{height:600px;grid-template-columns:minmax(0,1fr)}
+  /* minmax(0,..) + min-width:0: a 1fr track can't shrink below the tab row, which
+     stretched the whole page to ~900px on phones (sideways scroll into blank) */
+  .hub-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr}
+  .hubwrap,.hub,.hub-side,.hub-main{min-width:0}
   .hub-side{border-right:0;border-bottom:1px solid var(--h-div);padding:10px}
   .hub-search{display:none}
   .hub-tabs{flex-direction:row;overflow-x:auto}
