@@ -1,9 +1,9 @@
 // Where the checkout Worker lives. Empty = checkout not live yet, and the buy
 // buttons keep their fallback link. Set it to the workers.dev URL after deploy.
 window.TEMPO_SHOP = "https://tempo-shop.teekhub.workers.dev";
-// Shows the PayPal buttons. OFF: the PayPal account was shut down
-// (2026-09-29). Card checkout (Stripe) is the only way to pay.
-window.TEMPO_PAYPAL = false;
+// Shows the PayPal buttons. Shut down 2026-09-29, back 2026-10-21 (one-time
+// plans, Discord login first - same as card and crypto).
+window.TEMPO_PAYPAL = true;
 // Which checkout the Buy buttons use. "np" = NOWPayments (crypto, or card
 // through their partner) - since 2026-10-21, when Stripe closed the account.
 // "" = card checkout (Stripe) at /buy/<plan>.
@@ -50,6 +50,10 @@ window.TEMPO_CHECKOUT = "sq"; // "sq" = Square cards (2026-10-21); "Pay with cry
     const one = window.TEMPO_CHECKOUT === "np" || window.TEMPO_CHECKOUT === "sq";
     const off = one ? ["daily"] : [];
     document.querySelectorAll("[data-crypto]").forEach((a) => { a.href = `${SHOP}/np/buy/${a.dataset.crypto}${q}`; });
+    document.querySelectorAll("[data-paypal]").forEach((a) => {
+      a.hidden = !window.TEMPO_PAYPAL;
+      a.href = `${SHOP}/paypal/buy/${a.dataset.paypal}${q}`;
+    });
     document.querySelectorAll("[data-buy]").forEach((a) => {
       a.removeAttribute("target");
       if (off.includes(a.dataset.buy)) {
@@ -117,24 +121,6 @@ window.TEMPO_CHECKOUT = "sq"; // "sq" = Square cards (2026-10-21); "Pay with cry
     } catch {
       return null;
     }
-  }
-
-  // PayPal has no field of its own for these, so the Discord name (for the
-  // Premium role) and the code ride along in the URL.
-  if (window.TEMPO_PAYPAL) {
-    const box = $("dname");
-    if (box) box.hidden = false;
-    document.querySelectorAll("[data-paypal]").forEach((a) => {
-      a.hidden = false;
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const q = new URLSearchParams();
-        const name = (($("dnameInput") || {}).value || "").trim();
-        if (name) q.set("discord", name);
-        if (ref) q.set("ref", ref.code);
-        location.href = `${SHOP}/paypal/buy/${a.dataset.paypal}` + (q.toString() ? "?" + q : "");
-      });
-    });
   }
 
   const form = $("codeForm");
