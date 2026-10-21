@@ -45,9 +45,9 @@ window.TEMPO_CHECKOUT = "np";
 
   function wire() {
     const q = ref ? `?ref=${encodeURIComponent(ref.code)}` : "";
-    // (2026-10-21) the renewing plans only run on card checkout, which is paused:
-    // they stay on the page as "Currently unavailable" instead of disappearing
-    const off = window.TEMPO_CHECKOUT === "np" ? ["daily", "weekly", "monthly"] : [];
+    // (2026-10-21) weekly / monthly are one-time passes on this checkout (no
+    // renewing); only the retired daily plan stays off
+    const off = window.TEMPO_CHECKOUT === "np" ? ["daily"] : [];
     document.querySelectorAll("[data-buy]").forEach((a) => {
       a.removeAttribute("target");
       if (off.includes(a.dataset.buy)) {
