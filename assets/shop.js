@@ -3,7 +3,7 @@
 window.TEMPO_SHOP = "https://tempo-shop.teekhub.workers.dev";
 // Shows the PayPal buttons. Shut down 2026-09-29, back 2026-10-21 (one-time
 // plans, Discord login first - same as card and crypto).
-window.TEMPO_PAYPAL = true;
+window.TEMPO_PAYPAL = false; // off until the NEW PayPal account keys are in the worker (10-21)
 // Which checkout the Buy buttons use. "np" = NOWPayments (crypto, or card
 // through their partner) - since 2026-10-21, when Stripe closed the account.
 // "" = card checkout (Stripe) at /buy/<plan>.
