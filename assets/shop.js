@@ -7,7 +7,7 @@ window.TEMPO_PAYPAL = false;
 // Which checkout the Buy buttons use. "np" = NOWPayments (crypto, or card
 // through their partner) - since 2026-10-21, when Stripe closed the account.
 // "" = card checkout (Stripe) at /buy/<plan>.
-window.TEMPO_CHECKOUT = "np";
+window.TEMPO_CHECKOUT = "sq"; // "sq" = Square cards (2026-10-21); "Pay with crypto" buttons always go to NOWPayments
 
 // Checkout buttons, and referral codes.
 //
@@ -47,7 +47,9 @@ window.TEMPO_CHECKOUT = "np";
     const q = ref ? `?ref=${encodeURIComponent(ref.code)}` : "";
     // (2026-10-21) weekly / monthly are one-time passes on this checkout (no
     // renewing); only the retired daily plan stays off
-    const off = window.TEMPO_CHECKOUT === "np" ? ["daily"] : [];
+    const one = window.TEMPO_CHECKOUT === "np" || window.TEMPO_CHECKOUT === "sq";
+    const off = one ? ["daily"] : [];
+    document.querySelectorAll("[data-crypto]").forEach((a) => { a.href = `${SHOP}/np/buy/${a.dataset.crypto}${q}`; });
     document.querySelectorAll("[data-buy]").forEach((a) => {
       a.removeAttribute("target");
       if (off.includes(a.dataset.buy)) {
@@ -58,7 +60,7 @@ window.TEMPO_CHECKOUT = "np";
         a.style.pointerEvents = "none";
         return;
       }
-      a.href = `${SHOP}/${window.TEMPO_CHECKOUT === "np" ? "np/buy" : "buy"}/${a.dataset.buy}${q}`;
+      a.href = `${SHOP}/${one ? window.TEMPO_CHECKOUT + "/buy" : "buy"}/${a.dataset.buy}${q}`;
     });
     document.querySelectorAll("[data-price]").forEach((el) => {
       const plan = el.dataset.price;

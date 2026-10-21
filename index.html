@@ -287,6 +287,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .pp{margin-top:8px;justify-content:center;background:#ffc439;color:#111;border-color:#ffc439}
 .pp:hover{background:#ffd466;border-color:#ffd466}
 .plan .pp{margin-top:8px}
+.crypto{margin-top:8px;justify-content:center}
 .dname{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
 .dname input{height:40px;min-width:240px;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);color:var(--text);font:14px Barlow,sans-serif;padding:0 12px;outline:none}
 .dname input:focus{border-color:var(--ice)}
@@ -572,27 +573,27 @@ footer a:hover{color:var(--text)}
         <div class="price" data-price="weekly" data-full="$3.59" data-per=" / week">$3.59<small> / week</small></div>
         <p class="note">Good for trying it out</p>
         <ul><li>All premium games</li><li>Every update while it's active</li><li>7 days, one payment, no auto-renew</li></ul>
-        <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly</a>
-        <a class="btn pp" data-paypal="weekly" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly with card</a>
+        <a class="btn crypto" data-crypto="weekly" href="#pricing">Pay with crypto</a>
       </div>
       <div class="plan">
         <div class="pl"><h3>Monthly</h3></div>
         <div class="price" data-price="monthly" data-full="$9.59" data-per=" / month">$9.59<small> / month</small></div>
         <p class="note">30 days, no auto-renew</p>
         <ul><li>All premium games</li><li>Support in the Discord</li><li>30 days, one payment, no auto-renew</li></ul>
-        <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly</a>
-        <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly with card</a>
+        <a class="btn crypto" data-crypto="monthly" href="#pricing">Pay with crypto</a>
       </div>
       <div class="plan lift">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
         <div class="price" data-price="lifetime" data-full="$29.99" data-per=" / once">$29.99<small> / once</small></div>
         <p class="note">About three months of Monthly</p>
         <ul><li>All premium games, for good</li><li>Every future game and update</li><li>Pay once, never again</li></ul>
-        <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime</a>
-        <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime with card</a>
+        <a class="btn crypto" data-crypto="lifetime" href="#pricing">Pay with crypto</a>
       </div>
     </div>
-    <p class="paynote">Pay with crypto through NOWPayments' checkout. Your key shows up as soon as the payment confirms (crypto can take a few minutes). Every plan is one payment - weekly and monthly don't auto-renew, just buy again when it runs out. Existing weekly/monthly subscriptions: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. <a href="/refunds">Refund policy</a></p>
+    <p class="paynote">Pay by card through Square, or with crypto through NOWPayments. Your key shows up as soon as the payment goes through (crypto can take a few minutes to confirm). Every plan is one payment - weekly and monthly don't auto-renew, just buy again when it runs out. Existing weekly/monthly subscriptions: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. <a href="/refunds">Refund policy</a></p>
   </div>
 </section>
 

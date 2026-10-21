@@ -76,8 +76,8 @@ ol li{margin:8px 0}
     $("problemMsg").innerHTML = msg; show("problem");
   }
   const np = /^np_/.test(sid);   // NOWPayments: confirmed on-chain, can take minutes
-  if (!/^(cs|pp|np)_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
-    problem("No order found", "This page needs the link Stripe sent you back to after paying. If you paid and ended up here anyway, open a ticket in the Discord and include the email you paid with.");
+  if (!/^(cs|pp|np|sq)_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
+    problem("No order found", "This page needs the link the checkout sent you back to after paying. If you paid and ended up here anyway, open a ticket in the Discord and include the email you paid with.");
     return;
   }
   let tries = 0;
