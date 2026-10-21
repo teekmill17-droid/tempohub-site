@@ -460,7 +460,7 @@ footer a:hover{color:var(--text)}
     <button type="button" id="promoBtn" data-code="SPOOKY">Use code</button>
   </div>
   <div class="wrap" id="promoRoll" hidden>
-    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· 30% off any plan</span></span>
+    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· up to 50% off any plan</span></span>
     <button type="button" id="rollBtn">Roll</button>
   </div>
 </div>
@@ -1180,6 +1180,10 @@ const REVIEWS = [
     document.getElementById("codeInput").value = code;
     document.getElementById("codeForm").requestSubmit();
   };
+  // (10-21) the rolled codes don't share one discount (GUMMY 50, others 30, and
+  // timed boosts) - ask the Worker what this code takes off instead of saying 30
+  const offFor = (code) => fetch(`${window.TEMPO_SHOP}/ref?code=${encodeURIComponent(code)}`)
+    .then((r) => r.json()).then((d) => (d && d.ok && d.discount ? d.discount : null)).catch(() => null);
   promoBtn.addEventListener("click", () => { if (!promoBtn.classList.contains("on")) applyCode(promoBtn.dataset.code); });
   const promoSync = () => {
     const on = new RegExp(promoBtn.dataset.code + " applied", "i").test(codeMsg.textContent);
@@ -1221,7 +1225,8 @@ const REVIEWS = [
     if (rollBtn.disabled) return;
     rollBtn.disabled = true;
     rollAnim(rollCode, (pick) => {
-      rollSub.textContent = "· 30% off any plan - applied";
+      rollSub.textContent = "· applied";
+      offFor(pick).then((p) => { if (p) rollSub.textContent = `· ${p}% off any plan - applied`; });
       rollBtn.textContent = "Roll again";
       rollBtn.disabled = false;
       applyCode(pick);
@@ -1279,7 +1284,8 @@ const REVIEWS = [
         setTimeout(() => rollAnim(dc, (pick) => {
           if (dc.dataset.lock) return;
           dealPick = pick;
-          document.getElementById("dealSub").textContent = "you rolled a code - 30% off any plan";
+          document.getElementById("dealSub").textContent = "you rolled a code";
+          offFor(pick).then((p) => { if (p && dealPick === pick) document.getElementById("dealSub").textContent = `you rolled a code - ${p}% off any plan`; });
           go.disabled = false;
           go.textContent = "Use " + pick;
         }), 900);
