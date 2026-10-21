@@ -4,6 +4,10 @@ window.TEMPO_SHOP = "https://tempo-shop.teekhub.workers.dev";
 // Shows the PayPal buttons. OFF: the PayPal account was shut down
 // (2026-09-29). Card checkout (Stripe) is the only way to pay.
 window.TEMPO_PAYPAL = false;
+// Which checkout the Buy buttons use. "np" = NOWPayments (crypto, or card
+// through their partner) - since 2026-10-21, when Stripe closed the account.
+// "" = card checkout (Stripe) at /buy/<plan>.
+window.TEMPO_CHECKOUT = "np";
 
 // Checkout buttons, and referral codes.
 //
@@ -41,9 +45,20 @@ window.TEMPO_PAYPAL = false;
 
   function wire() {
     const q = ref ? `?ref=${encodeURIComponent(ref.code)}` : "";
+    // (2026-10-21) the renewing plans only run on card checkout, which is paused:
+    // they stay on the page as "Currently unavailable" instead of disappearing
+    const off = window.TEMPO_CHECKOUT === "np" ? ["daily", "weekly", "monthly"] : [];
     document.querySelectorAll("[data-buy]").forEach((a) => {
-      a.href = `${SHOP}/buy/${a.dataset.buy}${q}`;
       a.removeAttribute("target");
+      if (off.includes(a.dataset.buy)) {
+        a.removeAttribute("href");
+        a.textContent = "Currently unavailable";
+        a.setAttribute("aria-disabled", "true");
+        a.style.opacity = ".45";
+        a.style.pointerEvents = "none";
+        return;
+      }
+      a.href = `${SHOP}/${window.TEMPO_CHECKOUT === "np" ? "np/buy" : "buy"}/${a.dataset.buy}${q}`;
     });
     document.querySelectorAll("[data-price]").forEach((el) => {
       const plan = el.dataset.price;

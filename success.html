@@ -75,7 +75,8 @@ ol li{margin:8px 0}
     $("title").textContent = title; $("sub").textContent = "";
     $("problemMsg").innerHTML = msg; show("problem");
   }
-  if (!/^(cs|pp)_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
+  const np = /^np_/.test(sid);   // NOWPayments: confirmed on-chain, can take minutes
+  if (!/^(cs|pp|np)_(test|live)_/.test(sid) || !window.TEMPO_SHOP) {
     problem("No order found", "This page needs the link Stripe sent you back to after paying. If you paid and ended up here anyway, open a ticket in the Discord and include the email you paid with.");
     return;
   }
@@ -94,7 +95,7 @@ ol li{margin:8px 0}
       $("ls").textContent = `script_key = "${r.key}"\nloadstring(game:HttpGet("https://raw.githubusercontent.com/teekmill17-droid/TempoHub/main/${r.plan === "hider" ? "Premium" : "Loader"}.lua"))()`;
       $("roleNote").hidden = !r.discord;
       const every = ({ daily: "day", weekly: "week", monthly: "month" })[r.plan];
-      $("renewNote").hidden = !every;
+      $("renewNote").hidden = !every || r.renews === false;
       if (every) $("renewEvery").textContent = every;
       show("done");
       return;
@@ -109,8 +110,10 @@ ol li{margin:8px 0}
       return;
     }
     // unpaid or network trouble: the payment may still be settling
-    $("loadMsg").textContent = tries > 5 ? "Still waiting on the payment to confirm" : "Checking your payment";
-    if (tries < 40) setTimeout(poll, 2500);
+    $("loadMsg").textContent = np
+      ? "Waiting for your payment to confirm - crypto can take a few minutes. Keep this page open."
+      : (tries > 5 ? "Still waiting on the payment to confirm" : "Checking your payment");
+    if (np ? tries < 540 : tries < 40) setTimeout(poll, np ? 5000 : 2500);
     else problem("Still processing", "Your payment hasn't confirmed yet. Some payment methods take a few minutes. Come back to this same link later, or open a ticket with the email you paid with.");
   }
   poll();
