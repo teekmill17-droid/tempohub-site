@@ -221,6 +221,8 @@ window.TEMPO_CHECKOUT = "sq"; // "sq" = Square cards (2026-10-21); "Pay with cry
   // A share link wins over a remembered code, and is counted as a click.
   const params = new URLSearchParams(location.search);
   const linked = params.get("ref");
+  // (10-22) a creator's code is on: the page's code roller must not replace it
+  window.TEMPO_HAS_REF = Boolean(linked || stored());
   if (linked) {
     params.delete("ref");
     const clean = location.pathname + (params.toString() ? "?" + params : "") + location.hash;

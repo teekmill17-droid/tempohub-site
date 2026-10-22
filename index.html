@@ -1196,9 +1196,12 @@ const REVIEWS = [
   // ?roll=1 previews the after-sale roll (bar + pop-up) any time, for testing
   const FORCE_ROLL = /[?&]roll=1(&|$)/.test(location.search);
   const spookyOver = () => FORCE_ROLL || Date.now() >= SPOOKY_END;
+  // came in on a creator's link (or has their code saved): no roller at all,
+  // a rolled media code would replace theirs
+  const hasRef = () => window.TEMPO_HAS_REF === true || /[?&]ref=/.test(location.search);
   const showRoll = () => {
     document.getElementById("promoSpooky").hidden = true;
-    document.getElementById("promoRoll").hidden = false;
+    document.getElementById("promoRoll").hidden = hasRef();
   };
   if (spookyOver()) showRoll();
   // spin a code label through the media codes, slowing down, and land on one
@@ -1267,7 +1270,7 @@ const REVIEWS = [
     // after the sale (teek 10-19): "30% off if you roll a code" - and then it rolls
     let seen = false;
     try { seen = !FORCE_ROLL && sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
-    if (!seen) {
+    if (!seen && !hasRef()) {
       document.getElementById("dealTag").textContent = "Lucky roll";
       document.getElementById("dealPct").textContent = "30%";
       document.getElementById("dealSub").textContent = "off any plan if you roll a code";
@@ -1301,7 +1304,7 @@ const REVIEWS = [
   try { exitDone = sessionStorage.getItem("exitSeen") === "1"; } catch (e) {}
   setTimeout(() => { exitArmed = true; }, 6000);
   const exitOffer = () => {
-    if (!exitArmed || exitDone || !spookyOver() || !deal.hidden) return;
+    if (!exitArmed || exitDone || !spookyOver() || !deal.hidden || hasRef()) return;
     if (new RegExp(EXIT_CODE + " applied", "i").test(codeMsg.textContent)) return;
     exitDone = true;
     try { sessionStorage.setItem("exitSeen", "1"); } catch (e) {}
