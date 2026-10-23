@@ -1296,10 +1296,11 @@ const REVIEWS = [
     }
   }
 
-  // ------------------------------------------------ leaving? one more 5% (teek 10-19): TEMPO35 = 35% off
+  // ------------------------------------------------ leaving? one more 5% (teek 10-19; 10-23: TEMPO35 -> TEMPO15 = 15% off,
+  // the roll codes are 10% now)
   // Desktop: the cursor heads for the tab bar. Phones have no cursor, so it shows
   // when they come back to the tab. Once a visit, never during the SPOOKY sale.
-  const EXIT_CODE = "TEMPO35";
+  const EXIT_CODE = "TEMPO15";
   let exitArmed = false, exitDone = false, leftAt = 0;
   try { exitDone = sessionStorage.getItem("exitSeen") === "1"; } catch (e) {}
   setTimeout(() => { exitArmed = true; }, 6000);
@@ -1309,7 +1310,7 @@ const REVIEWS = [
     exitDone = true;
     try { sessionStorage.setItem("exitSeen", "1"); } catch (e) {}
     document.getElementById("dealTag").textContent = "Wait - before you go";
-    document.getElementById("dealPct").textContent = "35%";
+    document.getElementById("dealPct").textContent = "15%";
     document.getElementById("dealSub").textContent = "off any plan - 5% more than any code";
     const dcode = document.getElementById("dealCode");
     dcode.dataset.lock = "1";
