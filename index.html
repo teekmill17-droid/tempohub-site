@@ -460,7 +460,7 @@ footer a:hover{color:var(--text)}
     <button type="button" id="promoBtn" data-code="SPOOKY">Use code</button>
   </div>
   <div class="wrap" id="promoRoll" hidden>
-    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· up to 50% off any plan</span></span>
+    <span><b id="rollCode">CLICK TO ROLL A DISCOUNT CODE</b> <span class="cd" id="rollSub">· 10% off any plan</span></span>
     <button type="button" id="rollBtn">Roll</button>
   </div>
 </div>
@@ -1267,12 +1267,12 @@ const REVIEWS = [
     }
     const dealTimer = setInterval(() => { if (!tickDeal()) clearInterval(dealTimer); }, 1000);
   } else {
-    // after the sale (teek 10-19): "30% off if you roll a code" - and then it rolls
+    // after the sale (teek 10-19, 10-23: codes now 10%): "10% off if you roll a code" - and then it rolls
     let seen = false;
     try { seen = !FORCE_ROLL && sessionStorage.getItem("rollSeen") === "1"; } catch (e) {}
     if (!seen && !hasRef()) {
       document.getElementById("dealTag").textContent = "Lucky roll";
-      document.getElementById("dealPct").textContent = "30%";
+      document.getElementById("dealPct").textContent = "10%";
       document.getElementById("dealSub").textContent = "off any plan if you roll a code";
       document.getElementById("dealCd").hidden = true;
       document.getElementById("dealUntil").hidden = true;
