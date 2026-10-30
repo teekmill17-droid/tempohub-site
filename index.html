@@ -437,6 +437,26 @@ footer a:hover{color:var(--text)}
 .deal-until{color:var(--faint);font:500 12px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase;margin:2px 0 20px}
 .deal-go{width:100%;justify-content:center;background:var(--pumpkin);border-color:var(--pumpkin);color:#1a0d02}
 .deal-go:hover{background:transparent;color:var(--pumpkin)}
+/* (10-30, teek) MORE WAYS TO PAY: our resellers, in a card under the plans */
+.moreways{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:1px dashed var(--line2);border-radius:var(--r);padding:20px 26px;background:var(--panel)}
+.moreways h3{margin:0;font:700 18px Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.moreways p{margin:4px 0 0;color:var(--dim);font-size:14px}
+.rs-card{position:relative;width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:30px 26px 24px;border:1px solid var(--line2);border-radius:14px;background:var(--bg2);text-align:left}
+.rs-card h2{margin:0 0 4px;font:700 26px Oswald,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.rs-card>p{margin:0 0 18px;color:var(--dim);font-size:14px}
+.rs-item{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--panel)}
+.rs-item+.rs-item{margin-top:12px}
+.rs-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rs-top h3{margin:0;font-size:18px}
+.rs-top span{color:var(--faint);font:500 12px "Roboto Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+.rs-plans{display:flex;gap:10px;margin:12px 0}
+.rs-plan{flex:1;border:1px solid var(--line2);border-radius:8px;padding:10px 12px}
+.rs-plan b{display:block;font-size:20px}
+.rs-plan small{color:var(--dim)}
+.rs-pay{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.rs-pay li{padding:4px 10px;border:1px solid var(--line2);border-radius:20px;font-size:12px;color:var(--dim)}
+.rs-go{width:100%;justify-content:center}
+.rs-note{margin:16px 0 0;color:var(--faint);font-size:12px}
 @media (prefers-reduced-motion:reduce){.deal,.deal-card,.deal-tag,.deal-big span{animation:none}}
 
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
@@ -478,6 +498,15 @@ footer a:hover{color:var(--text)}
   </div>
 </div>
 
+<div class="deal" id="resellers" hidden role="dialog" aria-modal="true" aria-labelledby="rsTitle">
+  <div class="rs-card">
+    <button type="button" class="deal-x" id="rsX" aria-label="Close">&times;</button>
+    <h2 id="rsTitle">More ways to pay</h2>
+    <p>Official Tempo resellers. Pick one, buy there, and they send your key.</p>
+    <div id="rsList"></div>
+    <p class="rs-note">Resellers are separate stores with their own prices and checkout. Questions about an order go to that store first; open a ticket in our Discord if you get stuck.</p>
+  </div>
+</div>
 <nav>
   <div class="wrap">
     <a class="brand" href="#top"><img src="assets/logo-oct.png" alt="">TEMPO</a>
@@ -595,6 +624,10 @@ footer a:hover{color:var(--text)}
         <a class="btn crypto" data-crypto="lifetime" href="#pricing">Pay with crypto</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
       </div>
+    </div>
+    <div class="moreways">
+      <div><h3>More ways to pay</h3><p>Apple Pay, gift cards, Robux and more through our official resellers.</p></div>
+      <button type="button" class="btn" id="moreWays">See options</button>
     </div>
     <p class="paynote">Pay by card through Square, or with crypto through NOWPayments. Your key shows up as soon as the payment goes through (crypto can take a few minutes to confirm). Every plan is one payment - weekly and monthly don't auto-renew, just buy again when it runs out. Existing weekly/monthly subscriptions: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. <a href="/refunds">Refund policy</a></p>
   </div>
@@ -1750,6 +1783,30 @@ const REVIEWS = [
     setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done"); }, 1600);
   }));
 
+})();
+</script>
+<script>
+// (10-30, teek) MORE WAYS TO PAY - add a reseller here and it shows up in the card
+(() => {
+  const RESELLERS = [
+    { name: "Elyra Shop", url: "https://elyrastore.online/product/tempo-hub",
+      plans: [{ t: "Monthly", p: "$8.49" }, { t: "Lifetime", p: "$18.69" }],
+      pay: ["Visa / Mastercard / Amex", "Apple Pay", "PayPal", "Gift cards", "Robux", "Bitcoin", "Ethereum", "Litecoin", "Solana", "USDT"] },
+  ];
+  const box = document.getElementById("resellers"), list = document.getElementById("rsList"), open = document.getElementById("moreWays");
+  if (!box || !list || !open) return;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  list.innerHTML = RESELLERS.map((r) => `<div class="rs-item">
+      <div class="rs-top"><h3>${esc(r.name)}</h3><span>Official reseller</span></div>
+      <div class="rs-plans">${r.plans.map((p) => `<div class="rs-plan"><small>${esc(p.t)}</small><b>${esc(p.p)}</b></div>`).join("")}</div>
+      <ul class="rs-pay">${r.pay.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <a class="btn btn-primary rs-go" href="${esc(r.url)}" target="_blank" rel="noopener">Buy on ${esc(r.name)}</a>
+    </div>`).join("");
+  const close = () => { box.hidden = true; };
+  open.addEventListener("click", () => { box.hidden = false; });
+  document.getElementById("rsX").addEventListener("click", close);
+  box.addEventListener("click", (e) => { if (e.target === box) close(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !box.hidden) close(); });
 })();
 </script>
 </body>
