@@ -360,7 +360,7 @@ footer a:hover{color:var(--text)}
   background:url(assets/tempo-mark-bg.png) center/72% no-repeat,radial-gradient(closest-side,rgba(124,58,237,.30),transparent 75%);
   opacity:.5;animation:turn 120s linear infinite}
 @keyframes turn{to{transform:rotate(360deg)}}
-.embers{position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%}
+.petals{position:fixed;inset:0;z-index:-1;pointer-events:none;width:100vw;height:100vh}
 @media (max-width:900px){.hero-art{opacity:.2;right:-30%;top:60px;width:110vw}}
 
 
@@ -434,6 +434,7 @@ footer a:hover{color:var(--text)}
 </style>
 </head>
 <body>
+<canvas class="petals" id="petals" aria-hidden="true"></canvas>
 
 <div class="promo" id="promo">
   <div class="wrap" id="promoSpooky">
@@ -492,7 +493,6 @@ footer a:hover{color:var(--text)}
 <!-- ============================================================ HERO -->
 <section class="hero" id="top">
   <div class="hero-art" aria-hidden="true"></div>
-  <canvas class="embers" id="embers" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
       <h1 class="wordmark"><img src="assets/tempo-wordmark.png" alt="Tempo Hub" width="1200" height="235"></h1>
@@ -1685,27 +1685,39 @@ const REVIEWS = [
 
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ------------------------------------------------ purple sparks drifting off the logo (only while the hero is on screen)
-  const cv = document.getElementById("embers"), cx = cv.getContext("2d");
-  let embers = [], live = false, emRaf = 0;
-  const fit = () => { cv.width = cv.offsetWidth * devicePixelRatio; cv.height = cv.offsetHeight * devicePixelRatio; };
-  const spawn = (y) => ({ x: cv.width * (0.45 + Math.random() * 0.55), y: y ?? cv.height + 10, r: (0.6 + Math.random() * 1.8) * devicePixelRatio,
-    vy: (0.35 + Math.random() * 0.9) * devicePixelRatio, vx: (Math.random() - 0.5) * 0.4, ph: Math.random() * 6.28, life: 1 });
-  function frame() {
+  // ------------------------------------------------ logo petals falling behind the whole page
+  // (11-01, teek) leaf shapes in the logo's two tones; small = far = slower and fainter
+  const cv = document.getElementById("petals"), cx = cv.getContext("2d");
+  const LEAF = new Path2D("M0,-1C.62,-.52,.5,.48,0,1C-.28,.46,-.38,-.44,0,-1Z");
+  const TONES = ["#7c38ec", "#8b5cf6", "#d8ccff"];
+  let petals = [], last = 0;
+  const fit = () => { const d = devicePixelRatio || 1; cv.width = innerWidth * d; cv.height = innerHeight * d; };
+  const spawn = (y) => {
+    const z = 0.35 + Math.random() * 0.65;           // depth 0.35 (far) .. 1 (near)
+    return { x: Math.random() * cv.width, y: y ?? -30 * devicePixelRatio, z,
+      s: (6 + 9 * z) * devicePixelRatio, vy: (22 + 38 * z) * devicePixelRatio, sway: Math.random() * 6.28, sw: 0.6 + Math.random() * 0.9,
+      rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 1.6, tum: Math.random() * 6.28, vt: 1 + Math.random() * 2,
+      c: TONES[Math.random() * TONES.length | 0], a: 0.18 + 0.42 * z };
+  };
+  function frame(t) {
+    const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
     cx.clearRect(0, 0, cv.width, cv.height);
-    for (const e of embers) {
-      e.y -= e.vy; e.ph += 0.05; e.x += e.vx + Math.sin(e.ph) * 0.35; e.life -= 0.0016;
-      if (e.y < -10 || e.life <= 0) Object.assign(e, spawn());
-      const a = Math.max(0, Math.min(1, e.life)) * (0.55 + 0.45 * Math.sin(e.ph * 3));
-      cx.fillStyle = `rgba(${150 + (e.r * 20 | 0)},${110 + (e.r * 15 | 0)},255,${a})`;
-      cx.beginPath(); cx.arc(e.x, e.y, e.r, 0, 6.29); cx.fill();
+    for (const p of petals) {
+      p.sway += p.sw * dt; p.rot += p.vr * dt; p.tum += p.vt * dt;
+      p.y += p.vy * dt; p.x += Math.sin(p.sway) * 18 * p.z * devicePixelRatio * dt + 6 * devicePixelRatio * dt;
+      if (p.y > cv.height + 30 * devicePixelRatio || p.x > cv.width + 40 * devicePixelRatio) Object.assign(p, spawn());
+      const flip = Math.cos(p.tum);                    // tumbling: the petal turns edge-on and back
+      cx.setTransform(p.s * (Math.abs(flip) < 0.15 ? 0.15 * Math.sign(flip || 1) : flip), 0, 0, p.s, p.x, p.y);
+      cx.rotate(p.rot);
+      cx.globalAlpha = p.a; cx.fillStyle = p.c; cx.fill(LEAF);
     }
-    if (live) emRaf = requestAnimationFrame(frame);
+    cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1;
+    requestAnimationFrame(frame);
   }
   if (!calm) {
     fit(); addEventListener("resize", fit);
-    embers = Array.from({ length: innerWidth < 700 ? 22 : 46 }, () => spawn(Math.random() * cv.height));
-    new IntersectionObserver(([en]) => { live = en.isIntersecting; cancelAnimationFrame(emRaf); if (live) frame(); }).observe(cv);
+    petals = Array.from({ length: innerWidth < 700 ? 14 : 30 }, () => spawn(Math.random() * cv.height));
+    requestAnimationFrame(frame);   // the browser pauses it in background tabs
   }
 
   // ------------------------------------------------ sections slide in as you scroll
