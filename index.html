@@ -2,42 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>
-// October theme runs itself: from November 1 (viewer's clock) the site goes back to
-// the ice-blue look and the Halloween bits hide. ?season=off previews that.
-(function(){
-  if (new Date().getMonth() === 9 && !/season=off/.test(location.search)) return;
-  document.documentElement.dataset.season = "off";
-  document.addEventListener("DOMContentLoaded", function(){
-    document.querySelectorAll('img[src*="logo-oct"],link[href*="logo-oct"]').forEach(function(e){
-      if (e.tagName === "IMG") e.src = e.getAttribute("src").replace("logo-oct", "logo"); else e.href = e.getAttribute("href").replace("logo-oct", "logo");
-    });
-  });
-})();
-</script>
 <script>(function(){var p=location.pathname;if(/\.html$/.test(p))history.replaceState(null,"",p.replace(/(index)?\.html$/,"")+location.search+location.hash)})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tempo Hub</title>
 <meta name="description" content="Roblox scripts for Clover Retribution, Anime Battle Arena, Bloodlines, Project Slayers 2, Bridger Western and Driven Football, plus 350+ free games. Weekly $3.59, monthly $9.99, lifetime $21.99.">
 <meta property="og:title" content="Tempo Hub">
 <meta property="og:description" content="Premium scripts for Clover Retribution, ABA, Bloodlines, Project Slayers 2, Bridger Western and Driven Football. From $3.59.">
-<meta property="og:image" content="https://tempohub.shop/assets/logo-oct.png?v=2">
+<meta property="og:image" content="https://tempohub.shop/assets/tempo-icon.png?v=3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tempohub.shop/assets/logo-oct.png?v=2">
-<meta name="theme-color" content="#060504">
-<link rel="icon" href="assets/logo-oct.png">
+<meta name="twitter:image" content="https://tempohub.shop/assets/tempo-icon.png?v=3">
+<meta name="theme-color" content="#08060d">
+<link rel="icon" href="assets/tempo-icon.png">
+<link rel="apple-touch-icon" href="assets/tempo-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="assets/hubdemo.css">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* October: orange on black (was ice blue #7cc4ff on blue-black) */
-  --bg:#060504; --bg2:#0c0a08; --panel:#100d0a; --line:#221c16; --line2:#2f271f;
-  --text:#f3ede5; --dim:#a0958a; --faint:#665c53;
-  --ice:#ff8a2a; --ice2:#ffb06a; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a;
-  --rh2:#ff8a3d; --aba:#ff4d5e; --ps2:#e0b25a; --xb:#7cc4ff; --clover:#4fd68b; --bl:#a78bfa; --bw:#d9825b; --ct:#4cc9c0;
-  --pumpkin:#ff8a2a;
+  /* 11-01: Tempo purple (the logo's #7c38ec) on violet-black */
+  --bg:#08060d; --bg2:#0d0a14; --panel:#110d1a; --line:#211b2e; --line2:#2d2540;
+  --text:#f1ece4; --dim:#a39cb3; --faint:#665f78;
+  --ice:#8b5cf6; --ice2:#b49cff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a;
+  --rh2:#ff8a3d; --aba:#ff4d5e; --ps2:#e0b25a; --xb:#7cc4ff; --clover:#4fd68b; --bl:#f472b6; --bw:#d9825b; --ct:#4cc9c0;
+  --pumpkin:#8b5cf6;
   --r:6px;
 }
 *{box-sizing:border-box}
@@ -61,15 +49,15 @@ section{border-top:1px solid var(--line);padding:96px 0;scroll-margin-top:64px}
 /* ------------------------------------------------ buttons */
 .btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px;border-radius:var(--r);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line2);transition:border-color .15s,background .15s,transform .15s;cursor:pointer;background:none;color:var(--text);font-family:inherit}
 .btn:hover{border-color:var(--faint)}
-.btn-primary{background:var(--ice);color:#160900;border-color:var(--ice)}
+.btn-primary{background:var(--ice);color:#fff;border-color:var(--ice)}
 .btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
 .btn svg{width:16px;height:16px}
 
 /* ------------------------------------------------ nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(6,5,4,.92);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2)}
+nav{position:sticky;top:0;z-index:50;background:rgba(8,6,13,.88);backdrop-filter:blur(10px) saturate(1.2);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2)}
 nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;font:italic 700 24px Oswald,sans-serif;letter-spacing:.02em}
-.brand img{width:32px;height:32px;border-radius:7px}
+.brand img{height:30px;width:auto;display:block}
 .links{display:flex;gap:24px;margin-left:12px;font-size:14px;color:var(--dim)}
 .links a:hover{color:var(--text)}
 .navcta{margin-left:auto;display:flex;gap:10px}
@@ -81,8 +69,7 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .hero{border-top:0;padding:88px 0 72px}
 .hero .wrap{max-width:1160px}
 .wordmark{font:italic 700 clamp(64px,11vw,136px)/.9 Oswald,sans-serif;letter-spacing:0;text-transform:uppercase;margin:10px 0 22px}
-.wordmark .wm-hub{color:var(--ice);animation:candle 4.5s infinite}
-@keyframes candle{0%,100%{text-shadow:0 0 24px rgba(255,138,42,.35)}20%{text-shadow:0 0 34px rgba(255,138,42,.55)}23%{text-shadow:0 0 18px rgba(255,138,42,.25)}60%{text-shadow:0 0 30px rgba(255,138,42,.5)}}
+.wordmark img{display:block;width:clamp(260px,48vw,580px);height:auto;filter:drop-shadow(0 0 28px rgba(139,92,246,.35))}
 .hero .lead{font-size:19px}
 .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border:1px solid var(--line);border-radius:var(--r);max-width:640px}
@@ -96,9 +83,9 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 @media (max-width:960px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
 
 /* the green-window bar (demo) */
-.bar{position:relative;height:18px;border:1px solid var(--line2);border-radius:3px;background:#0c0907;overflow:hidden}
+.bar{position:relative;height:18px;border:1px solid var(--line2);border-radius:3px;background:#0d0a14;overflow:hidden}
 .bar .win{position:absolute;top:0;bottom:0;background:rgba(61,220,132,.16);border-left:1px solid var(--green);border-right:1px solid var(--green)}
-.bar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,#4a2a12,var(--ice))}
+.bar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,#2a1650,var(--ice))}
 .bar .rel{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff;opacity:0}
 .scale{display:flex;justify-content:space-between;margin-top:8px;font:11px "Roboto Mono",monospace;color:var(--faint)}
 .flash{animation:flash .45s ease-out}
@@ -281,7 +268,8 @@ nav .wrap{display:flex;align-items:center;gap:28px;height:64px}
 .price .local{display:block;font:500 15px "Roboto Mono",monospace;color:var(--faint);margin-top:6px;letter-spacing:0}
 .plan ul{list-style:none;padding:0;margin:18px 0 28px;display:grid;gap:9px;color:#cdd3dc;font-size:14.5px}
 .plan li{display:grid;grid-template-columns:12px 1fr;gap:8px}.plan li:before{content:"";width:5px;height:5px;margin-top:9px;background:var(--faint)}
-.plan .btn{margin-top:auto;justify-content:center}
+.plan .btn{margin-top:8px;justify-content:center}
+.plan a.btn:first-of-type{margin-top:auto}
 .paynote{margin-top:16px;font:12px "Roboto Mono",monospace;color:var(--faint)}
 [hidden]{display:none!important}
 .pp{margin-top:8px;justify-content:center;background:#ffc439;color:#111;border-color:#ffc439}
@@ -335,13 +323,13 @@ footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--faint);f
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 footer a:hover{color:var(--text)}
 /* ------------------------------------------------ october */
-.promo{background:var(--pumpkin);color:#1a0d02;font:500 13px/1.3 "Roboto Mono",monospace}
+.promo{background:linear-gradient(90deg,#5b21b6,#7c3aed 50%,#5b21b6);color:#fff;font:500 13px/1.3 "Roboto Mono",monospace}
 .promo .wrap{display:flex;align-items:center;justify-content:center;gap:8px 18px;flex-wrap:wrap;min-height:40px;padding-top:7px;padding-bottom:7px}
 .promo b{font-weight:700;letter-spacing:.08em}
 .promo s{opacity:.55}
-.promo button{height:28px;padding:0 12px;border:1.5px solid #1a0d02;border-radius:4px;background:#1a0d02;color:var(--pumpkin);font:700 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
-.promo button:hover{background:transparent;color:#1a0d02}
-.promo button.on{background:transparent;color:#1a0d02;cursor:default}
+.promo button{height:28px;padding:0 12px;border:1.5px solid #fff;border-radius:4px;background:#fff;color:#4c1d95;font:700 12px "Roboto Mono",monospace;letter-spacing:.06em;cursor:pointer}
+.promo button:hover{background:transparent;color:#fff}
+.promo button.on{background:transparent;color:#fff;cursor:default}
 @media (max-width:640px){.promo .full{display:none}}
 
 /* hero price strip: every plan visible before anyone scrolls */
@@ -361,46 +349,20 @@ footer a:hover{color:var(--text)}
 .pfoot a{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
 @media (max-width:640px){.pstrip{grid-template-columns:1fr}.pcell{border-left:0;border-top:1px solid var(--line2);flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between}.pcell:first-child{border-top:0}.pcell .pn{width:100%}.pcell.best{border-radius:0 0 var(--r) var(--r)}}
 
-/* the ghost that lives behind the price strip */
-.spook{position:absolute;right:28px;bottom:calc(100% - 26px);width:86px;z-index:0;animation:bob 3.6s ease-in-out infinite;transform-origin:50% 100%}
-.spook svg{display:block;width:100%;height:auto;overflow:visible}
-.spook .pupil{transition:transform .12s linear}
-.spook:hover{animation-play-state:paused}
-@keyframes bob{0%,100%{transform:translateY(4px) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
-@media (max-width:640px){.spook{width:64px;right:14px;bottom:calc(100% - 18px)}}
 
 .games4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 @media (max-width:860px){.games4{grid-template-columns:1fr}}
 .plan .note{font:12px "Roboto Mono",monospace;color:var(--faint);margin-top:2px}
-/* ------------------------------------------------ october motion: flame logo, embers, bats, reveals */
+/* ------------------------------------------------ hero motion: the turning mark, sparks, reveals */
 .hero{position:relative;overflow:hidden}
 .hero .wrap{position:relative;z-index:2}
 .hero-art{position:absolute;z-index:0;right:-70px;top:10px;width:min(700px,56vw);aspect-ratio:1;pointer-events:none;
-  background:url(assets/hero-oct.jpg) center/cover;
-  -webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);
-  animation:flick 5s infinite,breathe 9s ease-in-out infinite}
-@keyframes flick{0%,100%{filter:brightness(1)}8%{filter:brightness(1.12)}10%{filter:brightness(.94)}34%{filter:brightness(1.06)}52%{filter:brightness(.97)}70%{filter:brightness(1.1)}73%{filter:brightness(1)}}
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+  background:url(assets/tempo-mark-bg.png) center/72% no-repeat,radial-gradient(closest-side,rgba(124,58,237,.30),transparent 75%);
+  opacity:.5;animation:turn 120s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
 .embers{position:absolute;inset:0;z-index:1;pointer-events:none;width:100%;height:100%}
-.bat{position:absolute;z-index:1;top:0;left:0;width:46px;pointer-events:none;opacity:0;animation:fly 16s linear infinite}
-.bat svg{display:block;width:100%;fill:#0b0603;animation:flap .18s ease-in-out infinite alternate;transform-origin:50% 40%}
-.bat:nth-of-type(2){width:30px;animation-delay:5.5s;animation-duration:19s}
-.bat:nth-of-type(3){width:38px;animation-delay:11s;animation-duration:15s}
-@keyframes flap{to{transform:scaleY(.35)}}
-@keyframes fly{0%{opacity:0;transform:translate(110vw,260px) rotate(-6deg)}6%{opacity:1}45%{transform:translate(62vw,120px) rotate(4deg)}
-  70%{transform:translate(48vw,190px) rotate(-8deg)}94%{opacity:1}100%{opacity:0;transform:translate(18vw,40px) rotate(5deg)}}
-@media (max-width:900px){.hero-art{opacity:.32;right:-30%;top:60px;width:110vw}.bat{display:none}}
+@media (max-width:900px){.hero-art{opacity:.2;right:-30%;top:60px;width:110vw}}
 
-.spook{transition:bottom .25s cubic-bezier(.3,1.5,.5,1)}
-.pwrap:has(.best:hover) .spook{bottom:calc(100% - 4px)}
-.spook .eyes{animation:blink 5s infinite;transform-origin:50% 46px;transform-box:view-box}
-@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-.spook{cursor:pointer;pointer-events:auto}
-.boo{position:absolute;right:-6px;top:-30px;padding:4px 10px;border-radius:12px;background:var(--text);color:#111;font:italic 700 15px Oswald,sans-serif;letter-spacing:.04em;
-  opacity:0;transform:translateY(6px) scale(.8);transition:opacity .15s,transform .2s cubic-bezier(.3,1.6,.5,1);pointer-events:none;white-space:nowrap}
-.spook.said .boo{opacity:1;transform:none}
-.spook.jump{animation:jump .45s cubic-bezier(.3,1.6,.5,1)}
-@keyframes jump{40%{transform:translateY(-22px) rotate(-6deg)}}
 
 .pcell{position:relative}
 .pcell::after{content:"";position:absolute;left:18px;right:18px;bottom:10px;height:2px;background:var(--ice);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
@@ -414,20 +376,20 @@ footer a:hover{color:var(--text)}
 .promo #rollCode.landed{animation:landpop .45s cubic-bezier(.3,1.6,.5,1)}
 @keyframes landpop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
 /* SPOOKY pop-up */
-.deal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px;background:rgba(4,3,2,.72);backdrop-filter:blur(6px);animation:dealfade .35s ease}
+.deal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px;background:rgba(5,3,10,.74);backdrop-filter:blur(6px);animation:dealfade .35s ease}
 .deal[hidden]{display:none}
 @keyframes dealfade{from{opacity:0}}
 .deal-card{position:relative;width:min(420px,100%);padding:34px 28px 28px;text-align:center;border:1px solid var(--pumpkin);border-radius:14px;
-  background:radial-gradient(120% 90% at 50% 0%,rgba(255,138,42,.22),transparent 60%),var(--panel);
-  box-shadow:0 0 0 1px rgba(255,138,42,.15),0 30px 80px -20px rgba(255,138,42,.45);animation:dealpop .55s cubic-bezier(.2,1.5,.4,1)}
+  background:radial-gradient(120% 90% at 50% 0%,rgba(139,92,246,.22),transparent 60%),var(--panel);
+  box-shadow:0 0 0 1px rgba(139,92,246,.15),0 30px 80px -20px rgba(139,92,246,.45);animation:dealpop .55s cubic-bezier(.2,1.5,.4,1)}
 @keyframes dealpop{0%{transform:translateY(30px) scale(.85) rotate(-2deg);opacity:0}100%{transform:none;opacity:1}}
 .deal-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;background:none;color:var(--dim);font-size:26px;line-height:1;cursor:pointer}
 .deal-x:hover{color:var(--text)}
-.deal-tag{display:inline-block;padding:4px 12px;border-radius:20px;background:var(--pumpkin);color:#1a0d02;font:700 12px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;animation:tagwob 2.4s ease-in-out infinite}
+.deal-tag{display:inline-block;padding:4px 12px;border-radius:20px;background:#7c3aed;color:#fff;font:700 12px "Roboto Mono",monospace;letter-spacing:.12em;text-transform:uppercase;animation:tagwob 2.4s ease-in-out infinite}
 @keyframes tagwob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 .deal-big{margin:14px 0 2px;font:italic 700 clamp(56px,16vw,84px)/.95 Oswald,sans-serif;text-transform:uppercase;color:var(--text)}
 .deal-big span{color:var(--pumpkin);display:inline-block;animation:dealglow 1.6s ease-in-out infinite}
-@keyframes dealglow{0%,100%{text-shadow:0 0 0 rgba(255,138,42,0)}50%{text-shadow:0 0 26px rgba(255,138,42,.85)}}
+@keyframes dealglow{0%,100%{text-shadow:0 0 0 rgba(139,92,246,0)}50%{text-shadow:0 0 26px rgba(139,92,246,.85)}}
 .deal-sub{color:var(--dim);font-size:15px}
 .deal-code.spin{animation:rollblur .09s linear infinite}
 .deal-code.landed{animation:landpop .45s cubic-bezier(.3,1.6,.5,1)}
@@ -435,9 +397,15 @@ footer a:hover{color:var(--text)}
 .deal-cd{font:700 34px "Roboto Mono",monospace;letter-spacing:.04em}
 .deal-cd span{display:inline-block;min-width:1.3em}
 .deal-until{color:var(--faint);font:500 12px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase;margin:2px 0 20px}
-.deal-go{width:100%;justify-content:center;background:var(--pumpkin);border-color:var(--pumpkin);color:#1a0d02}
-.deal-go:hover{background:transparent;color:var(--pumpkin)}
-/* (10-30, teek) MORE WAYS TO PAY: our resellers, in a card under the plans */
+.deal-go{width:100%;justify-content:center;background:var(--pumpkin);border-color:var(--pumpkin);color:#fff}
+.deal-go:hover{background:transparent;color:var(--ice2)}
+/* (11-01, teek) WAYS TO PAY on every plan card; "More ways to pay" opens the resellers */
+.plan .ways{margin-top:8px;justify-content:center;border-style:dashed;color:var(--ice2)}
+.plan .ways:hover{border-style:solid;border-color:var(--ice)}
+.plan .paychips{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.plan .paychips li{display:block;padding:3px 9px;border:1px solid var(--line2);border-radius:20px;font:500 11px "Roboto Mono",monospace;letter-spacing:.04em;color:var(--dim)}
+.plan .paychips li:before{content:none}
+.plan .paychips li.via{border-style:dashed;color:var(--faint)}
 .moreways{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:1px dashed var(--line2);border-radius:var(--r);padding:20px 26px;background:var(--panel)}
 .moreways h3{margin:0;font:700 18px Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .moreways p{margin:4px 0 0;color:var(--dim);font-size:14px}
@@ -461,13 +429,7 @@ footer a:hover{color:var(--text)}
 
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.hero-art,.wordmark .wm-hub,.bat,.bat svg,.spook .eyes{animation:none}.bat{display:none}.reveal{opacity:1;transform:none;transition:none}}
-@media (prefers-reduced-motion:reduce){.spook{animation:none}}
-/* off season (see the script at the top) */
-[data-season=off]{--bg:#07080a;--bg2:#0b0d10;--panel:#0e1014;--line:#1b1f26;--line2:#262b34;--text:#e9edf2;--dim:#8b94a3;--faint:#5a6270;--ice:#7cc4ff;--ice2:#b9e0ff;--pumpkin:#7cc4ff}
-[data-season=off] .promo:not(.sale),[data-season=off] .hero-art,[data-season=off] .embers,[data-season=off] .bat,[data-season=off] .spook{display:none}
-[data-season=off] .wordmark .wm-hub{animation:none}
-[data-season=off] nav{background:rgba(7,8,10,.92)}
+@media (prefers-reduced-motion:reduce){.hero-art{animation:none}.reveal{opacity:1;transform:none;transition:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -509,7 +471,7 @@ footer a:hover{color:var(--text)}
 </div>
 <nav>
   <div class="wrap">
-    <a class="brand" href="#top"><img src="assets/logo-oct.png" alt="">TEMPO</a>
+    <a class="brand" href="#top"><img src="assets/tempo-logo.png" alt="Tempo" width="720" height="253"></a>
     <div class="links">
       <a href="#pricing">Pricing</a>
       <a href="#premium">Premium</a>
@@ -531,23 +493,12 @@ footer a:hover{color:var(--text)}
 <section class="hero" id="top">
   <div class="hero-art" aria-hidden="true"></div>
   <canvas class="embers" id="embers" aria-hidden="true"></canvas>
-  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
-  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
-  <div class="bat" aria-hidden="true"><svg viewBox="0 0 64 30"><path d="M32 9c1.5-3 3-4 4.5-4-.6 1.6-.4 2.6.4 3.4C40 5.6 46 3.4 54 4c-3 1.8-4.6 4.6-4.6 8.4 3-1 6.2-.8 9.6.8-5 .4-8.6 3-10.6 6.8-3-2.6-7-3.6-11-2.6-1 2.2-2.4 4.4-5.4 7.6-3-3.2-4.4-5.4-5.4-7.6-4-1-8 0-11 2.6-2-3.8-5.6-6.4-10.6-6.8 3.4-1.6 6.6-1.8 9.6-.8C14.6 8.6 13 5.8 10 4c8-.6 14 1.6 17.1 4.4.8-.8 1-1.8.4-3.4 1.5 0 3 1 4.5 4z"/></svg></div>
   <div class="wrap">
     <div>
-      <h1 class="wordmark">TEMPO <span class="wm-hub">HUB</span></h1>
-      <p class="lead">Scripts for 23 Roblox games.<br>Premium covers Clover Retribution, Anime Battle Arena, Bloodlines, Project Slayers 2, Bridger Western and Driven Football.</p>
+      <h1 class="wordmark"><img src="assets/tempo-wordmark.png" alt="Tempo Hub" width="1200" height="235"></h1>
+      <p class="lead">Scripts for 350+ Roblox games.<br>Premium covers Clover Retribution, Anime Battle Arena, Bloodlines, Project Slayers 2, Bridger Western and Driven Football.</p>
 
       <div class="pwrap">
-        <div class="spook" id="spook" aria-hidden="true"><span class="boo">boo!</span>
-          <svg viewBox="0 0 100 118">
-            <path d="M13 112C10 68 15 13 51 11c35-2 39 50 36 101-5-7-10-7-14 0-5 8-10 7-14-1-4-8-9-8-13 0-4 8-10 8-14 0-4-7-9-7-13 1z" fill="#eef2f7" stroke="#0b0d10" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M70 24c9 9 12 30 11 60" fill="none" stroke="#c9d1dc" stroke-width="5" stroke-linecap="round" opacity=".7"/>
-            <g class="eyes"><g class="pupil"><ellipse cx="38" cy="46" rx="5" ry="7.5" fill="#0b0d10"/><ellipse cx="62" cy="45" rx="5" ry="7.5" fill="#0b0d10"/></g></g>
-            <ellipse cx="50" cy="65" rx="3.6" ry="4.6" fill="#0b0d10"/>
-          </svg>
-        </div>
         <div class="pstrip">
           <a class="pcell" data-buy="weekly" href="#pricing">
             <span class="pn">Weekly</span>
@@ -572,7 +523,7 @@ footer a:hover{color:var(--text)}
         <div class="stat"><b id="stMembers">484</b><span>Members</span></div>
         <div class="stat"><b><i class="live"></i><span id="stOnline">120</span></b><span>Online now</span></div>
         <div class="stat"><b id="stGames">22</b><span>Games</span></div>
-        <div class="stat"><b>4</b><span>Premium</span></div>
+        <div class="stat"><b>6</b><span>Premium</span></div>
       </div>
       <p class="runs">Tested on <b>Real</b>, <b>Potassium</b>, <b>Wave</b>, <b>Volt</b>, <b>Madium</b> and more. Works on PC, controller and mobile.</p>
     </div>
@@ -605,6 +556,8 @@ footer a:hover{color:var(--text)}
         <a class="btn" data-buy="weekly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy weekly with card</a>
         <a class="btn crypto" data-crypto="weekly" href="#pricing">Pay with crypto</a>
         <a class="btn pp" data-paypal="weekly" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn crypto" data-robux="weekly" href="#pricing" hidden>Pay with Robux</a>
+        <ul class="paychips" aria-label="Ways to pay"><li>Card</li><li>Crypto</li></ul>
       </div>
       <div class="plan">
         <div class="pl"><h3>Monthly</h3></div>
@@ -614,6 +567,9 @@ footer a:hover{color:var(--text)}
         <a class="btn" data-buy="monthly" href="https://store.tempohub.shop" target="_blank" rel="noopener">Buy monthly with card</a>
         <a class="btn crypto" data-crypto="monthly" href="#pricing">Pay with crypto</a>
         <a class="btn pp" data-paypal="monthly" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn crypto" data-robux="monthly" href="#pricing" hidden>Pay with Robux</a>
+        <button type="button" class="btn ways" data-ways="monthly">More ways to pay</button>
+        <ul class="paychips" aria-label="Ways to pay"><li>Card</li><li>Crypto</li><li class="via">Apple Pay</li><li class="via">PayPal</li><li class="via">Gift cards</li><li class="via">Robux</li></ul>
       </div>
       <div class="plan lift">
         <div class="pl"><h3>Lifetime</h3><span>Best value</span></div>
@@ -623,13 +579,12 @@ footer a:hover{color:var(--text)}
         <a class="btn btn-primary" data-buy="lifetime" href="https://store.tempohub.shop" target="_blank" rel="noopener">Get lifetime with card</a>
         <a class="btn crypto" data-crypto="lifetime" href="#pricing">Pay with crypto</a>
         <a class="btn pp" data-paypal="lifetime" href="#pricing" hidden>Pay with PayPal</a>
+        <a class="btn crypto" data-robux="lifetime" href="#pricing" hidden>Pay with Robux</a>
+        <button type="button" class="btn ways" data-ways="lifetime">More ways to pay</button>
+        <ul class="paychips" aria-label="Ways to pay"><li>Card</li><li>Crypto</li><li class="via">Apple Pay</li><li class="via">PayPal</li><li class="via">Gift cards</li><li class="via">Robux</li></ul>
       </div>
     </div>
-    <div class="moreways">
-      <div><h3>More ways to pay</h3><p>Apple Pay, gift cards, Robux and more through our official resellers.</p></div>
-      <button type="button" class="btn" id="moreWays">See options</button>
-    </div>
-    <p class="paynote">Pay by card through Square, or with crypto through NOWPayments. Your key shows up as soon as the payment goes through (crypto can take a few minutes to confirm). Every plan is one payment - weekly and monthly don't auto-renew, just buy again when it runs out. Existing weekly/monthly subscriptions: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. <a href="/refunds">Refund policy</a></p>
+    <p class="paynote">Pay by card through Square, or with crypto through NOWPayments. Apple Pay, PayPal, gift cards and Robux go through our official reseller (More ways to pay, monthly and lifetime). Your key shows up as soon as the payment goes through (crypto can take a few minutes to confirm). Every plan is one payment - weekly and monthly don't auto-renew, just buy again when it runs out. Existing weekly/monthly subscriptions: <a href="https://tempo-shop.teekhub.workers.dev/manage" target="_blank" rel="noopener">manage or cancel</a>. <a href="/refunds">Refund policy</a></p>
   </div>
 </section>
 
@@ -786,7 +741,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="hub">
         <div class="hub-top">
-          <img src="assets/logo-oct.png" alt="">
+          <img src="assets/tempo-mark-128.png" alt="">
           <div class="tt"><b>Tempo Hub</b><span>Anime Battle Arena  -  v6</span></div>
           <div class="win" aria-hidden="true">
             <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></i>
@@ -1718,21 +1673,6 @@ const REVIEWS = [
     else if (leftAt && Date.now() - leftAt > 3000) exitOffer();
   });
 
-  // ------------------------------------------------ the ghost watches your cursor
-  const spook = document.getElementById("spook"), pupils = spook.querySelector(".pupil");
-  addEventListener("pointermove", (e) => {
-    const r = spook.getBoundingClientRect();
-    const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * 0.4);
-    const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 300) * 3.5;
-    pupils.style.transform = `translate(${(dx / d) * k}px,${(dy / d) * k}px)`;
-  }, { passive: true });
-
-  // ------------------------------------------------ the ghost says boo when poked
-  spook.addEventListener("click", () => {
-    spook.classList.remove("jump"); void spook.offsetWidth; spook.classList.add("jump", "said");
-    clearTimeout(spook._t); spook._t = setTimeout(() => spook.classList.remove("said"), 1400);
-  });
-
   // ------------------------------------------------ SPOOKY countdown in the bar
   const cd = document.getElementById("promoCd");
   const tickCd = () => {
@@ -1745,7 +1685,7 @@ const REVIEWS = [
 
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ------------------------------------------------ embers rising off the logo (only while the hero is on screen)
+  // ------------------------------------------------ purple sparks drifting off the logo (only while the hero is on screen)
   const cv = document.getElementById("embers"), cx = cv.getContext("2d");
   let embers = [], live = false, emRaf = 0;
   const fit = () => { cv.width = cv.offsetWidth * devicePixelRatio; cv.height = cv.offsetHeight * devicePixelRatio; };
@@ -1757,7 +1697,7 @@ const REVIEWS = [
       e.y -= e.vy; e.ph += 0.05; e.x += e.vx + Math.sin(e.ph) * 0.35; e.life -= 0.0016;
       if (e.y < -10 || e.life <= 0) Object.assign(e, spawn());
       const a = Math.max(0, Math.min(1, e.life)) * (0.55 + 0.45 * Math.sin(e.ph * 3));
-      cx.fillStyle = `rgba(255,${150 + (e.r * 20 | 0)},60,${a})`;
+      cx.fillStyle = `rgba(${150 + (e.r * 20 | 0)},${110 + (e.r * 15 | 0)},255,${a})`;
       cx.beginPath(); cx.arc(e.x, e.y, e.r, 0, 6.29); cx.fill();
     }
     if (live) emRaf = requestAnimationFrame(frame);
@@ -1793,8 +1733,8 @@ const REVIEWS = [
       plans: [{ t: "Monthly", p: "$8.49" }, { t: "Lifetime", p: "$18.69" }],
       pay: ["Visa / Mastercard / Amex", "Apple Pay", "PayPal", "Gift cards", "Robux", "Bitcoin", "Ethereum", "Litecoin", "Solana", "USDT"] },
   ];
-  const box = document.getElementById("resellers"), list = document.getElementById("rsList"), open = document.getElementById("moreWays");
-  if (!box || !list || !open) return;
+  const box = document.getElementById("resellers"), list = document.getElementById("rsList"), open = document.querySelectorAll("[data-ways]");
+  if (!box || !list || !open.length) return;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   list.innerHTML = RESELLERS.map((r) => `<div class="rs-item">
       <div class="rs-top"><h3>${esc(r.name)}</h3><span>Official reseller</span></div>
@@ -1803,7 +1743,7 @@ const REVIEWS = [
       <a class="btn btn-primary rs-go" href="${esc(r.url)}" target="_blank" rel="noopener">Buy on ${esc(r.name)}</a>
     </div>`).join("");
   const close = () => { box.hidden = true; };
-  open.addEventListener("click", () => { box.hidden = false; });
+  open.forEach((b) => b.addEventListener("click", () => { box.hidden = false; }));
   document.getElementById("rsX").addEventListener("click", close);
   box.addEventListener("click", (e) => { if (e.target === box) close(); });
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !box.hidden) close(); });

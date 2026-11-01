@@ -3,10 +3,10 @@
 .hubwrap{display:flex;flex-direction:column;gap:14px}
 .hubgames{display:flex;gap:8px;flex-wrap:wrap}
 .hubgames button{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:var(--bg2);color:var(--dim);font:500 13px Barlow,sans-serif;cursor:pointer}
-.hubgames button.on{color:#160900;background:var(--ice);border-color:var(--ice)}
+.hubgames button.on{color:#fff;background:var(--ice);border-color:var(--ice)}
 
 .hub{--h-deep:#000;--h-panel:#0A0A0B;--h-top:#0D0D0F;--h-card:#111113;--h-hover:#1A1A1D;--h-off:#303034;--h-div:#1E1E21;
-  --h-acc:#FF8A2A;--h-glow:#FFC48F;--h-btn:#7A3A10;--h-text:#E8ECF1;--h-dim:#8C9198;--h-faint:#5C6066;
+  --h-acc:#8B5CF6;--h-glow:#C4B5FD;--h-btn:#3B1F78;--h-text:#E8ECF1;--h-dim:#8C9198;--h-faint:#5C6066;
   position:relative;height:540px;border-radius:14px;overflow:hidden;background:var(--h-panel);border:1px solid var(--h-div);
   display:grid;grid-template-rows:52px 1fr;color:var(--h-text);font:14px/1.4 Barlow,system-ui,sans-serif;
   box-shadow:0 30px 80px -30px rgba(0,0,0,.8);transition:background .25s,color .25s}

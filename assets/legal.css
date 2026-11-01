@@ -1,11 +1,11 @@
-:root{--bg:#07080a;--line:#1b1f26;--text:#e9edf2;--dim:#8b94a3;--faint:#5a6270;--ice:#7cc4ff}
+:root{--bg:#08060d;--line:#211b2e;--text:#f1ece4;--dim:#a39cb3;--faint:#665f78;--ice:#8b5cf6}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--ice)}
 nav{border-bottom:1px solid var(--line)}
 nav div{max-width:760px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
 nav .brand{display:flex;align-items:center;gap:10px;font:14px Michroma,sans-serif;letter-spacing:.14em;color:var(--text);text-decoration:none}
-nav .brand img{width:30px;height:30px}
+nav .brand img{height:28px;width:auto;display:block}
 nav .back{color:var(--dim);font-size:14px;text-decoration:none}
 main{max-width:760px;margin:0 auto;padding:64px 24px 96px}
 .eyebrow{font:500 11px/1 "Roboto Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)}

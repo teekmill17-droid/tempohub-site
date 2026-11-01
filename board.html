@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suggestion Board · Tempo Hub</title>
 <meta name="description" content="Vote on the next Tempo Hub game and features. Log in with Discord, post an idea, upvote the ones you want.">
-<meta name="theme-color" content="#07080a">
-<link rel="icon" href="assets/logo-oct.png">
+<meta name="theme-color" content="#08060d">
+<link rel="icon" href="assets/tempo-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07080a; --bg2:#0b0d10; --panel:#0e1014; --line:#1b1f26; --line2:#262b34;
-  --text:#e9edf2; --dim:#8b94a3; --faint:#5a6270;
-  --ice:#7cc4ff; --ice2:#b9e0ff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a; --violet:#9b7bff;
+  --bg:#08060d; --bg2:#0d0a14; --panel:#110d1a; --line:#211b2e; --line2:#2d2540;
+  --text:#f1ece4; --dim:#a39cb3; --faint:#665f78;
+  --ice:#8b5cf6; --ice2:#b49cff; --green:#3ddc84; --amber:#ffb547; --red:#ff5a5a; --violet:#f472b6;
   --r:6px;
 }
 *{box-sizing:border-box}
@@ -24,7 +24,7 @@ a{color:var(--ice)}
 nav{border-bottom:1px solid var(--line)}
 nav .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font:14px Michroma,sans-serif;letter-spacing:.14em;color:var(--text);text-decoration:none}
-.brand img{width:30px;height:30px}
+.brand img{height:28px;width:auto;display:block}
 .navr{display:flex;align-items:center;gap:18px;font-size:14px}
 .navr a{color:var(--dim);text-decoration:none}
 .navr a:hover{color:var(--text)}
@@ -37,7 +37,7 @@ h1{font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin:14px 0 12px;font-wei
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:42px;padding:0 16px;border-radius:var(--r);font:600 14.5px Archivo,sans-serif;border:1px solid var(--line2);background:none;color:var(--text);cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn:hover{border-color:var(--faint)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.btn-primary{background:var(--ice);color:#051019;border-color:var(--ice)}
+.btn-primary{background:var(--ice);color:#fff;border-color:var(--ice)}
 .btn-primary:hover{background:var(--ice2);border-color:var(--ice2)}
 .btn-discord{background:#5865f2;border-color:#5865f2;color:#fff}
 .btn-discord:hover{background:#6d78f5;border-color:#6d78f5}
@@ -73,7 +73,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--ice)}
 .card{display:grid;grid-template-columns:auto 1fr;gap:12px;border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);padding:12px}
 .vote{display:grid;justify-items:center;align-content:start;gap:2px;width:42px;height:52px;border:1px solid var(--line2);border-radius:var(--r);background:var(--bg2);color:var(--dim);cursor:pointer;font:500 13px "Roboto Mono",monospace;padding-top:6px}
 .vote:hover{border-color:var(--faint);color:var(--text)}
-.vote.on{border-color:var(--ice);color:var(--ice2);background:rgba(124,196,255,.08)}
+.vote.on{border-color:var(--ice);color:var(--ice2);background:rgba(139,92,246,.12)}
 .vote i{font-style:normal;font-size:11px;line-height:1}
 .game{font:500 10.5px "Roboto Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ice)}
 .title{font-weight:600;font-size:15px;line-height:1.35;margin:3px 0 4px;word-break:break-word}
@@ -100,7 +100,7 @@ footer a:hover{color:var(--text)}
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="/"><img src="assets/logo-oct.png" alt="">TEMPO</a>
+  <a class="brand" href="/"><img src="assets/tempo-logo.png" alt="Tempo" width="720" height="253"></a>
   <div class="navr">
     <a class="hide-s" href="/">Home</a>
     <a class="hide-s" href="/#pricing">Pricing</a>
